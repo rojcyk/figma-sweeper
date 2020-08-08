@@ -1,0 +1,45 @@
+{
+  "private": true,
+  "name": "figma-plugin-starter",
+  "version": "1.0.0",
+  "description": "An opinionated Figma plugin starter.",
+  "author": "Denis Rojcyk <denis@rojcyk.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rojcyk/figma-plugin-starter.git"
+  },
+  "scripts": {
+    "dev": "NODE_ENV=development npx webpack --mode=development --watch",
+    "build": "npx webpack --mode=production"
+  },
+  "devDependencies": {
+    "@figma/plugin-typings": "latest",
+    "@types/node": "^14.0.23",
+    "@types/react": "^16.9.43",
+    "@types/react-dom": "^16.9.8",
+    "@types/styled-components": "^5.1.1",
+    "@typescript-eslint/eslint-plugin": "^3.8.0",
+    "@typescript-eslint/parser": "^3.8.0",
+    "dotenv": "^8.2.0",
+    "eslint": "^7.6.0",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.20.5",
+    "eslint-plugin-react-hooks": "^4.0.8",
+    "figmaio": "^0.2.5",
+    "html-webpack-plugin": "^4.3.0",
+    "prettier": "^2.0.5",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "styled-components": "^5.1.1",
+    "ts-loader": "^8.0.1",
+    "typescript": "^3.9.7",
+    "url-loader": "^4.1.0",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12"
+  }
+}
