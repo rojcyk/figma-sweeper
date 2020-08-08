@@ -10,8 +10,8 @@
     "url": "https://github.com/rojcyk/figma-plugin-starter.git"
   },
   "scripts": {
-    "dev": "NODE_ENV=development npx webpack --mode=development --watch",
-    "build": "npx webpack --mode=production"
+    "dev": "NODE_ENV=development node ./node_modules/webpack-cli/bin/cli.js --mode=development --watch",
+    "build": "node ./node_modules/webpack-cli/bin/cli.js --mode=production"
   },
   "devDependencies": {
     "@figma/plugin-typings": "latest",

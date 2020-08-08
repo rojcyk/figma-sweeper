@@ -2,8 +2,11 @@ import io from "figmaio/code"
 
 import { APP_START } from "../constants/events"
 import { WINDOW_HEIGHT, WINDOW_WIDTH } from "../constants/ui"
+import { selection } from "./selection"
 
 const main = async () => {
+  selection()
+
   figma.showUI(__html__, {
     width: WINDOW_WIDTH,
     height: WINDOW_HEIGHT
