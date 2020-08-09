@@ -94,7 +94,7 @@ export default class App extends React.Component<{
         <p style={{
         lineHeight: '18px',
         opacity: '0.8'
-        }}>When linting, the plugin will look into this doc and search for the most similar color.</p>
+        }}>When linting, the plugin will look into this file and search for the most similar color. The file must be <a href="https://help.figma.com/hc/en-us/articles/360039162653-Publish-a-file-to-a-Team-Library" target="_blank">published</a>.</p>
 
         <div style={{ marginBottom: '4px' }}>
         <b><strong style={{ fontSize: '9px', opacity: '0.3' }}>►</strong> Synced document:</b> {this.state.name && (<span style={{ marginRight: '4px' }}>{this.state.name}</span>)}
@@ -106,7 +106,8 @@ export default class App extends React.Component<{
           <summary style={{
             marginBottom: '8px',
             fontSize: '12px',
-            outline: 'none'
+            outline: 'none',
+            cursor: 'pointer'
           }}><b>Synced colors:</b> {this.state.paintStyles ? this.state.paintStyles.length : ''}</summary>
 
           <p style={{
