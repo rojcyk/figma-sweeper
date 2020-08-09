@@ -8,6 +8,8 @@ import { traverse } from './traverse'
 export const handleNode = (node: any, settings: any) => {
   const { fills } = settings
 
+  console.log(node)
+
   switch (node.type) {
     case 'FRAME':
       traverse(node.children, handleNode, settings)
