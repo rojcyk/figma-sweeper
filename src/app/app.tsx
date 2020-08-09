@@ -91,6 +91,11 @@ export default class App extends React.Component<{
         }}>Current doc</button>
         </div>
 
+        <p style={{
+        lineHeight: '18px',
+        opacity: '0.8'
+        }}>When linting, the plugin will look into this doc and search for the most similar color.</p>
+
         <div style={{ marginBottom: '4px' }}>
         <b><strong style={{ fontSize: '9px', opacity: '0.3' }}>►</strong> Synced document:</b> {this.state.name && (<span style={{ marginRight: '4px' }}>{this.state.name}</span>)}
         </div>
@@ -107,9 +112,12 @@ export default class App extends React.Component<{
           <p style={{
             fontSize: '12px',
             lineHeight: '18px',
-            opacity: '0.5'
+            opacity: '0.5',
+            padding: '8px',
+            border: '1px solid rgba(0,0,0,0.14)',
+            borderRadius: '3px'
           }}>
-            For now, the plugin works with color styles that have a <b>single,</b> <b>solid</b> (not gradient) fill.
+            For now, the plugin works with color styles that have a <b>single and solid</b> (not gradient) fill.
           </p>
 
           {colors()}

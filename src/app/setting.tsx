@@ -32,7 +32,10 @@ export const SettingsForm = () => {
       <input type="submit" value="Lint" />
     </div>
 
-      <p>The plugin will check and fix the following properties!</p>
+      <p style={{
+        lineHeight: '18px',
+        opacity: '0.8'
+      }}>Make sure to save your file before proceeding. The plugin will check and overwrite the following properties.</p>
 
       <Checkbox label='Fills' isSelected={fills}  onCheckboxChange={switchFills} />
     </form>
