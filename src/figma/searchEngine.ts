@@ -10,8 +10,4 @@ export class ComparingEngine {
   compareColor(color: any) {
     
   }
-
-  show() {
-    console.log(this.syncedPaintStyles)
-  }
 }
