@@ -18,7 +18,7 @@ export const linter = async (styles: any[]) => {
       figma.notify('You need to select something to lint 👅')
     } else {
       asyncForEach(selection as any[], (frame: any) => {
-        handleNode(frame, settings)
+        handleNode(frame, settings, colorIndex)
       })
     }
   })

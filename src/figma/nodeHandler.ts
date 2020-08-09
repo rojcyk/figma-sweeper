@@ -5,32 +5,32 @@ import { traverse } from './traverse'
 /* NodeHandling
 // ************************* */
 
-export const handleNode = (node: any, settings: any) => {
+export const handleNode = (node: any, settings: any, colorIndex: any) => {
   const { fills } = settings
 
   console.log(node)
 
   switch (node.type) {
     case 'FRAME':
-      traverse(node.children, handleNode, settings)
+      traverse(node.children, handleNode, settings, colorIndex)
       if (fills) checkFills(node.fills)
       break
 
     case 'GROUP':
       // checkFills(node.fills)
-      traverse(node.children, handleNode, settings)
+      traverse(node.children, handleNode, settings, colorIndex)
       if (fills) checkFills(node.fills)
       break
 
     case 'COMPONENT':
       // checkFills(node.fills)
-      traverse(node.children, handleNode, settings)
+      traverse(node.children, handleNode, settings, colorIndex)
       if (fills) checkFills(node.fills)
       break
 
     case 'INSTANCE':
       // checkFills(node.fills)
-      traverse(node.children, handleNode, settings)
+      traverse(node.children, handleNode, settings, colorIndex)
       if (fills) checkFills(node.fills)
       break
     //* *************************/
