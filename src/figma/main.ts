@@ -4,7 +4,6 @@ import { APP_START } from "../constants/events"
 import { WINDOW_HEIGHT, WINDOW_WIDTH } from "../constants/ui"
 import { DOCUMENT_NAME, DOCUMENT_PAINT_STYLES } from "../constants/storage"
 import { exportStyles } from './exportStyles'
-import { importStyles } from './importStyles'
 import { linter } from './linter'
 
 const main = async () => {
@@ -18,7 +17,6 @@ const main = async () => {
   const styles = await figma.clientStorage.getAsync(DOCUMENT_PAINT_STYLES)
 
   await exportStyles()
-  await importStyles()
   await linter(styles)
 
   /* When launching the plugin, figma sets a command
