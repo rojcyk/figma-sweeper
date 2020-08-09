@@ -1,9 +1,10 @@
 import io from "figmaio/code"
 
 import { DOCUMENT_NAME, DOCUMENT_PAINT_STYLES } from "../constants/storage"
+import { STYLES_EXPORT } from "../constants/events"
 
 export const exportStyles = async () => {
-  io.on('export', async (data) => {
+  io.on(STYLES_EXPORT, async (data) => {
     console.log('Exporting data')
 
     const localStyles = figma.getLocalPaintStyles()
@@ -17,7 +18,7 @@ export const exportStyles = async () => {
       paintStyles.push({
         key: style.key,
         name: style.name,
-        paints: style.paints,
+        paint: style.paints[0],
         valid: valid
       })
     })

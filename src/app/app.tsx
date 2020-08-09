@@ -8,6 +8,7 @@ import io from "figmaio/ui"
 
 import { GlobalStyles } from "./globalStyles"
 import { SettingsForm } from './setting'
+import { STYLES_EXPORT } from "../constants/events"
 
 // ******************** //
 // TOP LVL STYLING
@@ -87,7 +88,7 @@ export default class App extends React.Component<{
           }}>Sync</h2>
 
         <button onClick={(e: any) => {
-          io.send('export')
+          io.send(STYLES_EXPORT)
         }}>Current doc</button>
         </div>
 
