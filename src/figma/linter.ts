@@ -1,6 +1,6 @@
 import io from "figmaio/code"
 import { APP_LINT } from "../constants/events"
-import { ComparingEngine } from './searchEngine'
+import { ColorIndex } from './colorIndex'
 import { importStyles } from './importStyles'
 import asyncForEach from "../helpers/asyncForEach"
 import { handleNode } from "./nodeHandler"
@@ -10,7 +10,7 @@ export const linter = async (styles: any[]) => {
     await importStyles()
 
     const selection = figma.currentPage.selection
-    const search = new ComparingEngine(styles)
+    const colorIndex = new ColorIndex(styles)
 
     console.log('Linting ...')
 

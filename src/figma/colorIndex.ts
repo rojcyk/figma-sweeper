@@ -1,6 +1,6 @@
 // import asyncForEach from "../helpers/asyncForEach"
 
-export class ComparingEngine {
+export class ColorIndex {
   syncedPaintStyles: any[];
 
   constructor(paintStyles: any[]) {
