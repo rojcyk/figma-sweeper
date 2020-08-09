@@ -1,11 +1,14 @@
 import io from "figmaio/code"
 import { APP_LINT } from "../constants/events"
-import { SearchEngine } from './searchEngine'
+import { ComparingEngine } from './searchEngine'
+import { importStyles } from './importStyles'
 // import asyncForEach from "../helpers/asyncForEach"
   
 export const linter = async (styles: any[]) => {
   io.on(APP_LINT, async (data) => {
-    const search = new SearchEngine(styles)
+    await importStyles()
+
+    const search = new ComparingEngine(styles)
 
     console.log('Linting ...')
 
