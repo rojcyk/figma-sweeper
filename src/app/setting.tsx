@@ -1,6 +1,7 @@
 import * as React from "react"
 import Checkbox from "./checkbox"
 import io from "figmaio/ui"
+import { APP_LINT } from "../constants/events"
 
 export const SettingsForm = () => {
   const [fills, setFills] = React.useState(true)
@@ -11,7 +12,7 @@ export const SettingsForm = () => {
     <form onSubmit={(e) => {
       e.preventDefault()
 
-      io.send('submit', {
+      io.send(APP_LINT, {
         fills
       })
     }}>
@@ -34,7 +35,8 @@ export const SettingsForm = () => {
 
       <p style={{
         lineHeight: '18px',
-        opacity: '0.8'
+        opacity: '0.8',
+        fontSize: '12px'
       }}>Make sure to save your file before proceeding. The plugin will check and overwrite the following properties.</p>
 
       <Checkbox label='Fills' isSelected={fills}  onCheckboxChange={switchFills} />
