@@ -3,10 +3,9 @@ import io from "figmaio/code"
 import { APP_START } from "../constants/events"
 import { WINDOW_HEIGHT, WINDOW_WIDTH } from "../constants/ui"
 import { DOCUMENT_NAME, DOCUMENT_PAINT_STYLES } from "../constants/storage"
-import { selection } from "./selection"
 import { exportStyles } from './exportStyles'
-
 import { importStyles } from './importStyles'
+import { linter } from './linter'
 
 const main = async () => {
 
@@ -15,13 +14,12 @@ const main = async () => {
     height: WINDOW_HEIGHT
   })
 
-  io.on('submit', (data) => {
-    console.log('Running new validation')
-    selection(data)
-  })
+  const name = await figma.clientStorage.getAsync(DOCUMENT_NAME)
+  const styles = await figma.clientStorage.getAsync(DOCUMENT_PAINT_STYLES)
 
   await exportStyles()
   await importStyles()
+  await linter(styles)
 
   /* When launching the plugin, figma sets a command
    * if it standard launch, the command is empty
@@ -32,8 +30,8 @@ const main = async () => {
     default:
       /* Finally, sending the actual data over to the client */
       io.send(APP_START, {
-        name: await figma.clientStorage.getAsync(DOCUMENT_NAME),
-        paintStyles: await figma.clientStorage.getAsync(DOCUMENT_PAINT_STYLES)
+        name: name,
+        paintStyles: styles
       })
       break
   }
