@@ -1,7 +1,7 @@
 import { traverse } from './traverse'
 
 const adjustColor = (color: any) => {
-  console.log(color)
+  // console.log(color)
   // const d = Math.sqrt((r2-r1)^2 + (g2-g1)^2 + (b2-b1)^2)
 }
 
