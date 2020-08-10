@@ -3,8 +3,13 @@ import { DOCUMENT_PAINT_STYLES } from "../constants/storage"
 import asyncForEach from "../helpers/asyncForEach"
 
 export const isImported = (arr: any[], key : string) => {
-    if (arr.find((el) => { return el.key === key })) return true
-    else return false
+    return arr.find((el) => { 
+      if (el.key === key) return el
+      else return undefined
+    })
+
+    // if (arr.find((el) => { return el.key === key })) return true
+    // else return false
   }
   
 export const importStyles = async () => {
@@ -15,7 +20,7 @@ export const importStyles = async () => {
 
     await asyncForEach(keys, async (key: any) => {
       const imported = isImported(localStyles, key.key)
-      if (!imported) await figma.importStyleByKeyAsync(key.key)
+      if (imported === undefined) await figma.importStyleByKeyAsync(key.key)
     })
   // })
 }
