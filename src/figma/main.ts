@@ -17,7 +17,7 @@ const main = async () => {
   const styles = await figma.clientStorage.getAsync(DOCUMENT_PAINT_STYLES)
 
   await exportStyles()
-  await linter(styles)
+  await linter()
 
   /* When launching the plugin, figma sets a command
    * if it standard launch, the command is empty
