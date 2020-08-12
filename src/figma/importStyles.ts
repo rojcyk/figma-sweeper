@@ -13,14 +13,19 @@ export const isImported = (arr: any[], key : string) => {
   }
   
 export const importStyles = async () => {
-  // io.on('import', async (data) => {
-  //   console.log('Importing data')
-    const localStyles = figma.getLocalPaintStyles()
-    const keys = await figma.clientStorage.getAsync(DOCUMENT_PAINT_STYLES)
+  let importedStyles: any[] = []
 
-    await asyncForEach(keys, async (key: any) => {
-      const imported = isImported(localStyles, key.key)
-      if (imported === undefined) await figma.importStyleByKeyAsync(key.key)
-    })
-  // })
+  const localStyles = figma.getLocalPaintStyles()
+  const keys = await figma.clientStorage.getAsync(DOCUMENT_PAINT_STYLES)
+
+  await asyncForEach(keys, async (key: any) => {
+    let imported = isImported(localStyles, key.key)
+    if (imported === undefined) imported = await figma.importStyleByKeyAsync(key.key)
+
+    // console.log(imported)
+
+    importedStyles.push(imported)
+  })
+
+  return importedStyles
 }
