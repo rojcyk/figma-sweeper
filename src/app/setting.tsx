@@ -28,7 +28,7 @@ export const SettingsForm = () => {
         display: "inline-block",
         margin: '0',
         padding: '0'
-      }}>Linter</h2>
+      }}>Lint</h2>
 
       <input type="submit" value="Lint" />
     </div>
@@ -39,7 +39,14 @@ export const SettingsForm = () => {
         fontSize: '12px'
       }}>Make sure to save your file before proceeding. The plugin will check and overwrite the following properties.</p>
 
-      <Checkbox label='Fills' isSelected={fills}  onCheckboxChange={switchFills} />
+      <Checkbox label='Overwrite Fills' isSelected={fills}  onCheckboxChange={switchFills} /><br />
+
+      <hr /><br />
+
+      <b>Not implemented</b><br /><br />
+
+      <Checkbox label='Overwrite stroke' isSelected={false}  onCheckboxChange={() => { }} />
+      <Checkbox label='Ignore opacity' isSelected={false}  onCheckboxChange={() => { }} /><br /><br />
     </form>
   )
 }
