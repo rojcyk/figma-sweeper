@@ -50,13 +50,34 @@ export default class App extends React.Component<{
       let tmp: any[] = []
 
       if (this.state.paintStyles) {
-        this.state.paintStyles.forEach((style) => {
-          tmp.push(<span style={{
+        this.state.paintStyles.forEach((style, index) => {
+          const errors: any[] = []
+
+          if (style.errors) {
+            style.errors.forEach((err: any, index: any) => {
+              errors.push(<li 
+                style={{
+                  display: 'block',
+                  fontSize: '11px'
+                }}
+                key={index}>- {err}</li>)
+            })
+          }
+
+          tmp.push(<li key={index} style={{
             fontSize: '12px',
             marginBottom: '4px',
             display: 'block',
-            opacity: style.valid ? '1' : '0.5'
-          }}>• {style.valid ? '' : '(Too complex)' } {style.name}</span>)
+            opacity: style.errors === null ? '1' : '0.5'
+          }}>
+            {style.name}
+
+            {style.errors !== null && (<ul style={{ margin: '0', padding: '0', marginTop: '4px', listStyleType: 'disc' }}>{errors}</ul>)}
+
+            {/* <span></span>
+            • {style.valid ? '' : '(Too complex)' } {style.name} */}
+          
+          </li>)
         })
       }
 
@@ -95,7 +116,7 @@ export default class App extends React.Component<{
         <p style={{
         lineHeight: '18px',
         opacity: '0.8'
-        }}>When linting, the plugin will look into this file and search for the most similar color. The file must be <a href="https://help.figma.com/hc/en-us/articles/360039162653-Publish-a-file-to-a-Team-Library" target="_blank">published</a>.</p>
+        }}>The plugin will look into this file and search for your paint styles. The file must be <a href="https://help.figma.com/hc/en-us/articles/360039162653-Publish-a-file-to-a-Team-Library" target="_blank">published</a>.</p>
 
         <div style={{ marginBottom: '4px' }}>
         <b><strong style={{ fontSize: '9px', opacity: '0.3' }}>►</strong> Synced document:</b> {this.state.name && (<span style={{ marginRight: '4px' }}>{this.state.name}</span>)}
@@ -122,7 +143,11 @@ export default class App extends React.Component<{
             For now, the plugin works with color styles that have a <b>single and solid</b> (not gradient) fill.
           </p>
 
-          {colors()}
+          <ul style={{
+            margin: '0',
+            padding: '0',
+            paddingLeft: '8px'
+          }}>{colors()}</ul>
         </details>
 
         <SettingsForm />
