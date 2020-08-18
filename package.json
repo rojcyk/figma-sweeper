@@ -1,13 +1,13 @@
 {
   "private": true,
-  "name": "figma-plugin-starter",
+  "name": "figma-reconnect",
   "version": "1.0.0",
-  "description": "An opinionated Figma plugin starter.",
+  "description": "Reconnect your disconnected styles!",
   "author": "Denis Rojcyk <denis@rojcyk.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/rojcyk/figma-plugin-starter.git"
+    "url": "https://github.com/rojcyk/figma-reconnect.git"
   },
   "scripts": {
     "dev": "NODE_ENV=development node ./node_modules/webpack-cli/bin/cli.js --mode=development --watch",
