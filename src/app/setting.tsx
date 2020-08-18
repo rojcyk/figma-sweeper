@@ -28,16 +28,16 @@ export const SettingsForm = () => {
         display: "inline-block",
         margin: '0',
         padding: '0'
-      }}>Lint</h2>
+      }}>Settings</h2>
 
-      <input type="submit" value="Lint" />
+      <input type="submit" value="ReConnect" />
     </div>
 
       <p style={{
         lineHeight: '18px',
         opacity: '0.8',
         fontSize: '12px'
-      }}>Make sure to save your file before proceeding. The plugin will check and overwrite the following properties.</p>
+      }}>Make sure to <a href="https://help.figma.com/hc/en-us/articles/360038006754-Version-History#:~:text=Figma%20will%20periodically%20save%20versions,even%20more%20space%20to%20explore." target="blank">make a new version</a> prior to reconnecting. It isn't required, but it might save you some headaches. The plugin will check and overwrite the following properties.</p>
 
       <Checkbox label='Overwrite Fills' isSelected={fills}  onCheckboxChange={switchFills} /><br />
 
