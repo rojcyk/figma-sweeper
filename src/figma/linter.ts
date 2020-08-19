@@ -9,8 +9,6 @@ export const linter = async () => {
   io.on(APP_LINT, async (settings) => {
     const imported = await importStyles()
 
-    console.log(imported)
-
     const selection = figma.currentPage.selection
     const colorIndex = new ColorIndex(imported)
 
