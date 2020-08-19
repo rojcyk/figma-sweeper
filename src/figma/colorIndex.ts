@@ -45,13 +45,15 @@ export class ColorIndex {
     styles.forEach((style: Style) => {
       const color = style.paints[0].color
 
-      processed.push({
-        key: style.key,
-        id: style.id,
-        r: color.r,
-        g: color.g,
-        b: color.b,
-      })
+      if (color) {
+        processed.push({
+          key: style.key,
+          id: style.id,
+          r: color.r,
+          g: color.g,
+          b: color.b,
+        })
+      }
     })
 
     return processed
