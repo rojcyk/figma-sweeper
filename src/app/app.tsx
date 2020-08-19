@@ -73,9 +73,6 @@ export default class App extends React.Component<{
             {style.name}
 
             {style.errors !== null && (<ul style={{ margin: '0', padding: '0', marginTop: '4px', listStyleType: 'disc' }}>{errors}</ul>)}
-
-            {/* <span></span>
-            • {style.valid ? '' : '(Too complex)' } {style.name} */}
           
           </li>)
         })
@@ -140,7 +137,7 @@ export default class App extends React.Component<{
             border: '1px solid rgba(0,0,0,0.14)',
             borderRadius: '3px'
           }}>
-            For now, the plugin works with color styles that have a <b>single and solid</b> (not gradient) fill.
+            For now, the plugin works with color styles that have a <b>single and solid</b> fill.
           </p>
 
           <ul style={{
