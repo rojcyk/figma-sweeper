@@ -3,7 +3,8 @@ import asyncForEach from "../helpers/asyncForEach"
 interface Color {
   r: number,
   g: number,
-  b: number
+  b: number,
+  opacity: number
 }
 
 interface Style {
@@ -23,18 +24,18 @@ interface ProcessedColor {
   r: number,
   g: number,
   b: number,
+  opacity: number,
   key: string,
   id: string
 }
 
 export class ColorIndex {
-  syncedPaintStyles: Style[]
+  // syncedPaintStyles: Style[]
   processedColors: ProcessedColor[]
   comparedColors: ProcessedColor[]
 
 
   constructor(paintStyles: Style[]) {
-    this.syncedPaintStyles = paintStyles
     this.processedColors = this.parseImportedStyles(paintStyles)
     this.comparedColors = []
   }
@@ -44,11 +45,13 @@ export class ColorIndex {
 
     styles.forEach((style: Style) => {
       const color = style.paints[0].color
+      const opacity = style.paints[0].opacity
 
       if (color) {
         processed.push({
           key: style.key,
           id: style.id,
+          opacity: opacity,
           r: color.r,
           g: color.g,
           b: color.b,
@@ -59,19 +62,20 @@ export class ColorIndex {
     return processed
   }
 
-  assignNewColor(color: Color) {
-    const alreadyImportedColor = this.findColor(color)
+  // assignNewColor(color: Color) {
+  //   const alreadyImportedColor = this.findColor(color)
 
-    if (alreadyImportedColor) return alreadyImportedColor
-    else null
-  }
+  //   if (alreadyImportedColor) return alreadyImportedColor
+  //   else null
+  // }
 
   findColor(color: Color) {
     /* This function is looking for a direct match in the imported
      * styles. It helps us to skip calculating the distance later on.
      */
     return this.processedColors.find((processedColor) => {
-      if (processedColor.r === color.r &&
+      if (processedColor.opacity === color.opacity &&
+          processedColor.r === color.r &&
           processedColor.g === color.g &&
           processedColor.b === color.b)
             return processedColor
