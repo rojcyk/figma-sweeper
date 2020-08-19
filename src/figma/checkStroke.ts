@@ -6,7 +6,10 @@ export const checkStrokes = (node: any, colorIndex: ColorIndex, settings: any) =
     const [isValid] = checkIfStyleParsable(node.strokes)
     
     if (isValid) {
-      const color = node.strokes[0].color
+      const color = {
+        ...node.strokes[0].color,
+        opacity: node.strokes[0].opacity
+      }
       const foundColor = colorIndex.findColor(color)
 
       if (foundColor) {
