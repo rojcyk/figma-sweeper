@@ -46,6 +46,7 @@ export const SettingsForm = () => {
       <b>Not implemented</b><br /><br />
 
       <Checkbox label='Overwrite stroke' isSelected={false}  onCheckboxChange={() => { }} />
+      <Checkbox label='Overwrite already set styles' isSelected={false}  onCheckboxChange={() => { }} />
       <Checkbox label='Ignore opacity' isSelected={false}  onCheckboxChange={() => { }} /><br /><br />
     </form>
   )
