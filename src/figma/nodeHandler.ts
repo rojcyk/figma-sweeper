@@ -92,7 +92,7 @@ export const handleNode = (node: any, settings: any, colorIndex: any) => {
       break
 
     case 'SLICE':
-      // console.log('this type has NOT children')
+      // This node type is not valid for anything
       break
   }
 }
