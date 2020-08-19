@@ -3,6 +3,26 @@ import io from "figmaio/code"
 import { DOCUMENT_NAME, DOCUMENT_PAINT_STYLES } from "../constants/storage"
 import { STYLES_EXPORT } from "../constants/events"
 
+export const checkIfStyleParsable = (paints: readonly Paint[] | PaintStyle[]) => {
+  let visibleLayers = 0
+  let paintRequirement = true
+
+  paints.forEach((paintStyle: any) => {
+    if (paintStyle.visible) {
+      visibleLayers++
+
+      if (paintStyle.type !== 'SOLID') {
+        paintRequirement = false
+      }
+    } 
+  })
+
+  const lengthRequirement = visibleLayers < 2
+  const valid = paintRequirement && lengthRequirement
+
+  return [valid, paintRequirement, lengthRequirement]
+}
+
 export const exportStyles = async () => {
   io.on(STYLES_EXPORT, async () => {
     console.log('Exporting data')
@@ -12,11 +32,8 @@ export const exportStyles = async () => {
 
     let paintStyles: object[] = []
 
-    localStyles.forEach((style: any) => {
-      const lengthRequirement = style.paints.length < 2
-      const paintRequirement = style.paints[0].type === 'SOLID'
-      const valid = lengthRequirement && paintRequirement
-
+    localStyles.forEach((style) => {
+      const [valid, paintRequirement, lengthRequirement] = checkIfStyleParsable(style.paints)
       const errors = []
 
       if (!lengthRequirement) errors.push('The paint style has too many fills.')
@@ -33,8 +50,6 @@ export const exportStyles = async () => {
 
     await figma.clientStorage.setAsync(DOCUMENT_NAME, name)
     await figma.clientStorage.setAsync(DOCUMENT_PAINT_STYLES, paintStyles)
-
-    console.log(paintStyles)
 
     io.send('exported', {
       name,
