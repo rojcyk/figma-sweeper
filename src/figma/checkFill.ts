@@ -1,26 +1,8 @@
 import { ColorIndex } from './colorIndex'
-
-export const isSettable = (node: any) => {
-  let visibleLayers = 0
-  let valid = true
-
-  node.fills.forEach((paintStyle: any) => {
-    if (paintStyle.visible) {
-      visibleLayers++
-
-      if (paintStyle.type !== 'SOLID') {
-        valid = false
-      }
-    } 
-  })
-
-  if (visibleLayers > 1) valid = false
-  
-  return valid
-}
+import { checkIfStyleParsable } from './exportStyles'
 
 export const checkFills = (node: any, colorIndex: ColorIndex, settings: any) => {
-  const isValid = isSettable(node)
+  const [isValid] = checkIfStyleParsable(node.fills)
 
   if (isValid) {
     const color = node.fills[0].color
