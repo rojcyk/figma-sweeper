@@ -6,18 +6,23 @@ import { APP_LINT } from "../constants/events"
 export const SettingsForm = () => {
   const [fills, setFills] = React.useState(true)
   const [strokes, setStrokes] = React.useState(true)
+  const [ignoreOpacity, setIgnoreOpacity] = React.useState(false)
   
   const switchFills = () => setFills(!fills)
   const switchStrokes = () => setStrokes(!strokes)
+  const switchIgnoreOpacity = () => setIgnoreOpacity(!ignoreOpacity)
 
   return (
     <form onSubmit={(e) => {
       e.preventDefault()
 
-      io.send(APP_LINT, {
+      const settings = {
         fills,
-        strokes
-      })
+        strokes,
+        ignoreOpacity
+      }
+
+      io.send(APP_LINT, settings)
     }}>
 
     <div style={{
@@ -44,6 +49,7 @@ export const SettingsForm = () => {
 
       <Checkbox label='Overwrite Fills' isSelected={fills}  onCheckboxChange={switchFills} />
       <Checkbox label='Overwrite Strokes' isSelected={strokes}  onCheckboxChange={switchStrokes} />
+      <Checkbox label='Ignore opacity' isSelected={ignoreOpacity}  onCheckboxChange={switchIgnoreOpacity} />
 
       <br /><hr /><br />
 

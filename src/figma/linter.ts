@@ -7,10 +7,12 @@ import { handleNode } from "./nodeHandler"
   
 export const linter = async () => {
   io.on(APP_LINT, async (settings) => {
+    console.log(settings)
+
     const imported = await importStyles()
 
     const selection = figma.currentPage.selection
-    const colorIndex = new ColorIndex(imported)
+    const colorIndex = new ColorIndex(imported, settings)
 
     // console.log('Linting ...')
 

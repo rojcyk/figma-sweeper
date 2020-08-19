@@ -31,11 +31,13 @@ interface ProcessedColor {
 
 export class ColorIndex {
   // syncedPaintStyles: Style[]
+  settings: any
   processedColors: ProcessedColor[]
   comparedColors: ProcessedColor[]
 
 
-  constructor(paintStyles: Style[]) {
+  constructor(paintStyles: Style[], settings: any) {
+    this.settings = settings
     this.processedColors = this.parseImportedStyles(paintStyles)
     this.comparedColors = []
   }
@@ -73,8 +75,11 @@ export class ColorIndex {
     /* This function is looking for a direct match in the imported
      * styles. It helps us to skip calculating the distance later on.
      */
+
     return this.processedColors.find((processedColor) => {
-      if (processedColor.opacity === color.opacity &&
+      const opacity = this.settings.ignoreOpacity ? true : processedColor.opacity === color.opacity
+
+      if (opacity &&
           processedColor.r === color.r &&
           processedColor.g === color.g &&
           processedColor.b === color.b)
