@@ -7,10 +7,12 @@ export const SettingsForm = () => {
   const [fills, setFills] = React.useState(true)
   const [strokes, setStrokes] = React.useState(true)
   const [ignoreOpacity, setIgnoreOpacity] = React.useState(false)
+  const [overwriteStyle, setOverwriteStyle] = React.useState(false)
   
   const switchFills = () => setFills(!fills)
   const switchStrokes = () => setStrokes(!strokes)
   const switchIgnoreOpacity = () => setIgnoreOpacity(!ignoreOpacity)
+  const switchOverwriteStyle = () => setOverwriteStyle(!overwriteStyle)
 
   return (
     <form onSubmit={(e) => {
@@ -19,7 +21,8 @@ export const SettingsForm = () => {
       const settings = {
         fills,
         strokes,
-        ignoreOpacity
+        ignoreOpacity,
+        overwriteStyle
       }
 
       io.send(APP_LINT, settings)
@@ -50,12 +53,13 @@ export const SettingsForm = () => {
       <Checkbox label='Overwrite Fills' isSelected={fills}  onCheckboxChange={switchFills} />
       <Checkbox label='Overwrite Strokes' isSelected={strokes}  onCheckboxChange={switchStrokes} />
       <Checkbox label='Ignore opacity' isSelected={ignoreOpacity}  onCheckboxChange={switchIgnoreOpacity} />
+      <Checkbox label='Overwrite already set styles' isSelected={overwriteStyle}  onCheckboxChange={switchOverwriteStyle} />
 
       <br /><hr /><br />
 
       <b>Not implemented</b><br /><br />
 
-      <Checkbox label='Overwrite already set styles' isSelected={false}  onCheckboxChange={() => { }} />
+      <Checkbox label='Assign closest color' isSelected={false}  onCheckboxChange={() => { }} />
     </form>
   )
 }
