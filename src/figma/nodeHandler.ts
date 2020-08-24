@@ -18,7 +18,6 @@ export const handleNode = (node: any, settings: any, colorIndex: any) => {
       break
 
     case 'GROUP':
-      // checkFills(node, colorIndex, settings)
       traverse(node.children, handleNode, settings, colorIndex)
 
       if (fills) checkFills(node, colorIndex, settings)
@@ -26,7 +25,6 @@ export const handleNode = (node: any, settings: any, colorIndex: any) => {
       break
 
     case 'COMPONENT':
-      // checkFills(node, colorIndex, settings)
       traverse(node.children, handleNode, settings, colorIndex)
 
       if (fills) checkFills(node, colorIndex, settings)
@@ -34,7 +32,6 @@ export const handleNode = (node: any, settings: any, colorIndex: any) => {
       break
 
     case 'INSTANCE':
-      // checkFills(node, colorIndex, settings)
       traverse(node.children, handleNode, settings, colorIndex)
 
       if (fills) checkFills(node, colorIndex, settings)
