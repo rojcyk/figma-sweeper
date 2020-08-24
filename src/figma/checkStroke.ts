@@ -3,7 +3,7 @@ import { checkIfStyleParsable } from './exportStyles'
 
 export const checkStrokes = (node: any, colorIndex: ColorIndex, settings: any) => {
   if (node.strokes.length !== 0) {
-    if (node.strokeStyleID !== "" && settings.overwriteStyle || node.strokeStyleID === "") {
+    if (node.strokeStyleId !== "" && settings.overwriteStyle || node.strokeStyleId === "") {
       const [isValid] = checkIfStyleParsable(node.strokes)
       
       if (isValid) {
