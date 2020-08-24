@@ -7,15 +7,17 @@ export const checkFills = (node: any, colorIndex: ColorIndex, settings: any) => 
     // If the fill style is already set ignore it, unless specified otherwise by settings
     if (node.fillStyleId !== "" && settings.overwriteStyle || node.fillStyleId === "") {
       // Check if the style is single, solid color and we can change it, otherwise, ignore it.
-      const [isValid] = checkIfStyleParsable(node.fills)
-
-      console.log(isValid)
-      console.log(node.fills)
+      const [
+        isValid,
+        _paintRequirement,
+        _lengthRequirement,
+        position
+      ] = checkIfStyleParsable(node.fills)
 
       if (isValid) {
         const color = {
-          ...node.fills[0].color,
-          opacity: node.fills[0].opacity
+          ...node.fills[position].color,
+          opacity: node.fills[position].opacity
         }
         const foundColor = colorIndex.findColor(color)
   

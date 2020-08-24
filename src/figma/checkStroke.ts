@@ -4,12 +4,17 @@ import { checkIfStyleParsable } from './exportStyles'
 export const checkStrokes = (node: any, colorIndex: ColorIndex, settings: any) => {
   if (node.strokes.length !== 0) {
     if (node.strokeStyleId !== "" && settings.overwriteStyle || node.strokeStyleId === "") {
-      const [isValid] = checkIfStyleParsable(node.strokes)
+      const [
+        isValid,
+        _paintRequirement,
+        _lengthRequirement,
+        position
+      ] = checkIfStyleParsable(node.strokes)
       
       if (isValid) {
         const color = {
-          ...node.strokes[0].color,
-          opacity: node.strokes[0].opacity
+          ...node.strokes[position].color,
+          opacity: node.strokes[position].opacity
         }
         const foundColor = colorIndex.findColor(color)
 

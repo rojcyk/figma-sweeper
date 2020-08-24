@@ -3,24 +3,40 @@ import io from "figmaio/code"
 import { DOCUMENT_NAME, DOCUMENT_PAINT_STYLES } from "../constants/storage"
 import { STYLES_EXPORT } from "../constants/events"
 
-export const checkIfStyleParsable = (paints: readonly Paint[] | PaintStyle[]) => {
+type ParsableStyle = [
+  boolean,
+  boolean,
+  boolean,
+  number
+]
+
+export const checkIfStyleParsable = (paints: readonly Paint[] | PaintStyle[]): ParsableStyle => {
   let visibleLayers = 0
   let paintRequirement = true
+  let position = -1
+  let validPosition = 0
+
+  console.log(paints)
 
   paints.forEach((paintStyle: any) => {
+    position++
     if (paintStyle.visible) {
       visibleLayers++
 
       if (paintStyle.type !== 'SOLID') {
         paintRequirement = false
+      } else {
+        validPosition = position
       }
     } 
   })
 
+  console.log(position)
+
   const lengthRequirement = visibleLayers < 2
   const valid = paintRequirement && lengthRequirement
 
-  return [valid, paintRequirement, lengthRequirement]
+  return [valid, paintRequirement, lengthRequirement, validPosition]
 }
 
 export const exportStyles = async () => {
