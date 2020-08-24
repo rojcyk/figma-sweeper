@@ -6,8 +6,6 @@ export const checkStrokes = (node: any, colorIndex: ColorIndex, settings: any) =
     if (node.strokeStyleId !== "" && settings.overwriteStyle || node.strokeStyleId === "") {
       const [
         isValid,
-        _paintRequirement,
-        _lengthRequirement,
         position
       ] = checkIfStyleParsable(node.strokes)
       

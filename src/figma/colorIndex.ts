@@ -30,7 +30,6 @@ interface ProcessedColor {
 }
 
 export class ColorIndex {
-  // syncedPaintStyles: Style[]
   settings: any
   processedColors: ProcessedColor[]
   comparedColors: ProcessedColor[]

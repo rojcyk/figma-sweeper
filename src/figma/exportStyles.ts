@@ -5,9 +5,11 @@ import { STYLES_EXPORT } from "../constants/events"
 
 type ParsableStyle = [
   boolean,
-  boolean,
-  boolean,
-  number
+  number,
+  {
+    paint: boolean,
+    count: boolean
+  }
 ]
 
 export const checkIfStyleParsable = (paints: readonly Paint[] | PaintStyle[]): ParsableStyle => {
@@ -15,8 +17,6 @@ export const checkIfStyleParsable = (paints: readonly Paint[] | PaintStyle[]): P
   let paintRequirement = true
   let position = -1
   let validPosition = 0
-
-  console.log(paints)
 
   paints.forEach((paintStyle: any) => {
     position++
@@ -31,12 +31,17 @@ export const checkIfStyleParsable = (paints: readonly Paint[] | PaintStyle[]): P
     } 
   })
 
-  console.log(position)
-
   const lengthRequirement = visibleLayers < 2
   const valid = paintRequirement && lengthRequirement
 
-  return [valid, paintRequirement, lengthRequirement, validPosition]
+  return [
+    valid,
+    validPosition,
+    {
+      paint: paintRequirement,
+      count: lengthRequirement
+    }
+  ]
 }
 
 export const exportStyles = async () => {
@@ -49,18 +54,17 @@ export const exportStyles = async () => {
     let paintStyles: object[] = []
 
     localStyles.forEach((style) => {
-      const [valid, paintRequirement, lengthRequirement] = checkIfStyleParsable(style.paints)
+      const [valid, _position, requirement] = checkIfStyleParsable(style.paints)
       const errors = []
 
-      if (!lengthRequirement) errors.push('The paint style has too many fills.')
-      if (!paintRequirement) errors.push(`The paint style is not a solid fill but a "${style.paints[0].type}"`)
+      if (!requirement.count) errors.push('The paint style has too many fills.')
+      if (!requirement.paint) errors.push(`The paint style is not a solid fill but a "${style.paints[0].type}"`)
 
       paintStyles.push({
         key: style.key,
         name: style.name,
         paint: valid ? style.paints[0] : null,
         errors: valid ? null : errors,
-        // valid: valid
       })
     })
 

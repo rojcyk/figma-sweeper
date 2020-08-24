@@ -9,8 +9,6 @@ export const checkFills = (node: any, colorIndex: ColorIndex, settings: any) => 
       // Check if the style is single, solid color and we can change it, otherwise, ignore it.
       const [
         isValid,
-        _paintRequirement,
-        _lengthRequirement,
         position
       ] = checkIfStyleParsable(node.fills)
 
