@@ -23,9 +23,18 @@ export const checkStrokes = (node: any, colorIndex: ColorIndex, settings: any) =
     opacity: node.strokes[position].opacity
   }
   
-  const foundColor = colorIndex.findColor(color)
+  const foundColor = colorIndex.findImportedColor(color)
 
   if (foundColor) {
     node.strokeStyleId = foundColor.id
+    return foundColor.id
+  } else {
+    if (settings.findClosest) {
+      const comparedColor = colorIndex.findSimilarColor(color)
+      node.strokeStyleId = comparedColor.id
+      return comparedColor.id
+    }
   }
+
+  return null
 }

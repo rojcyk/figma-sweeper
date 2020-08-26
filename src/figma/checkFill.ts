@@ -24,14 +24,18 @@ export const checkFills = (node: any, colorIndex: ColorIndex, settings: any) => 
   }
 
   // First, before we even start comparing, we check whether the color already exists
-  const foundColor = colorIndex.findColor(color)
+  const foundColor = colorIndex.findImportedColor(color)
 
   if (foundColor) {
     node.fillStyleId = foundColor.id
     return foundColor.id
   } else {
-    const comparedColor = colorIndex.findSimilarColor(color)
-    node.fillStyleId = comparedColor.id
-    return comparedColor.id
+    if (settings.findClosest) {
+      const comparedColor = colorIndex.findSimilarColor(color)
+      node.fillStyleId = comparedColor.id
+      return comparedColor.id
+    }
   }
+
+  return null
 }
