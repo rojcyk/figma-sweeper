@@ -1,3 +1,13 @@
+/****************************
+ * COLOR INDEX
+ * 
+ * Color index calculates the distance between different colors,
+ * and is trying to do it as effectively as possible. So, it doesn't
+ * do the same calculation twice. It is designed for environment
+ * where a lot of caluclations will happen in succession
+ * 
+ ***************************/ 
+
 import asyncForEach from "../helpers/asyncForEach"
 
 interface Color {
