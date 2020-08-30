@@ -3,18 +3,26 @@ import Checkbox from "./checkbox"
 import io from "figmaio/ui"
 import { APP_LINT } from "../constants/events"
 
+type CompareAlgorithm = 'euclidean_distance' | 'deltae'
+
 export const SettingsForm = () => {
   const [fills, setFills] = React.useState(true)
   const [strokes, setStrokes] = React.useState(true)
   const [ignoreOpacity, setIgnoreOpacity] = React.useState(false)
   const [overwriteStyle, setOverwriteStyle] = React.useState(false)
   const [findClosest, setFindClosest] = React.useState(false)
+  const [compareAlgorithm, setCompareAlgorithm] = React.useState('deltae')
   
   const switchFills = () => setFills(!fills)
   const switchStrokes = () => setStrokes(!strokes)
   const switchIgnoreOpacity = () => setIgnoreOpacity(!ignoreOpacity)
   const switchOverwriteStyle = () => setOverwriteStyle(!overwriteStyle)
   const switchFindClosest = () => setFindClosest(!findClosest)
+
+  const onChangeHandler = (event: any) => {
+    const value = event.target.value;
+    setCompareAlgorithm(value)
+  }
   
 
   return (
@@ -26,7 +34,8 @@ export const SettingsForm = () => {
         strokes,
         ignoreOpacity,
         overwriteStyle,
-        findClosest
+        findClosest,
+        compareAlgorithm
       }
 
       io.send(APP_LINT, settings)
@@ -60,11 +69,27 @@ export const SettingsForm = () => {
       <Checkbox label='Overwrite already set styles' isSelected={overwriteStyle}  onCheckboxChange={switchOverwriteStyle} />
       <Checkbox label='Assign closest color' isSelected={findClosest}  onCheckboxChange={switchFindClosest} />
 
-      <br /><hr /><br />
+      <br />
+
+      <label>Compare engine</label>
+      
+      <br />
+
+      <select name="compareEngine" onChange={onChangeHandler}>
+        <option value="EUclidean Distance">Euclidean Distance</option>
+        <option value="deltae">DeltaE</option>
+      </select>
+
+      <br />
+      <br />
+      <hr />
+      <br />
 
       <b>Not implemented</b><br /><br />
 
-      <p>So far we are good ...</p>
+      <Checkbox label='Ignore prefixed layers' isSelected={false}  onCheckboxChange={() => { }} />
+
+      <p>Maybe breaking down each setting to individual attribute (fill, stroke)? Add support for typography?</p>
     </form>
   )
 }
