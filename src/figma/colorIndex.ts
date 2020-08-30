@@ -201,7 +201,7 @@ export class ColorIndex {
     const green = (b.g-a.g)
     const opacity = (b.opacity-a.opacity)
 
-    /* We will be skipping the square root, since we don't need the actuall distance */
+    /* We will be skipping the square root, it is used to get the distance in the actuall space and we don't need it, total is fine */
     /* Return Math.sqrt((red * red) + (blue * blue) + (green * green) + (opacity * opacity)) */
 
     return ((red * red) + (blue * blue) + (green * green) + (opacity * opacity))
