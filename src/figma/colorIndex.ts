@@ -76,8 +76,17 @@ export class ColorIndex {
     const newMeasurements: any[] = []
 
     this.importedColors.forEach((importedColor: ImportedColor) => {
-      // const distance = this.euclideanDistance(color, importedColor)
-      const distance = this.deltaE(comparedLab, importedColor.lab)
+      let distance
+
+      switch (this.settings.compareAlgorithm) {
+        case 'deltae':
+          distance = this.deltaE(comparedLab, importedColor.lab)
+          break
+        case 'euclidean_distance':
+        default:
+          distance = this.euclideanDistance(color, importedColor)
+          break
+      }
 
       newMeasurements.push({
         distance,
