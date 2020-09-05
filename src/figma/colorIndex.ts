@@ -8,44 +8,12 @@
  * 
  ***************************/ 
 
-import asyncForEach from "../helpers/asyncForEach"
-
-interface Color {
-  r: number,
-  g: number,
-  b: number,
-  opacity: number
-}
-
-interface Style {
-  key: string,
-  id: string,
-  name: string,
-  paints: [{
-    blendMode: string,
-    opacity: number,
-    type: string,
-    visible: boolean,
-    color: Color
-  }]
-}
-
-interface ImportedColor {
-  r: number,
-  g: number,
-  b: number,
-  opacity: number,
-  key: string,
-  id: string,
-  lab: LabColor
-}
-
-interface ComparedColor extends Color {
+interface ProcessedColor extends RGBA {
   lab: LabColor,
-  id: string
+  id: string,
 }
 
-type AllColor = ImportedColor | ComparedColor
+type Color = ProcessedColor | RGBA
 type LabColor = [number, number, number]
 
 export class ColorIndex {
@@ -54,14 +22,14 @@ export class ColorIndex {
    ***************************/ 
 
   settings: any
-  importedColors: ImportedColor[]
-  comparedColors: ComparedColor[]
+  importedColors: ProcessedColor[]
+  comparedColors: ProcessedColor[]
 
   /****************************
    * Constructor
    ***************************/ 
-
-  constructor(paintStyles: Style[], settings: any) {
+   
+  constructor(paintStyles: PaintStyle[], settings: any) {
     this.settings = settings
     this.importedColors = this.parseImportedStyles(paintStyles)
     this.comparedColors = []
@@ -71,7 +39,7 @@ export class ColorIndex {
    * MAIN FINDER LOGIC
    ***************************/
 
-  findSimilarColor(color: Color) {
+  findSimilarColor(color: RGBA) {
     // first we need to check if the color was already looked for
     // if yes we return it
     const alreadyComparedColor = this.findComparedColor(color)
@@ -85,7 +53,7 @@ export class ColorIndex {
     // if not, we go through all the other colors and measure
     const newMeasurements: any[] = []
 
-    this.importedColors.forEach((importedColor: ImportedColor) => {
+    this.importedColors.forEach((importedColor: ProcessedColor) => {
       let distance
 
       switch (this.settings.compareAlgorithm) {
@@ -125,23 +93,32 @@ export class ColorIndex {
    * HELPERS
    ***************************/
 
-  parseImportedStyles (styles: Style[]) {
-    let processed: ImportedColor[] = []
+  parseImportedStyles (styles: PaintStyle[]) {
+    let processed: ProcessedColor[] = []
 
-    styles.forEach((style: Style) => {
-      const color = style.paints[0].color as Color
-      const opacity = style.paints[0].opacity
+    styles.forEach((style) => {
+      const paint = style.paints[0]
 
-      if (color) {
-        processed.push({
-          key: style.key,
-          id: style.id,
-          opacity: opacity,
-          r: color.r,
-          g: color.g,
-          b: color.b,
-          lab: this.color2lab(color)
-        })
+      if (paint.type === 'SOLID') {
+        const color = paint.color
+        const opacity = style.paints[0].opacity || 1
+
+        const rgba = {
+          ...color,
+          a: opacity
+        }
+
+        if (color) {
+          processed.push({
+            // key: style.key,
+            id: style.id,
+            a: opacity,
+            r: color.r,
+            g: color.g,
+            b: color.b,
+            lab: this.color2lab(rgba)
+          })
+        }
       }
     })
 
@@ -150,23 +127,23 @@ export class ColorIndex {
 
   // Check if opacity matches based on settings
 
-  checkOpacity(processedColor: AllColor, color: Color) {
-    return this.settings.ignoreOpacity ? true : processedColor.opacity === color.opacity
+  checkOpacity(processedColor: Color, color: RGBA) {
+    return this.settings.ignoreOpacity ? true : processedColor.a === color.a
   }
 
-  findImportedColor(color: Color) {
-    return this.findColorInArray(color, this.importedColors)
+  findImportedColor(color: RGBA) {
+    return this.findColorInArray(color, this.importedColors) as ProcessedColor
   }
   
-  findComparedColor(color: Color) {
-    return this.findColorInArray(color, this.comparedColors)
+  findComparedColor(color: RGBA) {
+    return this.findColorInArray(color, this.comparedColors) as ProcessedColor
   }
 
   /****************************
    * FINDERS
    ***************************/ 
 
-  findColorInArray(color: Color, processedArray: AllColor[]) {
+  findColorInArray(color: RGBA, processedArray: Color[]) {
     // This function is looking for a direct RGB match in the linked array
 
     return processedArray.find((processedColor) => {
@@ -186,7 +163,7 @@ export class ColorIndex {
    * COMPARATORS
    ***************************/ 
 
-  euclideanDistance(a: Color | ImportedColor, b: Color | ImportedColor) {
+  euclideanDistance(a: Color, b: Color) {
     /*
      * This is the core to the plugin, finding the closes possible match.
      * For the time being, it calculates a distance in 3d eucledian space
@@ -199,7 +176,7 @@ export class ColorIndex {
     const red = (b.r-a.r)
     const blue = (b.b-a.b)
     const green = (b.g-a.g)
-    const opacity = (b.opacity-a.opacity)
+    const opacity = (b.a-a.a)
 
     /* We will be skipping the square root, it is used to get the distance in the actuall space and we don't need it, total is fine */
     /* Return Math.sqrt((red * red) + (blue * blue) + (green * green) + (opacity * opacity)) */
