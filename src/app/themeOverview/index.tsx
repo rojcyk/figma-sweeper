@@ -1,4 +1,5 @@
 import React from "react"
+import styled from "styled-components"
 import io from "figmaio/ui"
 import { SectionWrapper } from "../section"
 
@@ -9,17 +10,37 @@ import { SectionWrapper } from "../section"
 import { generateColorTable } from "./generateColorTable"
 import { Headline } from "../headline"
 import { Description } from "../description"
-import { STYLES_EXPORT } from "../../constants/events"
+import { Arrow } from "../arrow"
+import { ButtonPrimary } from "../buttonPrimary"
 
-const Header = () => {
-  return <Headline>Colors</Headline>
+const ContentWrapper = styled.div`
+  padding: 0 16px 16px 16px;
+`
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  padding: 16px;
+  align-items: center;
+`
+
+const Header = ({ expanded }: { expanded: boolean }) => {
+  return (
+    <ButtonWrapper>
+      <Arrow expanded={expanded} />
+      <Headline>Colors</Headline>
+    </ButtonWrapper>
+  )
 }
 
 const Content = () => {
   return (
-    <Description>
-      The plugin will export the styles from the file, and reference them later on when linting.
-    </Description>
+    <ContentWrapper>
+      <Description style={{ marginBottom: "12px", marginTop: "4px" }}>
+        The plugin will export the styles from the file, and reference them later on when linting.
+      </Description>
+
+      <ButtonPrimary>Sync document</ButtonPrimary>
+    </ContentWrapper>
   )
 }
 
