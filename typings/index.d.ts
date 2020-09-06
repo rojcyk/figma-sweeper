@@ -37,6 +37,12 @@ declare namespace Plugin {
     color: ColorSettings
   }
 
+  interface ThemeOverviewI {
+    styles: {
+      paintStyles: ExportedStyle[]
+    }
+  }
+
   type ColorSettingsProp =
     | "overwriteStyles"
     | "overwriteFills"
