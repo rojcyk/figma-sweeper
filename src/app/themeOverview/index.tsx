@@ -90,11 +90,11 @@ const Content = ({
         >
           publish
         </a>{" "}
-        the library first.
+        the file first.
       </Description>
 
-      {hasStyles === false && <ButtonPrimary>Upload this document</ButtonPrimary>}
-      {hasStyles === true && <ButtonPrimary>Unsync document</ButtonPrimary>}
+      {hasStyles === false && <ButtonPrimary label={"Upload this document"} />}
+      {hasStyles === true && <ButtonPrimary label={"Unsync document"} />}
     </ContentWrapper>
   )
 }
