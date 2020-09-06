@@ -83,6 +83,14 @@ const Content = ({
     <ContentWrapper>
       <Description style={{ marginBottom: "12px", marginTop: "4px" }}>
         The plugin will export the styles from the file, and reference them later on when linting.
+        If you would like to use it in other files, you need to{" "}
+        <a
+          href="https://help.figma.com/hc/en-us/articles/360039162653-Publish-a-file-to-a-Team-Library"
+          target="_blank"
+        >
+          publish
+        </a>{" "}
+        the library first.
       </Description>
 
       {hasStyles === false && <ButtonPrimary>Upload this document</ButtonPrimary>}
