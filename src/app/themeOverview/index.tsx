@@ -1,19 +1,49 @@
 import React from "react"
 import io from "figmaio/ui"
+import { SectionWrapper } from "../section"
 
 // ******************** //
 // LOCAL INCLUDES
 // ******************** //
 
 import { generateColorTable } from "./generateColorTable"
+import { Headline } from "../headline"
+import { Description } from "../description"
 import { STYLES_EXPORT } from "../../constants/events"
+
+const Header = () => {
+  return <Headline>Colors</Headline>
+}
+
+const Content = () => {
+  return (
+    <Description>
+      The plugin will export the styles from the file, and reference them later on when linting.
+    </Description>
+  )
+}
 
 export const ThemeOverview = ({ styles, name }: Plugin.ThemeOverviewI) => {
   const paintStyles = generateColorTable(styles.paintStyles)
+  const [expanded, setExpanded] = React.useState(false)
+
+  const toggleHandler = () => {
+    if (expanded) {
+      setExpanded(false)
+    } else {
+      setExpanded(true)
+    }
+  }
 
   return (
     <React.Fragment>
-      <div
+      <SectionWrapper
+        expanded={expanded}
+        content={Content}
+        button={Header}
+        buttonHandler={toggleHandler}
+      />
+      {/* <div
         style={{
           display: "flex",
           justifyContent: "space-between",
@@ -93,7 +123,7 @@ export const ThemeOverview = ({ styles, name }: Plugin.ThemeOverviewI) => {
         </p>
 
         {paintStyles}
-      </details>
+      </details> */}
     </React.Fragment>
   )
 }
