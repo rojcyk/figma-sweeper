@@ -4,8 +4,26 @@ declare namespace Plugin {
 
   interface LaunchProps {
     documentName: string
-    documentPaintStyles: any[]
+    documentPaintStyles: ExportedStyle[]
     settings: Settings
+  }
+
+  interface StateProps extends LaunchProps {}
+
+  type ParsableStyle = [
+    boolean, // is it parsable?
+    number, // what is the position of the valid style?
+    {
+      paint: boolean // Is it a standard SOLID style?
+      count: boolean // does it have less than 2 visible layers?
+    }
+  ]
+
+  type ExportedStyle = {
+    key: string
+    name: string
+    paint: Paint | null
+    errors: string[] | null
   }
 
   interface Color {
