@@ -28,7 +28,7 @@ const ButtonWrapper = styled.button`
   font-size: 14px;
   font-weight: 500;
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.16);
-  box-shadow: inset 0 1px 0 #56a4ff, 0 4px 8px rgba(0, 0, 0, 0.16);
+  box-shadow: inset 0 2px 0 #56a4ff, 0 4px 8px rgba(0, 0, 0, 0.16);
   color: ${WHITE};
   fill: ${WHITE} !important;
   transition: all 0.2s ease-out;
