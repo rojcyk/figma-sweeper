@@ -137,7 +137,11 @@ export default class App extends React.Component<
             For now, the plugin works with color styles that have a <b>single and solid</b> fill.
           </p>
 
-          <ThemeOverview paintStyles={this.state.paintStyles} />
+          <ThemeOverview
+            styles={{
+              paintStyles: this.state.paintStyles
+            }}
+          />
         </details>
 
         <SettingsForm currentSettings={this.props.settings.color} />

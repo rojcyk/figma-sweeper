@@ -48,8 +48,9 @@ const getStyles = (paintStyles: Plugin.ExportedStyle[]) => {
   return tmp
 }
 
-export const ThemeOverview = ({ paintStyles }: { paintStyles: Plugin.ExportedStyle[] }) => {
-  const styles = getStyles(paintStyles)
+export const ThemeOverview = ({ styles }: Plugin.ThemeOverviewI) => {
+  const paintStyles = getStyles(styles.paintStyles)
+
   return (
     <ul
       style={{
@@ -58,7 +59,7 @@ export const ThemeOverview = ({ paintStyles }: { paintStyles: Plugin.ExportedSty
         paddingLeft: "8px"
       }}
     >
-      {styles}
+      {paintStyles}
     </ul>
   )
 }
