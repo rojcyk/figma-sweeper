@@ -61,7 +61,7 @@ export default class App extends React.Component<Plugin.LaunchProps, Plugin.Stat
           }}
         />
 
-        <SettingsForm currentSettings={this.props.settings.color} />
+        {/* <SettingsForm currentSettings={this.props.settings.color} /> */}
       </Main>
     )
   }
