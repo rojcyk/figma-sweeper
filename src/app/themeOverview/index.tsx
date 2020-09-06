@@ -57,10 +57,10 @@ const Header = ({
   paintStyles: number
   hasStyles: boolean
 }) => {
-  // const margin = expanded ? "10px" : "0px"
+  const arrowDirection = expanded ? "down" : "right"
   return (
     <ButtonWrapper>
-      <Arrow expanded={expanded} style={{ opacity: hasStyles ? "1" : "0.5" }} />
+      <Arrow direction={arrowDirection} style={{ opacity: hasStyles ? "1" : "0.5" }} />
       <HeadlineAnimated expanded={expanded}>Sync styles</HeadlineAnimated>
       <LoadedStyle expanded={expanded}>
         <Headline>{name}</Headline>

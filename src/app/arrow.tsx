@@ -7,15 +7,27 @@ const ArrowStyles = styled.svg`
 `
 
 interface ArrowProps {
-  expanded?: boolean
   style?: React.CSSProperties
+  direction: "up" | "down" | "left" | "right"
 }
 
 export const Arrow: React.StatelessComponent<ArrowProps> = (props: ArrowProps) => {
   let transform
 
-  if (props.expanded) transform = "rotate(90deg)"
-  else transform = "rotate(0deg)"
+  switch (props.direction) {
+    case "up":
+      transform = "rotate(270deg)"
+      break
+    case "down":
+      transform = "rotate(90deg)"
+      break
+    case "left":
+      transform = "rotate(180deg)"
+      break
+    case "right":
+      transform = "rotate(0deg)"
+      break
+  }
 
   return (
     <ArrowStyles
