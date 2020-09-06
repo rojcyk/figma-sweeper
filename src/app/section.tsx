@@ -48,18 +48,16 @@ const Wrapper = styled.div<{
 // ******************************** //
 
 export const SectionWrapper = ({ content, button, buttonHandler, expanded }: SectionProps) => {
-  const Content = content
-  const Button = button
+  // const Content = content
+  // const Button = button
   const height = expanded ? "auto" : 0
 
   return (
     <Wrapper expanded={expanded}>
-      <ButtonWrapper onClick={() => buttonHandler()}>
-        <Button expanded={expanded} />
-      </ButtonWrapper>
+      <ButtonWrapper onClick={() => buttonHandler()}>{button}</ButtonWrapper>
 
       <AnimateHeight duration={220} height={height}>
-        <Content expanded={expanded} />
+        {content}
       </AnimateHeight>
     </Wrapper>
   )
