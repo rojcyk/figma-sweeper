@@ -6,15 +6,7 @@ import { DOCUMENT_NAME, DOCUMENT_PAINT_STYLES, COLOR_SETTINGS } from "../constan
 import { exportStyles } from "./exportStyles"
 import { linter } from "./linter"
 import { settingsListener } from "./settingsListener"
-
-export const defaultColorSettings: Plugin.ColorSettings = {
-  overwriteStyles: false,
-  overwriteFills: true,
-  overwriteStrokes: true,
-  ignoreOpacity: false,
-  findClosestColor: false,
-  colorDistance: "deltae"
-}
+import { getSettings } from "./getSettings"
 
 const main = async () => {
   figma.showUI(__html__, {
@@ -23,26 +15,20 @@ const main = async () => {
   })
 
   const name = (await figma.clientStorage.getAsync(DOCUMENT_NAME)) as string
-  const styles = await figma.clientStorage.getAsync(DOCUMENT_PAINT_STYLES)
-  const colorSettings = (await figma.clientStorage.getAsync(COLOR_SETTINGS)) as Plugin.ColorSettings
+  const styles = (await figma.clientStorage.getAsync(
+    DOCUMENT_PAINT_STYLES
+  )) as Plugin.ExportedStyle[]
+  const settings = await getSettings()
 
   await exportStyles()
   await linter()
   await settingsListener()
-
-  const settings: Plugin.Settings = {
-    color: colorSettings || defaultColorSettings
-  }
-
-  console.log(settings)
 
   const launchProps: Plugin.LaunchProps = {
     documentName: name,
     documentPaintStyles: styles,
     settings: settings
   }
-
-  console.log(launchProps)
 
   /* When launching the plugin, figma sets a command
    * if it standard launch, the command is empty
