@@ -24,7 +24,7 @@ const ButtonWrapper = styled.button`
   border: 1px solid #127ac6;
   width: 100%;
   border-radius: 6px;
-  padding: 6px 12px;
+  padding: 8px 12px;
   font-size: 14px;
   font-weight: 600;
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.16);
