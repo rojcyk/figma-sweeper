@@ -8,6 +8,7 @@ const ArrowStyles = styled.svg`
 
 interface ArrowProps {
   expanded?: boolean
+  style?: React.CSSProperties
 }
 
 export const Arrow: React.StatelessComponent<ArrowProps> = (props: ArrowProps) => {
@@ -17,7 +18,12 @@ export const Arrow: React.StatelessComponent<ArrowProps> = (props: ArrowProps) =
   else transform = "rotate(0deg)"
 
   return (
-    <ArrowStyles width="4" height="6" viewBox="0 0 4 6" style={{ transform: transform }}>
+    <ArrowStyles
+      width="4"
+      height="6"
+      viewBox="0 0 4 6"
+      style={{ transform: transform, ...props.style }}
+    >
       <path d="M0.125 6L0.125 0L3.875 3L0.125 6Z" />
     </ArrowStyles>
   )
