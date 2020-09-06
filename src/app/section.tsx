@@ -55,11 +55,11 @@ export const SectionWrapper = ({ content, button, buttonHandler, expanded }: Sec
   return (
     <Wrapper expanded={expanded}>
       <ButtonWrapper onClick={() => buttonHandler()}>
-        <Button />
+        <Button expanded={expanded} />
       </ButtonWrapper>
 
       <AnimateHeight duration={220} height={height}>
-        <Content />
+        <Content expanded={expanded} />
       </AnimateHeight>
     </Wrapper>
   )
