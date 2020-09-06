@@ -9,6 +9,7 @@ import { GRAY } from "../constants/ui"
 
 export interface DescriptionProps {
   children: any
+  style?: React.CSSProperties
 }
 
 // ******************************** //
@@ -29,6 +30,6 @@ const DescriptionStyle = styled.p`
 // Section Class
 // ******************************** //
 
-export const Description = ({ children }: DescriptionProps) => {
-  return <DescriptionStyle>{children}</DescriptionStyle>
+export const Description = ({ children, style }: DescriptionProps) => {
+  return <DescriptionStyle style={style}>{children}</DescriptionStyle>
 }

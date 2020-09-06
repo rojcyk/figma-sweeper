@@ -9,6 +9,7 @@ import { BLACK } from "../constants/ui"
 
 export interface HeadlineProps {
   children: any
+  style?: React.CSSProperties
 }
 
 // ******************************** //
@@ -28,6 +29,6 @@ const HeadlineStyle = styled.span`
 // Section Class
 // ******************************** //
 
-export const Headline = ({ children }: HeadlineProps) => {
-  return <HeadlineStyle>{children}</HeadlineStyle>
+export const Headline = ({ children, style }: HeadlineProps) => {
+  return <HeadlineStyle style={style}>{children}</HeadlineStyle>
 }
