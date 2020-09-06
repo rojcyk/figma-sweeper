@@ -16,7 +16,7 @@ export interface HeadlineProps {
 // Styles
 // ******************************** //
 
-const HeadlineStyle = styled.span`
+export const HeadlineStyle = styled.span`
   display: block;
   font-size: 15px;
   font-weight: 800;
