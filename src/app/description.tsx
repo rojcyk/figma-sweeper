@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 
-import { GRAY } from "../constants/ui"
+import { GRAY, BLUE } from "../constants/ui"
 
 // ******************************** //
 // Interface
@@ -24,6 +24,11 @@ export const DescriptionStyle = styled.p`
   color: ${GRAY};
   margin: 0;
   padding: 0;
+
+  a {
+    color: ${BLUE};
+    font-weight: 500;
+  }
 `
 
 // ******************************** //
