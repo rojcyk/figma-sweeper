@@ -25,19 +25,14 @@ const Main = styled.main`
 // MAIN APP CLASS
 // ******************** //
 
-export default class App extends React.Component<
-  Plugin.LaunchProps,
-  {
-    name: string
-    paintStyles: Plugin.ExportedStyle[]
-  }
-> {
+export default class App extends React.Component<Plugin.LaunchProps, Plugin.StateProps> {
   public constructor(props: any) {
     super(props)
 
     this.state = {
-      name: this.props.documentName,
-      paintStyles: this.props.documentPaintStyles
+      documentName: this.props.documentName,
+      documentPaintStyles: this.props.documentPaintStyles,
+      settings: this.props.settings
     }
   }
 
@@ -48,8 +43,8 @@ export default class App extends React.Component<
   public render(): React.ReactNode {
     io.on("exported", (data) => {
       this.setState({
-        name: data.name,
-        paintStyles: data.paintStyles
+        documentName: data.name,
+        documentPaintStyles: data.paintStyles
       })
     })
 
@@ -105,7 +100,9 @@ export default class App extends React.Component<
           <b>
             <strong style={{ fontSize: "9px", opacity: "0.3" }}>►</strong> Synced document:
           </b>{" "}
-          {this.state.name && <span style={{ marginRight: "4px" }}>{this.state.name}</span>}
+          {this.state.documentName && (
+            <span style={{ marginRight: "4px" }}>{this.state.documentName}</span>
+          )}
         </div>
 
         <details
@@ -121,7 +118,8 @@ export default class App extends React.Component<
               cursor: "pointer"
             }}
           >
-            <b>Synced colors:</b> {this.state.paintStyles ? this.state.paintStyles.length : ""}
+            <b>Synced colors:</b>{" "}
+            {this.state.documentPaintStyles ? this.state.documentPaintStyles.length : ""}
           </summary>
 
           <p
@@ -139,7 +137,7 @@ export default class App extends React.Component<
 
           <ThemeOverview
             styles={{
-              paintStyles: this.state.paintStyles
+              paintStyles: this.state.documentPaintStyles
             }}
           />
         </details>
