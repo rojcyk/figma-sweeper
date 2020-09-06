@@ -9,6 +9,7 @@ import io from "figmaio/ui"
 import { GlobalStyles } from "./globalStyles"
 import { SettingsForm } from "./setting"
 import { STYLES_EXPORT } from "../constants/events"
+import { ThemeOverview } from "./themeOverview"
 
 // ******************** //
 // TOP LVL STYLING
@@ -27,8 +28,8 @@ const Main = styled.main`
 export default class App extends React.Component<
   Plugin.LaunchProps,
   {
-    name?: string
-    paintStyles?: any[]
+    name: string
+    paintStyles: Plugin.ExportedStyle[]
   }
 > {
   public constructor(props: any) {
@@ -45,54 +46,6 @@ export default class App extends React.Component<
   // ************************************************ //
 
   public render(): React.ReactNode {
-    const colors = () => {
-      let tmp: any[] = []
-
-      if (this.state.paintStyles) {
-        this.state.paintStyles.forEach((style, index) => {
-          const errors: any[] = []
-
-          if (style.errors) {
-            style.errors.forEach((err: any, index: any) => {
-              errors.push(
-                <li
-                  style={{
-                    display: "block",
-                    fontSize: "11px"
-                  }}
-                  key={index}
-                >
-                  - {err}
-                </li>
-              )
-            })
-          }
-
-          tmp.push(
-            <li
-              key={index}
-              style={{
-                fontSize: "12px",
-                marginBottom: "4px",
-                display: "block",
-                opacity: style.errors === null ? "1" : "0.5"
-              }}
-            >
-              {style.name}
-
-              {style.errors !== null && (
-                <ul style={{ margin: "0", padding: "0", marginTop: "4px", listStyleType: "disc" }}>
-                  {errors}
-                </ul>
-              )}
-            </li>
-          )
-        })
-      }
-
-      return tmp
-    }
-
     io.on("exported", (data) => {
       this.setState({
         name: data.name,
@@ -184,15 +137,7 @@ export default class App extends React.Component<
             For now, the plugin works with color styles that have a <b>single and solid</b> fill.
           </p>
 
-          <ul
-            style={{
-              margin: "0",
-              padding: "0",
-              paddingLeft: "8px"
-            }}
-          >
-            {colors()}
-          </ul>
+          <ThemeOverview paintStyles={this.state.paintStyles} />
         </details>
 
         <SettingsForm currentSettings={this.props.settings.color} />
