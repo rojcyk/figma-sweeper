@@ -16,7 +16,7 @@ export interface DescriptionProps {
 // Styles
 // ******************************** //
 
-const DescriptionStyle = styled.p`
+export const DescriptionStyle = styled.p`
   display: block;
   font-size: 12px;
   line-height: 18px;
