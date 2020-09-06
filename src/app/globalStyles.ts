@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components"
+import { BACKGROUND } from "../constants/ui"
 
 export const GlobalStyles = createGlobalStyle`
   *, *:before, *:after {
@@ -23,9 +24,6 @@ export const GlobalStyles = createGlobalStyle`
   body {
     padding: 0;
     margin: 0;
-  }
-
-  body {
-    margin: 8px;
+    background-color: ${BACKGROUND};
   }
 `
