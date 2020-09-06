@@ -38,8 +38,7 @@ export class SettingsForm extends React.Component<ColorSettingsProp, ColorSettin
       <form
         onSubmit={(e) => {
           e.preventDefault()
-          const settings = {}
-          io.send(APP_LINT, settings)
+          io.send(APP_LINT, this.state.settings)
         }}
       >
         <div
