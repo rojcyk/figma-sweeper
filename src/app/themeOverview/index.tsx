@@ -16,6 +16,7 @@ import { ButtonPrimary } from "../buttonPrimary"
 const HeadlineAnimated = styled(HeadlineStyle)<{
   expanded: boolean
 }>`
+  user-select: none;
   transition: all 0.2s ease-out;
   position: absolute;
   top: ${({ expanded }) => (expanded ? "18px" : "0")};
@@ -26,6 +27,7 @@ const HeadlineAnimated = styled(HeadlineStyle)<{
 const LoadedStyle = styled.div<{
   expanded: boolean
 }>`
+  user-select: none;
   transition: all 0.2s ease-out;
   position: absolute;
   top: ${({ expanded }) => (expanded ? "24px" : "10px")};
