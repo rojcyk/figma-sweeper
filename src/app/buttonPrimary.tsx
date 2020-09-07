@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 
-import { WHITE, SEPARATOR, BLUE } from "../constants/ui"
+import { BLACK, WHITE, SEPARATOR, BLUE } from "../constants/ui"
 
 // ******************************** //
 // Interface
@@ -18,25 +18,42 @@ import { WHITE, SEPARATOR, BLUE } from "../constants/ui"
 // Styles
 // ******************************** //
 
-const ButtonWrapper = styled.button`
+const GeneralButton = styled.button`
   cursor: pointer;
-  background-color: ${BLUE};
-  border: 1px solid #127ac6;
   width: 100%;
   border-radius: 6px;
   padding: 8px 12px;
   font-size: 14px;
   font-weight: 500;
-  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.16);
-  box-shadow: inset 0 2px 0 #56a4ff, 0 4px 8px rgba(0, 0, 0, 0.16);
-  color: ${WHITE};
-  fill: ${WHITE} !important;
   transition: all 0.2s ease-out;
   outline: none;
+`
+
+export const ButtonPripmaryStyle = styled(GeneralButton)`
+  background-color: ${BLUE};
+  border: 1px solid #127ac6;
+  color: ${WHITE};
+  fill: ${WHITE} !important;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.16);
+  box-shadow: inset 0 2px 0 #56a4ff, 0 4px 8px rgba(0, 0, 0, 0.16);
 
   &:hover {
     background-color: #0c71e9;
     box-shadow: inset 0 1px 0 #56a4ff, 0 2px 4px rgba(0, 0, 0, 0.24);
+  }
+`
+
+export const ButtonSecondaryStyle = styled(GeneralButton)`
+  background-color: #f7f8fa;
+  border: 1px solid #d1d8e2;
+  color: ${BLACK};
+  fill: ${BLACK} !important;
+  text-shadow: 0 1px 0 ${WHITE};
+  box-shadow: inset 0 2px ${WHITE}, 0 4px 8px rgba(0, 0, 0, 0.16);
+
+  &:hover {
+    background-color: ${WHITE};
+    box-shadow: inset 0 1px 0 ${WHITE}, 0 2px 4px rgba(0, 0, 0, 0.14);
   }
 `
 
@@ -69,13 +86,30 @@ const Layout = styled.div<{
       : ""}
 `
 
-export const ButtonPrimary = ({ label, icon }: { label: string; icon?: any }) => {
+export const ButtonPrimary = ({
+  label,
+  icon,
+  onClick
+}: {
+  label: string
+  icon?: any
+  onClick: Function
+}) => {
   return (
-    <ButtonWrapper>
+    <ButtonPripmaryStyle onClick={() => onClick()}>
       <Layout icon={icon}>
-        {label}
-        {icon}
+        {label} {icon}
       </Layout>
-    </ButtonWrapper>
+    </ButtonPripmaryStyle>
   )
 }
+
+// export const ButtonPrimary = ({ label, icon }: { label: string; icon?: any }) => {
+//   return (
+//     <ButtonPripmary>
+//       <Layout icon={icon}>
+//         {label} {icon}
+//       </Layout>
+//     </ButtonPripmary>
+//   )
+// }
