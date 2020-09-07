@@ -1,7 +1,7 @@
 import io from "figmaio/code"
 
 import { DOCUMENT_NAME, DOCUMENT_PAINT_STYLES } from "../constants/storage"
-import { STYLES_EXPORT } from "../constants/events"
+import { STYLES_EXPORT, STYLES_UPDATE } from "../constants/events"
 
 export const checkIfStyleParsable = (
   paints: readonly Paint[] | PaintStyle[]
@@ -65,7 +65,7 @@ export const exportStyles = async () => {
     await figma.clientStorage.setAsync(DOCUMENT_NAME, name)
     await figma.clientStorage.setAsync(DOCUMENT_PAINT_STYLES, paintStyles)
 
-    io.send("exported", {
+    io.send(STYLES_UPDATE, {
       name,
       paintStyles
     })

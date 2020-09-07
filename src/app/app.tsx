@@ -8,7 +8,7 @@ import io from "figmaio/ui"
 
 import { GlobalStyles } from "./globalStyles"
 import { SettingsForm } from "./setting"
-// import { STYLES_EXPORT } from "../constants/events"
+import { STYLES_UPDATE } from "../constants/events"
 import { ThemeOverview } from "./themeOverview"
 
 // ******************** //
@@ -43,7 +43,7 @@ export default class App extends React.Component<Plugin.LaunchProps, Plugin.Stat
   // ************************************************ //
 
   public render(): React.ReactNode {
-    io.on("exported", (data) => {
+    io.on(STYLES_UPDATE, (data) => {
       this.setState({
         documentName: data.name,
         documentPaintStyles: data.paintStyles
