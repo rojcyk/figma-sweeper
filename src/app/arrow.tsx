@@ -3,7 +3,7 @@ import styled from "styled-components"
 
 const ArrowStyles = styled.svg`
   margin-right: 12px;
-  transition: transform ${220}ms ease-out;
+  transition: all ${220}ms ease-out;
 `
 
 interface ArrowProps {
