@@ -4,6 +4,7 @@ import { APP_START } from "../constants/events"
 import { WINDOW_HEIGHT, WINDOW_WIDTH } from "../constants/ui"
 import { DOCUMENT_NAME, DOCUMENT_PAINT_STYLES, COLOR_SETTINGS } from "../constants/storage"
 import { exportStyles } from "./exportStyles"
+import { deleteStyles } from "./deleteStyles"
 import { linter } from "./linter"
 import { settingsListener } from "./settingsListener"
 import { getSettings } from "./getSettings"
@@ -21,6 +22,7 @@ const main = async () => {
   const settings = await getSettings()
 
   await exportStyles()
+  await deleteStyles()
   await linter()
   await settingsListener()
 
