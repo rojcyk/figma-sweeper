@@ -42,6 +42,8 @@ declare namespace Plugin {
     styles: {
       paintStyles: ExportedStyle[]
     }
+    exportStyles: Function
+    deleteStyles: Function
   }
 
   type ColorSettingsProp =
