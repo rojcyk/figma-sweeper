@@ -9,7 +9,8 @@ import io from "figmaio/ui"
 import { GlobalStyles } from "./globalStyles"
 import { SettingsForm } from "./setting"
 import { STYLES_UPDATE } from "../constants/events"
-import { ThemeOverview } from "./themeOverview"
+import ThemeOverview from "./themeOverview"
+import { STYLES_EXPORT, STYLES_DELETE } from "../constants/events"
 
 // ******************** //
 // TOP LVL STYLING
@@ -42,6 +43,14 @@ export default class App extends React.Component<Plugin.LaunchProps, Plugin.Stat
   // Main render method
   // ************************************************ //
 
+  private exportStyles() {
+    io.send(STYLES_EXPORT)
+  }
+
+  private deleteStyles() {
+    io.send(STYLES_DELETE)
+  }
+
   public render(): React.ReactNode {
     io.on(STYLES_UPDATE, (data) => {
       this.setState({
@@ -55,6 +64,8 @@ export default class App extends React.Component<Plugin.LaunchProps, Plugin.Stat
         <GlobalStyles />
 
         <ThemeOverview
+          exportStyles={this.exportStyles}
+          deleteStyles={this.deleteStyles}
           name={this.state.documentName}
           styles={{
             paintStyles: this.state.documentPaintStyles
