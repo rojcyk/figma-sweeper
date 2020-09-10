@@ -35,7 +35,7 @@ const LoadedStylesWrapper = ({
       style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}
     >
       <div style={{ textAlign: "left", display: "inline-block" }}>
-        <Headline style={{ fontWeight: 600 }}>{name}</Headline>
+        <Headline style={{ fontWeight: 700, fontSize: "14px" }}>{name}</Headline>
         <Description>{paintStyles} paint styles</Description>
       </div>
 
