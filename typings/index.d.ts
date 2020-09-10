@@ -6,6 +6,7 @@ declare namespace Plugin {
     documentName: string
     documentPaintStyles: ExportedStyle[]
     settings: Settings
+    isSynced: boolean
   }
 
   interface StateProps extends LaunchProps {}
