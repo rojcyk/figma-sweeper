@@ -4,10 +4,12 @@ import { WHITE } from "../../constants/ui"
 export const Check = styled.div<{
   checked: boolean
 }>`
+  display: inline-block;
   position: relative;
   width: 18px;
   height: 18px;
   border-radius: 4px;
+  margin-right: 12px;
 
   ${({ checked }) =>
     checked
