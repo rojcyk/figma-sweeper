@@ -29,7 +29,8 @@ const main = async () => {
   const launchProps: Plugin.LaunchProps = {
     documentName: name,
     documentPaintStyles: styles,
-    settings: settings
+    settings: settings,
+    isSynced: name !== ""
   }
 
   /* When launching the plugin, figma sets a command
