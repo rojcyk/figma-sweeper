@@ -10,6 +10,7 @@ import { GlobalStyles } from "./globalStyles"
 import { SettingsForm } from "./setting"
 import { STYLES_UPDATE } from "../constants/events"
 import ThemeOverview from "./themeOverview"
+import Colors from "./colors"
 import { STYLES_EXPORT, STYLES_DELETE } from "../constants/events"
 
 // ******************** //
@@ -35,7 +36,8 @@ export default class App extends React.Component<Plugin.LaunchProps, Plugin.Stat
     this.state = {
       documentName: this.props.documentName,
       documentPaintStyles: this.props.documentPaintStyles,
-      settings: this.props.settings
+      settings: this.props.settings,
+      isSynced: this.props.isSynced
     }
   }
 
@@ -55,7 +57,8 @@ export default class App extends React.Component<Plugin.LaunchProps, Plugin.Stat
     io.on(STYLES_UPDATE, (data) => {
       this.setState({
         documentName: data.name,
-        documentPaintStyles: data.paintStyles
+        documentPaintStyles: data.paintStyles,
+        isSynced: data.name !== ""
       })
     })
 
@@ -70,6 +73,12 @@ export default class App extends React.Component<Plugin.LaunchProps, Plugin.Stat
           styles={{
             paintStyles: this.state.documentPaintStyles
           }}
+        />
+
+        <Colors
+          settings={this.state.settings.color}
+          isSynced={this.state.isSynced}
+          expanded={true}
         />
 
         {/* <SettingsForm currentSettings={this.props.settings.color} /> */}
