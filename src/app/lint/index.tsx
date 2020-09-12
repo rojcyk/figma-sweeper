@@ -34,9 +34,9 @@ export default ({ isActive, linterAction }: LintButton) => {
   return (
     <Wrapper active={isActive}>
       {isActive ? (
-        <ButtonSecondary label={"Lint"} onClick={() => linterAction()} />
+        <ButtonSecondary label={"Lint selection"} onClick={() => linterAction()} />
       ) : (
-        <ButtonDisabledStyle>Lint</ButtonDisabledStyle>
+        <ButtonDisabledStyle>Lint selection</ButtonDisabledStyle>
       )}
     </Wrapper>
   )
