@@ -13,7 +13,7 @@ export interface SectionProps {
   buttonHandler: Function
   content: any
   button: any
-  isSynced?: boolean
+  isActive: boolean
 }
 
 interface SectionState {
@@ -63,19 +63,12 @@ export const SectionWrapper = ({
   button,
   buttonHandler,
   expanded,
-  isSynced
+  isActive
 }: SectionProps) => {
-  // const Content = content
-  // const Button = button
   const height = expanded ? "auto" : 0
-  const active = isSynced === undefined ? false : isSynced
-
-  console.log("------------------")
-  console.log(isSynced)
-  console.log(active)
 
   return (
-    <Wrapper expanded={expanded} active={active}>
+    <Wrapper expanded={expanded} active={isActive}>
       <ButtonWrapper onClick={() => buttonHandler()}>{button}</ButtonWrapper>
 
       <AnimateHeight duration={220} height={height}>
