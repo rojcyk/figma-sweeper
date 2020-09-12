@@ -52,7 +52,6 @@ export default ({
   isSynced: boolean
   showArrow: boolean
 }) => {
-  const arrowDirection = expanded ? "down" : "right"
   return (
     <ButtonWrapper
       style={{
@@ -60,7 +59,10 @@ export default ({
         pointerEvents: isSynced ? "none" : "auto"
       }}
     >
-      <Arrow direction={arrowDirection} style={{ opacity: showArrow ? "1" : "0.25" }} />
+      <Arrow
+        direction={expanded ? "down" : "right"}
+        style={{ opacity: showArrow ? "1" : "0.25" }}
+      />
 
       {name === "" ? (
         <Headline>Sync styles</Headline>
