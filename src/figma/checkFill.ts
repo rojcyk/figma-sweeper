@@ -29,8 +29,11 @@ export const checkFills = (node: any, colorIndex: ColorIndex, settings: Plugin.S
   } else {
     if (settings.color.findClosestColor) {
       const comparedColor = colorIndex.findSimilarColor(color)
-      node.fillStyleId = comparedColor.id
-      return comparedColor.id
+
+      if (comparedColor) {
+        node.fillStyleId = comparedColor.id
+        return comparedColor.id
+      }
     }
   }
 

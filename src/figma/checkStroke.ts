@@ -28,8 +28,11 @@ export const checkStrokes = (node: any, colorIndex: ColorIndex, settings: Plugin
   } else {
     if (settings.color.findClosestColor) {
       const comparedColor = colorIndex.findSimilarColor(color)
-      node.strokeStyleId = comparedColor.id
-      return comparedColor.id
+
+      if (comparedColor) {
+        node.strokeStyleId = comparedColor.id
+        return comparedColor.id
+      }
     }
   }
 

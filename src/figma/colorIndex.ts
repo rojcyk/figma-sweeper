@@ -55,40 +55,45 @@ export class ColorIndex {
 
     this.importedColors.forEach((importedColor: ProcessedColor) => {
       let distance
+      const opacityMatch = this.checkOpacity(importedColor, color)
 
-      switch (this.settings.color.colorDistance) {
-        case "deltae":
-          distance = this.deltaE(comparedLab, importedColor.lab)
-          break
-        case "euclidean_distance":
-        default:
-          distance = this.euclideanDistance(color, importedColor)
-          break
+      if (opacityMatch) {
+        switch (this.settings.color.colorDistance) {
+          case "deltae":
+            distance = this.deltaE(comparedLab, importedColor.lab)
+            break
+          case "euclidean_distance":
+          default:
+            distance = this.euclideanDistance(color, importedColor)
+            break
+        }
+
+        newMeasurements.push({
+          distance,
+          id: importedColor.id
+        })
       }
-
-      newMeasurements.push({
-        distance,
-        id: importedColor.id
-      })
     })
 
-    // We reduce the whole aray based on the distance, so only one color remains
-    const closest = newMeasurements.reduce((prev, curr) =>
-      prev.distance < curr.distance ? prev : curr
-    )
+    if (newMeasurements.length > 0) {
+      // We reduce the whole aray based on the distance, so only one color remains
+      const closest = newMeasurements.reduce((prev, curr) =>
+        prev.distance < curr.distance ? prev : curr
+      )
 
-    // We generate the final compared color
-    const comparedColor = {
-      ...color,
-      id: closest.id,
-      lab: comparedLab
+      // We generate the final compared color
+      const comparedColor = {
+        ...color,
+        id: closest.id,
+        lab: comparedLab
+      }
+
+      // ... add it to the cache, so we won't have to recalculate it every time
+      this.comparedColors.push(comparedColor)
+
+      // finally return it
+      return comparedColor
     }
-
-    // ... add it to the cache, so we won't have to recalculate it every time
-    this.comparedColors.push(comparedColor)
-
-    // finally return it
-    return comparedColor
   }
 
   /****************************
