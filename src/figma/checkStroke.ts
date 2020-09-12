@@ -6,7 +6,7 @@ export const checkStrokes = (node: any, colorIndex: ColorIndex, settings: Plugin
   if (node.strokes.length === 0) return null
 
   // If the fill style is already set ignore it, unless specified otherwise by settings
-  if (node.fillStyleId !== "" && !settings.color.overwriteStyles) return null
+  if (node.strokeStyleId !== "" && !settings.color.overwriteStyles) return null
 
   // Check if the style is single, solid color and we can change it, otherwise, ignore it.
   const [isValid, position] = checkIfStyleParsable(node.strokes)
