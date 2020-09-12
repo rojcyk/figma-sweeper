@@ -16,8 +16,9 @@ export const linter = async () => {
     if (selection?.length === 0) {
       figma.notify("You need to select something for the linter to work")
     } else {
-      asyncForEach(selection as any[], (frame: any) => {
+      await asyncForEach(selection as any[], (frame: any) => {
         handleNode(frame, settings, colorIndex)
+        figma.notify("Selection linted 👊")
       })
     }
   })
