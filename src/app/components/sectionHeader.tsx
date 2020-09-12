@@ -23,7 +23,8 @@ const HeaderWrapper = styled.div<{ isSynced: boolean }>`
 
       text-shadow: 0 1px 0 ${WHITE};
 
-      // box-shadow: inset 0 1px 0 ${WHITE};
+      user-select: none;
+      cursor: default;
       background-color: ${BACKGROUND};
     `}
 `
