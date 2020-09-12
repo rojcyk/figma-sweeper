@@ -21,7 +21,7 @@ const CloseWrapper = styled.div`
   }
 `
 
-const LoadedStylesWrapper = ({
+const LoadedStylesButton = ({
   name,
   paintStyles,
   deleteStyles
@@ -77,11 +77,7 @@ export default ({
         <ButtonPrimary onClick={() => exportStyles()} label={"Upload this document"} />
       )}
       {isSynced === true && (
-        <LoadedStylesWrapper
-          deleteStyles={deleteStyles}
-          name={name}
-          paintStyles={paintStyles | 0}
-        />
+        <LoadedStylesButton deleteStyles={deleteStyles} name={name} paintStyles={paintStyles | 0} />
       )}
     </ContentWrapper>
   )

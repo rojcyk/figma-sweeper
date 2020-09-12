@@ -81,8 +81,6 @@ export default class App extends React.Component<Plugin.LaunchProps, Plugin.Stat
           isSynced={this.state.isSynced}
           expanded={true}
         />
-
-        {/* <SettingsForm currentSettings={this.props.settings.color} /> */}
       </Main>
     )
   }
