@@ -73,11 +73,10 @@ export default ({
         the file first.
       </Description>
 
-      {isSynced === false && (
-        <ButtonPrimary onClick={() => exportStyles()} label={"Upload this document"} />
-      )}
-      {isSynced === true && (
+      {isSynced ? (
         <LoadedStylesButton deleteStyles={deleteStyles} name={name} paintStyles={paintStyles | 0} />
+      ) : (
+        <ButtonPrimary onClick={() => exportStyles()} label={"Upload this document"} />
       )}
     </ContentWrapper>
   )
