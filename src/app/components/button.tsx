@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import { BLACK, WHITE, BLUE } from "../../constants/ui"
+import { BLACK, WHITE, BLUE, BACKGROUND } from "../../constants/ui"
 
 // ******************************** //
 // Styles
@@ -44,6 +44,18 @@ export const ButtonSecondaryStyle = styled(SharedButtonStyles)`
     box-shadow: inset 0 1px 0 ${WHITE}, 0 2px 4px rgba(0, 0, 0, 0.14);
   }
 `
+
+export const ButtonDisabledStyle = styled(SharedButtonStyles)`
+  user-select: none;
+  cursor: default;
+  background-color: ${BACKGROUND};
+  border: 1px solid #dbe2ec;
+  color: #8593a3;
+  fill: #8593a3 !important;
+  text-shadow: 0 1px 0 ${WHITE};
+  box-shadow: inset 0 1px ${WHITE};
+`
+
 // ******************************** //
 // Interfaces
 // ******************************** //
