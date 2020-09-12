@@ -17,6 +17,7 @@ import {
   OPENED_STATE_CHANGE
 } from "../constants/events"
 import LinterButton from "./lint/index"
+import { Footer } from "./footer"
 
 // ******************** //
 // TOP LVL STYLING
@@ -137,6 +138,8 @@ export default class App extends React.Component<Plugin.LaunchProps, Plugin.Stat
         />
 
         <LinterButton linterAction={this.lint} isActive={this.state.isSynced} />
+
+        <Footer />
       </Main>
     )
   }

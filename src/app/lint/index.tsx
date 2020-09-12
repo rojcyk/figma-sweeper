@@ -12,7 +12,7 @@ interface LintButton {
 const Wrapper = styled.div<{
   active: boolean
 }>`
-  height: 84px;
+  height: 70px;
   padding: 16px;
 
   ${({ active }) =>
