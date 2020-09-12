@@ -10,7 +10,8 @@ import { GlobalStyles } from "./globalStyles"
 import { STYLES_UPDATE } from "../constants/events"
 import ThemeOverview from "./themeOverview"
 import Colors from "./colors"
-import { STYLES_EXPORT, STYLES_DELETE } from "../constants/events"
+import { STYLES_EXPORT, STYLES_DELETE, APP_LINT } from "../constants/events"
+import LinterButton from "./lint/index"
 
 // ******************** //
 // TOP LVL STYLING
@@ -52,6 +53,10 @@ export default class App extends React.Component<Plugin.LaunchProps, Plugin.Stat
     io.send(STYLES_DELETE)
   }
 
+  private lint() {
+    io.send(APP_LINT)
+  }
+
   public componentDidMount() {
     io.on(STYLES_UPDATE, (data) => {
       this.setState({
@@ -81,6 +86,8 @@ export default class App extends React.Component<Plugin.LaunchProps, Plugin.Stat
           isSynced={this.state.isSynced}
           expanded={true}
         />
+
+        <LinterButton linterAction={this.lint} isActive={this.state.isSynced} />
       </Main>
     )
   }
