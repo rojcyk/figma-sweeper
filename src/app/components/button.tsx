@@ -10,7 +10,7 @@ const SharedButtonStyles = styled.button`
   cursor: pointer;
   width: 100%;
   border-radius: 6px;
-  padding: 8px 12px;
+  padding: 10px 12px;
   font-size: 14px;
   font-weight: 500;
   transition: all 0.2s ease-out;
