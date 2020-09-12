@@ -3,10 +3,9 @@ import React from "react"
 import styled from "styled-components"
 
 import { SectionWrapper } from "../components/section"
-import { Description } from "../components/description"
-import Checkbox from "../components/checkbox"
 import { COLOR_SETTINGS_CHANGE } from "../../constants/events"
 import SectionHeader from "../components/sectionHeader"
+import ColorsContent from "./colorsContent"
 
 interface ColorSettingsProp {
   settings: Plugin.ColorSettings
@@ -19,70 +18,8 @@ interface ColorSettingsState {
   settings: Plugin.ColorSettings
 }
 
-const ContentWrapper = styled.div`
-  padding: 0 16px;
-`
-
-const Content = ({
-  onSettingsChange,
-  settings
-}: {
-  onSettingsChange: Function
-  settings: Plugin.ColorSettings
-}) => {
-  return (
-    <ContentWrapper>
-      <Description style={{ paddingBottom: "16px" }}>
-        The plugin will export the styles from this file, and reference them later on when linting.
-      </Description>
-
-      <Checkbox
-        checked={settings.overwriteFills}
-        onCheckboxChange={() => {
-          onSettingsChange("overwriteFills")
-        }}
-      >
-        Overwrite Fills
-      </Checkbox>
-      <Checkbox
-        checked={settings.overwriteStrokes}
-        onCheckboxChange={() => {
-          onSettingsChange("overwriteStrokes")
-        }}
-      >
-        Overwrite Strokes
-      </Checkbox>
-      <Checkbox
-        checked={settings.overwriteStyles}
-        onCheckboxChange={() => {
-          onSettingsChange("overwriteStyles")
-        }}
-      >
-        Ignore opacity
-      </Checkbox>
-      <Checkbox
-        checked={settings.ignoreOpacity}
-        onCheckboxChange={() => {
-          onSettingsChange("ignoreOpacity")
-        }}
-      >
-        Overwrite already set styles
-      </Checkbox>
-      <Checkbox
-        checked={settings.findClosestColor}
-        onCheckboxChange={() => {
-          onSettingsChange("findClosestColor")
-        }}
-      >
-        Assign closest color
-      </Checkbox>
-      <br />
-    </ContentWrapper>
-  )
-}
-
 // ******************** //
-// LOCAL INCLUDES
+// COMPONENT
 // ******************** //
 
 export class SettingsForm extends React.Component<ColorSettingsProp, ColorSettingsState> {
@@ -119,19 +56,16 @@ export class SettingsForm extends React.Component<ColorSettingsProp, ColorSettin
   }
 
   public render() {
+    const expanded = this.props.isSynced ? this.state.expanded : false
     return (
       <SectionWrapper
-        isSynced={this.props.isSynced}
-        expanded={this.props.isSynced ? this.state.expanded : false}
+        isActive={this.props.isSynced}
+        expanded={expanded}
         button={
-          <SectionHeader
-            label={"Colors"}
-            isExpanded={this.state.expanded}
-            isActive={this.props.isSynced}
-          />
+          <SectionHeader label={"Colors"} isExpanded={expanded} isActive={this.props.isSynced} />
         }
         content={
-          <Content
+          <ColorsContent
             settings={this.state.settings}
             onSettingsChange={this.toggleSettings.bind(this)}
           />
