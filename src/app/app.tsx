@@ -7,7 +7,6 @@ import io from "figmaio/ui"
 // ******************** //
 
 import { GlobalStyles } from "./globalStyles"
-import { SettingsForm } from "./setting"
 import { STYLES_UPDATE } from "../constants/events"
 import ThemeOverview from "./themeOverview"
 import Colors from "./colors"
@@ -53,7 +52,7 @@ export default class App extends React.Component<Plugin.LaunchProps, Plugin.Stat
     io.send(STYLES_DELETE)
   }
 
-  public render(): React.ReactNode {
+  public componentDidMount() {
     io.on(STYLES_UPDATE, (data) => {
       this.setState({
         documentName: data.name,
@@ -61,7 +60,9 @@ export default class App extends React.Component<Plugin.LaunchProps, Plugin.Stat
         isSynced: data.name !== ""
       })
     })
+  }
 
+  public render(): React.ReactNode {
     return (
       <Main>
         <GlobalStyles />
