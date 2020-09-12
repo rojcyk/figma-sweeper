@@ -15,6 +15,8 @@ export const Content = ({
   onSettingsChange: Function
   settings: Plugin.ColorSettings
 }) => {
+  console.log(settings)
+
   return (
     <ContentWrapper>
       <Description style={{ paddingBottom: "16px" }}>
@@ -43,7 +45,7 @@ export const Content = ({
           onSettingsChange("overwriteStyles")
         }}
       >
-        Ignore opacity
+        Overwrite already set styles
       </Checkbox>
       <Checkbox
         checked={settings.ignoreOpacity}
@@ -51,7 +53,7 @@ export const Content = ({
           onSettingsChange("ignoreOpacity")
         }}
       >
-        Overwrite already set styles
+        Ignore opacity
       </Checkbox>
       <Checkbox
         checked={settings.findClosestColor}
