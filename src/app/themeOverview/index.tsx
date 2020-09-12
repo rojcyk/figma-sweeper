@@ -18,7 +18,7 @@ export default ({ styles, name, exportStyles, deleteStyles }: Plugin.ThemeOvervi
 
   return (
     <SectionWrapper
-      isSynced={true}
+      isActive={true}
       expanded={isSynced ? expanded : true}
       content={
         <OverviewContent
