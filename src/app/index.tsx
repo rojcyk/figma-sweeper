@@ -20,7 +20,7 @@ const main = async () => {
 
   const appProps = (await io.async(APP_START)) as Plugin.LaunchProps
 
-  console.log(`[Plugin] App props:`)
+  console.log(`[Linter] App props:`)
   console.log(appProps)
 
   /* We are looking for a node (html element) with an ID */

@@ -39,7 +39,7 @@ export const checkIfStyleParsable = (
 
 export const exportStyles = async () => {
   io.on(STYLES_EXPORT, async () => {
-    console.log("Exporting data")
+    console.log("[Linter] Exporting data")
 
     const localStyles = figma.getLocalPaintStyles()
     const name = figma.root.name

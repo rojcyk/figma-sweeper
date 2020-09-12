@@ -5,7 +5,7 @@ import { STYLES_DELETE, STYLES_UPDATE } from "../constants/events"
 
 export const deleteStyles = async () => {
   io.on(STYLES_DELETE, async () => {
-    console.log("Deleting data")
+    console.log("[Linter] Deleting data")
 
     await figma.clientStorage.setAsync(DOCUMENT_NAME, "")
     await figma.clientStorage.setAsync(DOCUMENT_PAINT_STYLES, [])

@@ -100,9 +100,6 @@ export default class App extends React.Component<Plugin.LaunchProps, Plugin.Stat
       openedState: tmpState
     })
 
-    console.log("sending data")
-    console.log(tmpState)
-
     io.send(OPENED_STATE_CHANGE, tmpState)
   }
 
