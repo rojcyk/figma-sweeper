@@ -7,7 +7,9 @@ import { exportStyles } from "./exportStyles"
 import { deleteStyles } from "./deleteStyles"
 import { linter } from "./linter"
 import { settingsListener } from "./settingsListener"
+import { openedStateListener } from "./openedStateListener"
 import { getSettings } from "./getSettings"
+import { getOpenState } from "./getOpenState"
 
 const main = async () => {
   figma.showUI(__html__, {
@@ -20,17 +22,22 @@ const main = async () => {
     DOCUMENT_PAINT_STYLES
   )) as Plugin.ExportedStyle[]
   const settings = await getSettings()
+  const openedState = await getOpenState()
 
   await exportStyles()
   await deleteStyles()
   await linter()
   await settingsListener()
+  await openedStateListener()
+
+  // console.log('openedState')
 
   const launchProps: Plugin.LaunchProps = {
     documentName: name,
     documentPaintStyles: styles,
     settings: settings,
-    isSynced: name !== ""
+    isSynced: name !== "",
+    openedState: openedState
   }
 
   /* When launching the plugin, figma sets a command

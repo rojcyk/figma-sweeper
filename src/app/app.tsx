@@ -7,10 +7,15 @@ import io from "figmaio/ui"
 // ******************** //
 
 import { GlobalStyles } from "./globalStyles"
-import { STYLES_UPDATE } from "../constants/events"
 import ThemeOverview from "./themeOverview"
 import Colors from "./colors"
-import { STYLES_EXPORT, STYLES_DELETE, APP_LINT } from "../constants/events"
+import {
+  STYLES_EXPORT,
+  STYLES_DELETE,
+  APP_LINT,
+  STYLES_UPDATE,
+  OPENED_STATE_CHANGE
+} from "../constants/events"
 import LinterButton from "./lint/index"
 
 // ******************** //
@@ -33,11 +38,19 @@ export default class App extends React.Component<Plugin.LaunchProps, Plugin.Stat
   public constructor(props: any) {
     super(props)
 
+    const openedState: Plugin.OpenedState = this.props.isSynced
+      ? this.props.openedState
+      : {
+          styles: true,
+          colors: false
+        }
+
     this.state = {
       documentName: this.props.documentName,
       documentPaintStyles: this.props.documentPaintStyles,
       settings: this.props.settings,
-      isSynced: this.props.isSynced
+      isSynced: this.props.isSynced,
+      openedState: openedState
     }
   }
 
@@ -47,14 +60,50 @@ export default class App extends React.Component<Plugin.LaunchProps, Plugin.Stat
 
   private exportStyles() {
     io.send(STYLES_EXPORT)
+
+    const newOpenedState: Plugin.OpenedState = {
+      styles: false,
+      colors: false
+    }
+
+    this.setNewOpenedState(newOpenedState)
   }
 
   private deleteStyles() {
     io.send(STYLES_DELETE)
+
+    const newOpenedState: Plugin.OpenedState = {
+      styles: true,
+      colors: false
+    }
+
+    this.setNewOpenedState(newOpenedState)
+  }
+
+  private setNewOpenedState(newOpenedState: Plugin.OpenedState) {
+    this.setState({
+      openedState: newOpenedState
+    })
+    io.send(OPENED_STATE_CHANGE, newOpenedState)
   }
 
   private lint() {
     io.send(APP_LINT)
+  }
+
+  public toogleSection(openedProp: Plugin.OpenedProperties) {
+    let tmpState = this.state.openedState
+
+    tmpState[openedProp] = !tmpState[openedProp]
+
+    this.setState({
+      openedState: tmpState
+    })
+
+    console.log("sending data")
+    console.log(tmpState)
+
+    io.send(OPENED_STATE_CHANGE, tmpState)
   }
 
   public componentDidMount() {
@@ -73,9 +122,11 @@ export default class App extends React.Component<Plugin.LaunchProps, Plugin.Stat
         <GlobalStyles />
 
         <ThemeOverview
-          exportStyles={this.exportStyles}
-          deleteStyles={this.deleteStyles}
+          expanded={this.state.openedState.styles}
+          exportStyles={this.exportStyles.bind(this)}
+          deleteStyles={this.deleteStyles.bind(this)}
           name={this.state.documentName}
+          toggleHandler={this.toogleSection.bind(this)}
           styles={{
             paintStyles: this.state.documentPaintStyles
           }}
@@ -84,7 +135,8 @@ export default class App extends React.Component<Plugin.LaunchProps, Plugin.Stat
         <Colors
           settings={this.state.settings.color}
           isSynced={this.state.isSynced}
-          expanded={true}
+          expanded={this.state.openedState.colors}
+          toggleHandler={this.toogleSection.bind(this)}
         />
 
         <LinterButton linterAction={this.lint} isActive={this.state.isSynced} />

@@ -11,10 +11,10 @@ interface ColorSettingsProp {
   settings: Plugin.ColorSettings
   isSynced: boolean
   expanded: boolean
+  toggleHandler: Function
 }
 
 interface ColorSettingsState {
-  expanded: boolean
   settings: Plugin.ColorSettings
 }
 
@@ -27,7 +27,6 @@ export class SettingsForm extends React.Component<ColorSettingsProp, ColorSettin
     super(props)
 
     this.state = {
-      expanded: props.expanded,
       settings: props.settings
     }
   }
@@ -43,20 +42,8 @@ export class SettingsForm extends React.Component<ColorSettingsProp, ColorSettin
     io.send(COLOR_SETTINGS_CHANGE, tmpSettings)
   }
 
-  public toggleHandler = () => {
-    if (this.state.expanded) {
-      this.setState({
-        expanded: false
-      })
-    } else {
-      this.setState({
-        expanded: true
-      })
-    }
-  }
-
   public render() {
-    const expanded = this.props.isSynced ? this.state.expanded : false
+    const expanded = this.props.isSynced ? this.props.expanded : false
     return (
       <SectionWrapper
         isActive={this.props.isSynced}
@@ -70,7 +57,7 @@ export class SettingsForm extends React.Component<ColorSettingsProp, ColorSettin
             onSettingsChange={this.toggleSettings.bind(this)}
           />
         }
-        buttonHandler={this.toggleHandler}
+        buttonHandler={() => this.props.toggleHandler("colors")}
       />
     )
   }

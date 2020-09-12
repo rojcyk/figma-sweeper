@@ -7,6 +7,14 @@ declare namespace Plugin {
     documentPaintStyles: ExportedStyle[]
     settings: Settings
     isSynced: boolean
+    openedState: OpenedState
+  }
+
+  type OpenedProperties = "styles" | "colors"
+
+  interface OpenedState {
+    styles: boolean
+    colors: boolean
   }
 
   interface StateProps extends LaunchProps {}
@@ -45,6 +53,8 @@ declare namespace Plugin {
     }
     exportStyles: Function
     deleteStyles: Function
+    toggleHandler: Function
+    expanded: boolean
   }
 
   type ColorSettingsProp =

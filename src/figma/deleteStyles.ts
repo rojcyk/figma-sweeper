@@ -1,6 +1,6 @@
 import io from "figmaio/code"
 
-import { DOCUMENT_NAME, DOCUMENT_PAINT_STYLES } from "../constants/storage"
+import { DOCUMENT_NAME, DOCUMENT_PAINT_STYLES, OPENED_STATE } from "../constants/storage"
 import { STYLES_DELETE, STYLES_UPDATE } from "../constants/events"
 
 export const deleteStyles = async () => {

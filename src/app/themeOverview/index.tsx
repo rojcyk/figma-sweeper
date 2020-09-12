@@ -7,19 +7,20 @@ import OverviewContent from "./themeOverviewContent"
 // LOCAL INCLUDES
 // ******************** //
 
-export default ({ styles, name, exportStyles, deleteStyles }: Plugin.ThemeOverviewI) => {
+export default ({
+  styles,
+  name,
+  exportStyles,
+  deleteStyles,
+  expanded,
+  toggleHandler
+}: Plugin.ThemeOverviewI) => {
   const isSynced = name !== ""
-  const [expanded, setExpanded] = React.useState(true)
-
-  const toggleHandler = () => {
-    if (expanded) setExpanded(false)
-    else setExpanded(true)
-  }
 
   return (
     <SectionWrapper
       isActive={true}
-      expanded={isSynced ? expanded : true}
+      expanded={expanded}
       content={
         <OverviewContent
           exportStyles={exportStyles}
@@ -31,14 +32,14 @@ export default ({ styles, name, exportStyles, deleteStyles }: Plugin.ThemeOvervi
       }
       button={
         <OverviewHeader
-          expanded={isSynced ? expanded : true}
+          expanded={expanded}
           showArrow={isSynced ? true : false}
           name={name}
           paintStyles={styles.paintStyles.length}
           isSynced={isSynced}
         />
       }
-      buttonHandler={toggleHandler}
+      buttonHandler={() => toggleHandler("styles")}
     />
   )
 }
