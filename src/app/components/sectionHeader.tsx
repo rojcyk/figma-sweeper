@@ -3,15 +3,16 @@ import styled from "styled-components"
 
 import { Headline } from "../components/headline"
 import { Arrow } from "../icons/arrow"
-import { BACKGROUND, WHITE } from "../../constants/ui"
+import { BACKGROUND, WHITE, ANIMATION_SPEED_MS } from "../../constants/ui"
 
-const HeaderWrapper = styled.div<{ isSynced: boolean }>`
+const HeaderWrapper = styled.div<{ isActive: boolean }>`
   display: flex;
   align-items: center;
   padding: 16px 16px;
+  transition: all ${ANIMATION_SPEED_MS}ms;
 
-  ${({ isSynced }) =>
-    isSynced
+  ${({ isActive }) =>
+    isActive
       ? `
       background-color: ${WHITE};
     `
@@ -39,7 +40,7 @@ export default ({
   label: string
 }) => {
   return (
-    <HeaderWrapper isSynced={isActive}>
+    <HeaderWrapper isActive={isActive}>
       <Arrow
         direction={isExpanded ? "down" : "right"}
         style={{ opacity: isActive ? "1" : "0.25" }}

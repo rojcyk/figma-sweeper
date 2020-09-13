@@ -1,9 +1,10 @@
 import * as React from "react"
 import styled from "styled-components"
+import { ANIMATION_SPEED_MS } from "../../constants/ui"
 
 const ArrowStyles = styled.svg`
   margin-right: 12px;
-  transition: all ${220}ms ease-out;
+  transition: all ${ANIMATION_SPEED_MS}ms ease-out;
 `
 
 interface ArrowProps {

@@ -1,6 +1,6 @@
 export const WINDOW_WIDTH = 320
 export const WINDOW_HEIGHT = 520
-export const ANIMATION_SPEED = "300ms"
+export const ANIMATION_SPEED_MS = 300
 
 export const WHITE = "#FFFFFF"
 export const BLACK = "#26303B"
