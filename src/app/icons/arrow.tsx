@@ -1,16 +1,33 @@
 import * as React from "react"
 import styled from "styled-components"
+
+// ******************** //
+// LOCAL INCLUDES
+// ******************** //
+
 import { ANIMATION_SPEED_MS } from "../../constants/ui"
+
+// ******************** //
+// Styles
+// ******************** //
 
 const ArrowStyles = styled.svg`
   margin-right: 12px;
   transition: all ${ANIMATION_SPEED_MS}ms ease-out;
 `
 
+// ******************** //
+// Interface
+// ******************** //
+
 interface ArrowProps {
   style?: React.CSSProperties
   direction: "up" | "down" | "left" | "right"
 }
+
+// ******************** //
+// Component
+// ******************** //
 
 export const Arrow: React.StatelessComponent<ArrowProps> = (props: ArrowProps) => {
   let transform

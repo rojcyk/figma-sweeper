@@ -1,12 +1,12 @@
 import io from "figmaio/code"
-import { APP_LINT } from "../constants/events"
-import { ColorIndex } from "./colorIndex"
-import { importStyles } from "./importStyles"
-import asyncForEach from "../helpers/asyncForEach"
-import { handleNode } from "./nodeHandler"
-import { getSettings } from "./getSettings"
+import { APP_LINT } from "../../constants/events"
+import { ColorIndex } from "../colorIndex"
+import { importStyles } from "../importStyles"
+import asyncForEach from "../../helpers/asyncForEach"
+import { handleNode } from "../nodeHandler"
+import { getSettings } from "../getSettings"
 
-export const linter = async () => {
+export const linterListener = async () => {
   io.on(APP_LINT, async () => {
     const settings = await getSettings()
     const imported = await importStyles()

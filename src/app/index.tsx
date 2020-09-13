@@ -2,6 +2,10 @@ import * as React from "react"
 import * as ReactDOM from "react-dom"
 import io from "figmaio/ui"
 
+// ******************** //
+// LOCAL INCLUDES
+// ******************** //
+
 import { APP_START } from "../constants/events"
 import App from "./app"
 

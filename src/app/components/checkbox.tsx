@@ -1,6 +1,15 @@
 import React from "react"
-import { Check } from "../components/check"
 import styled from "styled-components"
+
+// ******************** //
+// LOCAL INCLUDES
+// ******************** //
+
+import { Check } from "../components/check"
+
+// ******************** //
+// TOP LVL STYLING
+// ******************** //
 
 const CheckboxWrapper = styled.div`
   display: flex;
@@ -23,6 +32,10 @@ const CheckboxLabel = styled.span<{
   font-weight: 500;
 `
 
+// ******************** //
+// COMPONENT
+// ******************** //
+
 const Checkbox = ({
   checked,
   children,
@@ -41,5 +54,9 @@ const Checkbox = ({
     </CheckboxWrapper>
   )
 }
+
+// ******************** //
+// EXPORT
+// ******************** //
 
 export default Checkbox

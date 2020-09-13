@@ -1,10 +1,15 @@
 import React from "react"
-import { SectionWrapper } from "../components/section"
-import OverviewHeader from "./themeOverviewHeader"
-import OverviewContent from "./themeOverviewContent"
 
 // ******************** //
 // LOCAL INCLUDES
+// ******************** //
+
+import { SectionWrapper } from "../components/section"
+import StylesHeader from "./stylesHeader"
+import StylesContent from "./stylesContent"
+
+// ******************** //
+// Component
 // ******************** //
 
 export default ({
@@ -21,7 +26,7 @@ export default ({
       isActive={true}
       expanded={expanded}
       content={
-        <OverviewContent
+        <StylesContent
           exportStyles={exportStyles}
           deleteStyles={deleteStyles}
           name={name}
@@ -30,7 +35,7 @@ export default ({
         />
       }
       header={
-        <OverviewHeader
+        <StylesHeader
           expanded={expanded}
           showArrow={isSynced ? true : false}
           name={name}

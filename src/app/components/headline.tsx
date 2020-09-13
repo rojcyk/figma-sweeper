@@ -1,20 +1,24 @@
 import React from "react"
 import styled from "styled-components"
 
+// ******************** //
+// LOCAL INCLUDES
+// ******************** //
+
 import { BLACK } from "../../constants/ui"
 
-// ******************************** //
+// ******************** //
 // Interface
-// ******************************** //
+// ******************** //
 
 export interface HeadlineProps {
   children: any
   style?: React.CSSProperties
 }
 
-// ******************************** //
+// ******************** //
 // Styles
-// ******************************** //
+// ******************** //
 
 export const HeadlineStyle = styled.span`
   display: block;
@@ -25,9 +29,9 @@ export const HeadlineStyle = styled.span`
   padding: 0;
 `
 
-// ******************************** //
-// Section Class
-// ******************************** //
+// ******************** //
+// Component
+// ******************** //
 
 export const Headline = ({ children, style }: HeadlineProps) => {
   return <HeadlineStyle style={style}>{children}</HeadlineStyle>

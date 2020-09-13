@@ -1,11 +1,18 @@
 import io from "figmaio/ui"
 import React from "react"
-import styled from "styled-components"
+
+// ******************** //
+// LOCAL INCLUDES
+// ******************** //
 
 import { SectionWrapper } from "../components/section"
 import { COLOR_SETTINGS_CHANGE } from "../../constants/events"
 import SectionHeader from "../components/sectionHeader"
 import ColorsContent from "./colorsContent"
+
+// ******************** //
+// Types
+// ******************** //
 
 interface ColorSettingsProp {
   settings: Plugin.ColorSettings
@@ -62,5 +69,9 @@ export class SettingsForm extends React.Component<ColorSettingsProp, ColorSettin
     )
   }
 }
+
+// ******************** //
+// EXPORT
+// ******************** //
 
 export default SettingsForm

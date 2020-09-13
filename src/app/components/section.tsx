@@ -2,11 +2,15 @@ import React from "react"
 import styled from "styled-components"
 import AnimateHeight from "react-animate-height"
 
+// ******************** //
+// LOCAL INCLUDES
+// ******************** //
+
 import { WHITE, SEPARATOR, ANIMATION_SPEED_MS } from "../../constants/ui"
 
-// ******************************** //
+// ******************** //
 // Interface
-// ******************************** //
+// ******************** //
 
 export interface SectionProps {
   expanded: boolean
@@ -16,9 +20,9 @@ export interface SectionProps {
   isActive: boolean
 }
 
-// ******************************** //
-// Styles
-// ******************************** //
+// ******************** //
+// LOCAL HELPERS
+// ******************** //
 
 const Wrapper = styled.div<{
   expanded: boolean
@@ -30,9 +34,9 @@ const Wrapper = styled.div<{
     props.expanded ? `4px solid ${SEPARATOR}` : `1px solid ${SEPARATOR}`};
 `
 
-// ******************************** //
-// Section Class
-// ******************************** //
+// ******************** //
+// Component
+// ******************** //
 
 export const SectionWrapper = ({
   content,

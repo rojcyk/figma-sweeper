@@ -1,12 +1,24 @@
 import * as React from "react"
 import styled from "styled-components"
 
+// ******************** //
+// Interface
+// ******************** //
+
 interface Props {
   style?: React.CSSProperties
   onClick?: Function
 }
 
+// ******************** //
+// Styles
+// ******************** //
+
 const CloseStyle = styled.svg``
+
+// ******************** //
+// Components
+// ******************** //
 
 export const Close = (props: Props) => {
   return (

@@ -1,12 +1,17 @@
 import React from "react"
 import styled from "styled-components"
+
+// ******************** //
+// LOCAL INCLUDES
+// ******************** //
+
 import { Close } from "../icons/close"
 import { Headline } from "../components/headline"
 import { Description } from "../components/description"
 import { ButtonPrimary, ButtonSecondaryStyle } from "../components/button"
 
 // ******************** //
-// LOCAL INCLUDES
+// Styles
 // ******************** //
 
 const ContentWrapper = styled.div`
@@ -20,6 +25,10 @@ const CloseWrapper = styled.div`
     background-color: #dde3ed;
   }
 `
+
+// ******************** //
+// Helpers
+// ******************** //
 
 const LoadedStylesButton = ({
   name,
@@ -45,6 +54,10 @@ const LoadedStylesButton = ({
     </ButtonSecondaryStyle>
   )
 }
+
+// ******************** //
+// Component
+// ******************** //
 
 export default ({
   name,

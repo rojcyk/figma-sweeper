@@ -1,10 +1,14 @@
 import * as React from "react"
 import styled from "styled-components"
 
+// ******************** //
+// LOCAL INCLUDES
+// ******************** //
+
 import { GRAY, BLACK, BACKGROUND, SEPARATOR } from "../constants/ui"
 
 // ******************** //
-// UI
+// Styles
 // ******************** //
 
 const FooterWrapper = styled.div`
@@ -35,6 +39,10 @@ const Spacer = styled.span`
   margin-left: 4px;
   margin-right: 4px;
 `
+
+// ******************** //
+// Component
+// ******************** //
 
 export const Footer = () => {
   return (

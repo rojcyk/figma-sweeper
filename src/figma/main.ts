@@ -3,11 +3,11 @@ import io from "figmaio/code"
 import { APP_START } from "../constants/events"
 import { WINDOW_HEIGHT, WINDOW_WIDTH } from "../constants/ui"
 import { DOCUMENT_NAME, DOCUMENT_PAINT_STYLES, COLOR_SETTINGS } from "../constants/storage"
-import { exportStyles } from "./exportStyles"
-import { deleteStyles } from "./deleteStyles"
-import { linter } from "./linter"
-import { settingsListener } from "./settingsListener"
-import { openedStateListener } from "./openedStateListener"
+import { exportStylesListener } from "./listeners/exportStylesListener"
+import { deleteStylesListener } from "./listeners/deleteStylesListener"
+import { linterListener } from "./listeners/linterListener"
+import { settingsListener } from "./listeners/settingsListener"
+import { openedStateListener } from "./listeners/openedStateListener"
 import { getSettings } from "./getSettings"
 import { getOpenState } from "./getOpenState"
 
@@ -24,9 +24,9 @@ const main = async () => {
   const settings = await getSettings()
   const openedState = await getOpenState()
 
-  await exportStyles()
-  await deleteStyles()
-  await linter()
+  await exportStylesListener()
+  await deleteStylesListener()
+  await linterListener()
   await settingsListener()
   await openedStateListener()
 

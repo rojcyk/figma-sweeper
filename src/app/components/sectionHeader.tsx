@@ -1,9 +1,17 @@
 import React from "react"
 import styled from "styled-components"
 
+// ******************** //
+// LOCAL INCLUDES
+// ******************** //
+
 import { Headline } from "../components/headline"
 import { Arrow } from "../icons/arrow"
 import { BACKGROUND, WHITE, ANIMATION_SPEED_MS } from "../../constants/ui"
+
+// ******************** //
+// Helpers
+// ******************** //
 
 const HeaderWrapper = styled.div<{ isActive: boolean }>`
   position: relative;
@@ -72,6 +80,10 @@ const LabelWrapper = styled.div<{ isActive: boolean }>`
       text-shadow: 0 1px 0 ${WHITE};
     `}
 `
+
+// ******************** //
+// Component
+// ******************** //
 
 export default ({
   isExpanded,

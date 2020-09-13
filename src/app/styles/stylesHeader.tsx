@@ -11,6 +11,10 @@ import { Arrow } from "../icons/arrow"
 import { ANIMATION_SPEED_MS, BACKGROUND, WHITE } from "../../constants/ui"
 import { HeaderBackground } from "../components/sectionHeader"
 
+// ******************** //
+// Styles
+// ******************** //
+
 const ButtonWrapper = styled.div<{
   isSynced: boolean
 }>`
@@ -61,6 +65,10 @@ const LoadedStyle = styled.div<{
   left: 30px;
   opacity: ${({ expanded }) => (expanded ? "0" : "1")};
 `
+
+// ******************** //
+// Components
+// ******************** //
 
 export default ({
   expanded,

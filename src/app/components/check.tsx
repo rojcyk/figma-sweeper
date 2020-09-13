@@ -1,5 +1,14 @@
 import styled from "styled-components"
+
+// ******************** //
+// LOCAL INCLUDES
+// ******************** //
+
 import { WHITE } from "../../constants/ui"
+
+// ******************** //
+// TOP LVL STYLING
+// ******************** //
 
 export const Check = styled.div<{
   checked: boolean

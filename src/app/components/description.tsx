@@ -1,20 +1,24 @@
 import React from "react"
 import styled from "styled-components"
 
+// ******************** //
+// LOCAL INCLUDES
+// ******************** //
+
 import { GRAY, BLUE } from "../../constants/ui"
 
-// ******************************** //
+// ******************** //
 // Interface
-// ******************************** //
+// ******************** //
 
 export interface DescriptionProps {
   children: any
   style?: React.CSSProperties
 }
 
-// ******************************** //
+// ******************** //
 // Styles
-// ******************************** //
+// ******************** //
 
 export const DescriptionStyle = styled.p`
   display: block;
@@ -31,9 +35,9 @@ export const DescriptionStyle = styled.p`
   }
 `
 
-// ******************************** //
-// Section Class
-// ******************************** //
+// ******************** //
+// Component
+// ******************** //
 
 export const Description = ({ children, style }: DescriptionProps) => {
   return <DescriptionStyle style={style}>{children}</DescriptionStyle>

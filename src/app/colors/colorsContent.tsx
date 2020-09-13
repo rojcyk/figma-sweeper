@@ -1,12 +1,25 @@
 import React from "react"
 import styled from "styled-components"
 
+// ******************** //
+// LOCAL INCLUDES
+// ******************** //
+
 import { Description } from "../components/description"
 import Checkbox from "../components/checkbox"
+
+// ******************** //
+// TOP LVL STYLING
+// ******************** //
 
 const ContentWrapper = styled.div`
   padding: 0 16px;
 `
+
+// ******************** //
+// COMPONENT
+// ******************** //
+
 export const Content = ({
   onSettingsChange,
   settings
@@ -64,5 +77,9 @@ export const Content = ({
     </ContentWrapper>
   )
 }
+
+// ******************** //
+// EXPORT
+// ******************** //
 
 export default Content

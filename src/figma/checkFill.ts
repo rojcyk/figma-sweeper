@@ -1,5 +1,5 @@
 import { ColorIndex } from "./colorIndex"
-import { checkIfStyleParsable } from "./exportStyles"
+import { checkIfStyleParsable } from "./listeners/exportStylesListener"
 
 export const checkFills = (node: any, colorIndex: ColorIndex, settings: Plugin.Settings) => {
   // When there is no fill, we have nothing to do

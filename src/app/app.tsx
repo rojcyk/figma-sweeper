@@ -7,7 +7,7 @@ import io from "figmaio/ui"
 // ******************** //
 
 import { GlobalStyles } from "./globalStyles"
-import ThemeOverview from "./themeOverview"
+import Styles from "./styles"
 import Colors from "./colors"
 import {
   STYLES_EXPORT,
@@ -119,7 +119,7 @@ export default class App extends React.Component<Plugin.LaunchProps, Plugin.Stat
       <Main>
         <GlobalStyles />
 
-        <ThemeOverview
+        <Styles
           isSynced={this.state.isSynced}
           expanded={this.state.openedState.styles}
           name={this.state.documentName}

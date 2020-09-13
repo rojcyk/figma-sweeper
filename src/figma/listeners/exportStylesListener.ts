@@ -1,7 +1,7 @@
 import io from "figmaio/code"
 
-import { DOCUMENT_NAME, DOCUMENT_PAINT_STYLES } from "../constants/storage"
-import { STYLES_EXPORT, STYLES_UPDATE } from "../constants/events"
+import { DOCUMENT_NAME, DOCUMENT_PAINT_STYLES } from "../../constants/storage"
+import { STYLES_EXPORT, STYLES_UPDATE } from "../../constants/events"
 
 export const checkIfStyleParsable = (
   paints: readonly Paint[] | PaintStyle[]
@@ -37,7 +37,7 @@ export const checkIfStyleParsable = (
   ]
 }
 
-export const exportStyles = async () => {
+export const exportStylesListener = async () => {
   io.on(STYLES_EXPORT, async () => {
     console.log("[Linter] Exporting data")
 

@@ -1,13 +1,24 @@
 import React from "react"
 import styled from "styled-components"
+
+// ******************** //
+// LOCAL INCLUDES
+// ******************** //
+
 import { ButtonSecondary, ButtonDisabledStyle } from "../components/button"
-// import OverviewHeader from "./themeOverviewHeader"
-// import OverviewContent from "./themeOverviewContent"
+
+// ******************** //
+// Interface
+// ******************** //
 
 interface LintButton {
   isActive: boolean
   linterAction: Function
 }
+
+// ******************** //
+// Helpers
+// ******************** //
 
 const Wrapper = styled.div<{
   active: boolean
@@ -27,7 +38,7 @@ const Wrapper = styled.div<{
 `
 
 // ******************** //
-// LOCAL INCLUDES
+// Component
 // ******************** //
 
 export default ({ isActive, linterAction }: LintButton) => {

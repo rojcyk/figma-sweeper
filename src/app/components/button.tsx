@@ -1,5 +1,10 @@
 import React from "react"
 import styled from "styled-components"
+
+// ******************** //
+// LOCAL INCLUDES
+// ******************** //
+
 import { BLACK, WHITE, BLUE, BACKGROUND, SEPARATOR } from "../../constants/ui"
 
 // ******************************** //
