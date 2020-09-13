@@ -4,7 +4,6 @@ import styled from "styled-components"
 import { Headline } from "../components/headline"
 import { Arrow } from "../icons/arrow"
 import { BACKGROUND, WHITE, ANIMATION_SPEED_MS } from "../../constants/ui"
-import { relative } from "path"
 
 const HeaderWrapper = styled.div<{ isActive: boolean }>`
   position: relative;
