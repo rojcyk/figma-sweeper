@@ -1,5 +1,5 @@
-import { checkFills } from "./checkFill"
-import { checkStrokes } from "./checkStroke"
+import { checkFills } from "./checkers/checkFill"
+import { checkStrokes } from "./checkers/checkStroke"
 import { traverse } from "./traverse"
 import { ColorIndex } from "./colorIndex"
 

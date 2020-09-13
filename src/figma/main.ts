@@ -30,8 +30,6 @@ const main = async () => {
   await settingsListener()
   await openedStateListener()
 
-  // console.log('openedState')
-
   const launchProps: Plugin.LaunchProps = {
     documentName: name,
     documentPaintStyles: styles,
