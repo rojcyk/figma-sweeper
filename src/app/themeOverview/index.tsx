@@ -13,10 +13,9 @@ export default ({
   exportStyles,
   deleteStyles,
   expanded,
-  toggleHandler
+  toggleHandler,
+  isSynced
 }: Plugin.ThemeOverviewI) => {
-  const isSynced = name !== ""
-
   return (
     <SectionWrapper
       isActive={true}
@@ -30,7 +29,7 @@ export default ({
           isSynced={isSynced}
         />
       }
-      button={
+      header={
         <OverviewHeader
           expanded={expanded}
           showArrow={isSynced ? true : false}
@@ -39,7 +38,9 @@ export default ({
           isSynced={isSynced}
         />
       }
-      buttonHandler={() => toggleHandler("styles")}
+      toggleHandler={() => {
+        if (isSynced) toggleHandler("styles")
+      }}
     />
   )
 }

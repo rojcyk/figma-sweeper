@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import { BLACK, WHITE, BLUE, BACKGROUND } from "../../constants/ui"
+import { BLACK, WHITE, BLUE, BACKGROUND, SEPARATOR } from "../../constants/ui"
 
 // ******************************** //
 // Styles
@@ -33,7 +33,7 @@ export const ButtonPripmaryStyle = styled(SharedButtonStyles)`
 
 export const ButtonSecondaryStyle = styled(SharedButtonStyles)`
   background-color: #f7f8fa;
-  border: 1px solid #d1d8e2;
+  border: 1px solid ${SEPARATOR};
   color: ${BLACK};
   fill: ${BLACK} !important;
   text-shadow: 0 1px 0 ${WHITE};

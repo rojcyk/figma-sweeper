@@ -55,6 +55,7 @@ declare namespace Plugin {
     deleteStyles: Function
     toggleHandler: Function
     expanded: boolean
+    isSynced: boolean
   }
 
   type ColorSettingsProp =

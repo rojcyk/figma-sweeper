@@ -8,31 +8,46 @@ import styled from "styled-components"
 import { Headline, HeadlineStyle } from "../components/headline"
 import { Description } from "../components/description"
 import { Arrow } from "../icons/arrow"
+import { ANIMATION_SPEED_MS, BACKGROUND } from "../../constants/ui"
 
 const HeadlineAnimated = styled(HeadlineStyle)<{
   expanded: boolean
 }>`
   user-select: none;
-  transition: all 0.2s ease-out;
+  transition: all ${ANIMATION_SPEED_MS}ms ease-out;
   position: absolute;
   top: ${({ expanded }) => (expanded ? "19px" : "0")};
   left: 32px;
   opacity: ${({ expanded }) => (expanded ? "1" : "0")};
 `
 
-const ButtonWrapper = styled.div`
+const ButtonWrapper = styled.div<{
+  isSynced: boolean
+}>`
   display: flex;
   align-items: center;
   padding-left: 16px;
   height: 56px;
   position: relative;
+  transition: all ${ANIMATION_SPEED_MS}ms ease-out;
+
+  ${({ isSynced }) =>
+    isSynced
+      ? `
+        &:hover {
+          background-color: ${BACKGROUND};
+          transition: all ${ANIMATION_SPEED_MS}ms ease-out;
+        }
+  `
+      : `
+  `}
 `
 
 const LoadedStyle = styled.div<{
   expanded: boolean
 }>`
   user-select: none;
-  transition: all 0.2s ease-out;
+  transition: all ${ANIMATION_SPEED_MS}ms ease-out;
   position: absolute;
   top: ${({ expanded }) => (expanded ? "24px" : "10px")};
   left: 30px;
@@ -54,9 +69,10 @@ export default ({
 }) => {
   return (
     <ButtonWrapper
+      isSynced={isSynced}
       style={{
-        cursor: showArrow ? "pointer" : "default",
-        pointerEvents: isSynced ? "none" : "auto"
+        cursor: isSynced ? "pointer" : "default",
+        pointerEvents: isSynced ? "auto" : "none"
       }}
     >
       <Arrow

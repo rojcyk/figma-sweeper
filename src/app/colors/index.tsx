@@ -48,7 +48,7 @@ export class SettingsForm extends React.Component<ColorSettingsProp, ColorSettin
       <SectionWrapper
         isActive={this.props.isSynced}
         expanded={expanded}
-        button={
+        header={
           <SectionHeader label={"Colors"} isExpanded={expanded} isActive={this.props.isSynced} />
         }
         content={
@@ -57,7 +57,7 @@ export class SettingsForm extends React.Component<ColorSettingsProp, ColorSettin
             onSettingsChange={this.toggleSettings.bind(this)}
           />
         }
-        buttonHandler={() => this.props.toggleHandler("colors")}
+        toggleHandler={() => this.props.toggleHandler("colors")}
       />
     )
   }

@@ -7,7 +7,6 @@ import Checkbox from "../components/checkbox"
 const ContentWrapper = styled.div`
   padding: 0 16px;
 `
-
 export const Content = ({
   onSettingsChange,
   settings
@@ -17,7 +16,7 @@ export const Content = ({
 }) => {
   return (
     <ContentWrapper>
-      <Description style={{ paddingBottom: "16px" }}>
+      <Description style={{ paddingBottom: "16px", paddingTop: "6px" }}>
         The plugin will export the styles from this file, and reference them later on when linting.
       </Description>
 

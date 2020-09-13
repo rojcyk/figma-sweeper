@@ -9,12 +9,18 @@ const HeaderWrapper = styled.div<{ isActive: boolean }>`
   display: flex;
   align-items: center;
   padding: 16px 16px;
-  transition: all ${ANIMATION_SPEED_MS}ms;
 
   ${({ isActive }) =>
     isActive
       ? `
+      transition: all ${ANIMATION_SPEED_MS}ms ease-out;
       background-color: ${WHITE};
+      cursor: pointer;
+
+      &:hover {
+        background-color: ${BACKGROUND};
+        transition: all ${ANIMATION_SPEED_MS}ms ease-out;
+      }
     `
       : `
       svg,

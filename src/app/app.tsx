@@ -120,14 +120,15 @@ export default class App extends React.Component<Plugin.LaunchProps, Plugin.Stat
         <GlobalStyles />
 
         <ThemeOverview
+          isSynced={this.state.isSynced}
           expanded={this.state.openedState.styles}
-          exportStyles={this.exportStyles.bind(this)}
-          deleteStyles={this.deleteStyles.bind(this)}
           name={this.state.documentName}
-          toggleHandler={this.toogleSection.bind(this)}
           styles={{
             paintStyles: this.state.documentPaintStyles
           }}
+          exportStyles={this.exportStyles.bind(this)}
+          deleteStyles={this.deleteStyles.bind(this)}
+          toggleHandler={this.toogleSection.bind(this)}
         />
 
         <Colors
