@@ -2,7 +2,11 @@
   <img src="./cover.png">
 </p>
 
-Figma plugins can be very simple, or as complex you want them to be. This Figma plugin boilerplate is opinionated and is optimized for a feature rich and larger plugins. It is heavily inspired from [viewports-client](https://github.com/rojcyk/viewports-client).
+# ReConnect
+
+**ReConnect is a [Figma](https://figmac.com/) plugin**
+
+ReConnect will help you connect your designs with your design system. Just upload your styles, select an artboard you want to lint, and everything in it will get connected to your predefined styles. Automatically.
 
 ### Dependencies
 
@@ -11,3 +15,14 @@ Figma plugins can be very simple, or as complex you want them to be. This Figma 
 - It uses [Webpack](https://webpack.js.org/) to create a bundle.
 - It is a [React App](https://reactjs.org/).
 - And the components are styled with [styled-components](https://github.com/styled-components/styled-components) 🤯
+
+# Installation
+
+Is quite simple and there is not much to it.
+
+1. Clone the repo
+2. Create a [manifest.json file](https://www.figma.com/plugin-docs/manifest/) and add it to the repo _(.gitignore it though)_
+3. Install the requirements with `npm install` or `yarn install`
+4. Watch the files with `yarn dev` command
+5. Or make a production build with `yarn build`
+6. Load and develop the app in [Figma Desktop app](https://www.figma.com/downloads/)
