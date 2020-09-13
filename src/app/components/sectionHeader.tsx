@@ -14,13 +14,23 @@ const HeaderWrapper = styled.div<{ isActive: boolean }>`
     isActive
       ? `
       cursor: pointer;
+
+      .background {
+        background-color: ${WHITE};
+      }
+
+      &:hover {
+        .background {
+          background-color: ${BACKGROUND};
+        }
+      }
       `
       : `
       cursor: default;
   `}
 `
 
-const HeaderBackground = styled.div<{ isExpanded: boolean }>`
+export const HeaderBackground = styled.div<{ isExpanded: boolean }>`
   z-index: 1;
   position: absolute;
   top: 0;
@@ -28,12 +38,6 @@ const HeaderBackground = styled.div<{ isExpanded: boolean }>`
   width: 100%;
   height: 100%;
   transition: all ${ANIMATION_SPEED_MS}ms ease-out;
-
-  background-color: ${WHITE};
-
-  &:hover {
-    background-color: ${BACKGROUND};
-  }
 
   ${({ isExpanded }) =>
     isExpanded
@@ -92,7 +96,7 @@ export default ({
         />
         <Headline style={{ zIndex: 10, position: "relative" }}>{label}</Headline>
       </LabelWrapper>
-      <HeaderBackground isExpanded={isExpanded} />
+      <HeaderBackground className="background" isExpanded={isExpanded} />
     </HeaderWrapper>
   )
 }
