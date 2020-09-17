@@ -1,13 +1,17 @@
 {
   "private": true,
-  "name": "figma-reconnect",
+  "name": "figma-sweeper",
   "version": "1.0.0",
   "description": "Reconnect your disconnected styles!",
   "author": "Denis Rojcyk <denis@rojcyk.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/rojcyk/figma-reconnect.git"
+    "url": "https://github.com/rojcyk/figma-sweeper.git"
+  },
+  "bugs": {
+    "url" : "https://github.com/rojcyk/figma-sweeper/issues",
+    "email" : "sweeper@rojcyk.com"
   },
   "scripts": {
     "dev": "NODE_ENV=development node ./node_modules/webpack-cli/bin/cli.js --mode=development --watch",
