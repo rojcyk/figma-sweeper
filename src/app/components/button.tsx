@@ -42,11 +42,11 @@ export const ButtonSecondaryStyle = styled(SharedButtonStyles)`
   color: ${BLACK};
   fill: ${BLACK} !important;
   text-shadow: 0 1px 0 ${WHITE};
-  box-shadow: inset 0 2px ${WHITE}, 0 4px 8px rgba(0, 0, 0, 0.16);
+  box-shadow: inset 0 2px ${WHITE}, 0 3px 6px rgba(0, 0, 0, 0.12);
 
   &:hover {
     background-color: ${WHITE};
-    box-shadow: inset 0 1px 0 ${WHITE}, 0 2px 4px rgba(0, 0, 0, 0.14);
+    box-shadow: inset 0 1px 0 ${WHITE}, 0 2px 4px rgba(0, 0, 0, 0.08);
   }
 `
 
