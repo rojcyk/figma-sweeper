@@ -2,11 +2,11 @@
   <img src="./cover.png">
 </p>
 
-# ReConnect
+# Sweeper
 
-**ReConnect is a [Figma](https://figmac.com/) plugin**
+**Sweeper is a [Figma](https://figma.com/) plugin**
 
-ReConnect will help you connect your designs with your design system. Just upload your styles, select an artboard you want to lint, and everything in it will get connected to your predefined styles. Automatically.
+Sweeper will help you connect your designs with your design system. Just upload your styles, select an artboard you want to lint, and everything in it will get connected to your predefined styles. Automatically.
 
 ### Dependencies
 
