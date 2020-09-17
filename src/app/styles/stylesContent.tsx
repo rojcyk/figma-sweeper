@@ -74,7 +74,7 @@ export default ({
 }) => {
   return (
     <ContentWrapper>
-      <Description style={{ marginBottom: "12px", marginTop: "4px" }}>
+      <Description style={{ marginBottom: "12px" }}>
         The plugin will export the styles from the file and reference them later on when linting. If
         you would like to use it in other files, you need to{" "}
         <a

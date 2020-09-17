@@ -29,8 +29,9 @@ export const Content = ({
 }) => {
   return (
     <ContentWrapper>
-      <Description style={{ paddingBottom: "16px", paddingTop: "6px" }}>
-        The plugin will export the styles from this file, and reference them later on when linting.
+      <Description style={{ paddingBottom: "16px", paddingTop: "0" }}>
+        When linting, the plugin will go through all the elements, and match their colors to the
+        uploaded styles.
       </Description>
 
       <Checkbox
