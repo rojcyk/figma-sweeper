@@ -47,7 +47,7 @@ const Spacer = styled.span`
 export const Footer = () => {
   return (
     <FooterWrapper>
-      <a target="_blank" href="https://github.com/rojcyk/figma-reconnect/issues">
+      <a target="_blank" href="https://github.com/rojcyk/figma-sweeper/issues">
         Report bugs
       </a>
       <Spacer>•</Spacer>
