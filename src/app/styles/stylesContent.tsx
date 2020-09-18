@@ -21,6 +21,7 @@ const ContentWrapper = styled.div`
 const CloseWrapper = styled.div`
   border-radius: 4px;
   transition: all 0.2s ease-out;
+  cursor: pointer;
   &:hover {
     background-color: #dde3ed;
   }
@@ -41,7 +42,12 @@ const LoadedStylesButton = ({
 }) => {
   return (
     <ButtonSecondaryStyle
-      style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}
+      style={{
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        cursor: "default"
+      }}
     >
       <div style={{ textAlign: "left", display: "inline-block" }}>
         <Headline style={{ fontWeight: 700, fontSize: "14px" }}>{name}</Headline>
