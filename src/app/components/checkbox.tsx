@@ -6,6 +6,7 @@ import styled from "styled-components"
 // ******************** //
 
 import { Check } from "../components/check"
+import { WHITE } from "../../constants/ui"
 
 // ******************** //
 // TOP LVL STYLING
@@ -18,8 +19,11 @@ const CheckboxWrapper = styled.div`
   padding: 4px;
   border-radius: 4px;
   cursor: pointer;
+  background-color: ${WHITE};
+  transition: all 160ms ease-out;
 
   &:hover {
+    transition: all 160ms ease-out;
     background-color: #f2f4f7;
   }
 `
