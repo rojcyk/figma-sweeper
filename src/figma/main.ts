@@ -17,10 +17,10 @@ const main = async () => {
     height: WINDOW_HEIGHT
   })
 
-  const name = (await figma.clientStorage.getAsync(DOCUMENT_NAME)) as string
-  const styles = (await figma.clientStorage.getAsync(
-    DOCUMENT_PAINT_STYLES
-  )) as Plugin.ExportedStyle[]
+  const name = (await figma.clientStorage.getAsync(DOCUMENT_NAME)) as string | undefined
+  const styles = (await figma.clientStorage.getAsync(DOCUMENT_PAINT_STYLES)) as
+    | Plugin.ExportedStyle[]
+    | undefined
   const settings = await getSettings()
   const openedState = await getOpenState()
 
@@ -31,10 +31,10 @@ const main = async () => {
   await openedStateListener()
 
   const launchProps: Plugin.LaunchProps = {
-    documentName: name,
-    documentPaintStyles: styles,
+    documentName: name || "",
+    documentPaintStyles: styles || [],
     settings: settings,
-    isSynced: name !== "",
+    isSynced: name !== undefined,
     openedState: openedState
   }
 
