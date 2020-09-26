@@ -47,12 +47,6 @@ declare namespace Plugin {
   }
 
   interface ThemeOverviewI {
-    name: string
-    styles: {
-      paintStyles: ExportedStyle[]
-    }
-    exportStyles: Function
-    deleteStyles: Function
     toggleHandler: Function
     expanded: boolean
     isSynced: boolean
