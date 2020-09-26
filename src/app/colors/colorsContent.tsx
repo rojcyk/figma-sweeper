@@ -72,7 +72,7 @@ export const Content = ({
           onSettingsChange("findClosestColor")
         }}
       >
-        Assign closest color
+        Assign closest matching color
       </Checkbox>
       <br />
     </ContentWrapper>
