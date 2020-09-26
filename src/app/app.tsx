@@ -6,6 +6,7 @@ import io from "figmaio/ui"
 // LOCAL INCLUDES
 // ******************** //
 
+import { DocumentProvider } from "./document"
 import { GlobalStyles } from "./globalStyles"
 import Styles from "./styles"
 import Colors from "./colors"
@@ -62,12 +63,12 @@ export default class App extends React.Component<Plugin.LaunchProps, Plugin.Stat
   private exportStyles() {
     io.send(STYLES_EXPORT)
 
-    const newOpenedState: Plugin.OpenedState = {
-      styles: false,
-      colors: false
-    }
+    // const newOpenedState: Plugin.OpenedState = {
+    //   styles: false,
+    //   colors: false
+    // }
 
-    this.setNewOpenedState(newOpenedState)
+    // this.setNewOpenedState(newOpenedState)
   }
 
   private deleteStyles() {
@@ -116,32 +117,38 @@ export default class App extends React.Component<Plugin.LaunchProps, Plugin.Stat
 
   public render(): React.ReactNode {
     return (
-      <Main>
-        <GlobalStyles />
-
-        <Styles
-          isSynced={this.state.isSynced}
-          expanded={this.state.openedState.styles}
-          name={this.state.documentName}
-          styles={{
+      <DocumentProvider
+        value={{
+          isSynced: this.state.isSynced,
+          documentName: this.state.documentName,
+          exportStyles: this.exportStyles.bind(this),
+          deleteStyles: this.deleteStyles.bind(this),
+          styles: {
             paintStyles: this.state.documentPaintStyles
-          }}
-          exportStyles={this.exportStyles.bind(this)}
-          deleteStyles={this.deleteStyles.bind(this)}
-          toggleHandler={this.toogleSection.bind(this)}
-        />
+          }
+        }}
+      >
+        <Main>
+          <GlobalStyles />
 
-        <Colors
-          settings={this.state.settings.color}
-          isSynced={this.state.isSynced}
-          expanded={this.state.openedState.colors}
-          toggleHandler={this.toogleSection.bind(this)}
-        />
+          <Styles
+            isSynced={this.state.isSynced}
+            expanded={this.state.openedState.styles}
+            toggleHandler={this.toogleSection.bind(this)}
+          />
 
-        <LinterButton linterAction={this.lint} isActive={this.state.isSynced} />
+          <Colors
+            settings={this.state.settings.color}
+            isSynced={this.state.isSynced}
+            expanded={this.state.openedState.colors}
+            toggleHandler={this.toogleSection.bind(this)}
+          />
 
-        <Footer />
-      </Main>
+          <LinterButton linterAction={this.lint} isActive={this.state.isSynced} />
+
+          <Footer />
+        </Main>
+      </DocumentProvider>
     )
   }
 }

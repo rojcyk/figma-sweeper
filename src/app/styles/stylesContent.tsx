@@ -9,6 +9,8 @@ import { Close } from "../icons/close"
 import { Headline } from "../components/headline"
 import { Description } from "../components/description"
 import { ButtonPrimary, ButtonSecondaryStyle } from "../components/button"
+import DocumentContext from "../document"
+import Warnings from "./warnings"
 
 // ******************** //
 // Styles
@@ -19,7 +21,7 @@ const ContentWrapper = styled.div`
 `
 
 const CloseWrapper = styled.div`
-  border-radius: 4px;
+  border-radius: 6px;
   transition: all 0.2s ease-out;
   cursor: pointer;
   &:hover {
@@ -65,38 +67,37 @@ const LoadedStylesButton = ({
 // Component
 // ******************** //
 
-export default ({
-  name,
-  paintStyles,
-  isSynced,
-  exportStyles,
-  deleteStyles
-}: {
-  name: string
-  paintStyles: number
-  isSynced: boolean
-  exportStyles: Function
-  deleteStyles: Function
-}) => {
-  return (
-    <ContentWrapper>
-      <Description style={{ marginBottom: "12px" }}>
-        The plugin will export the styles from the file and reference them later on when linting. If
-        you would like to use it in other files, you need to{" "}
-        <a
-          href="https://help.figma.com/hc/en-us/articles/360039162653-Publish-a-file-to-a-Team-Library"
-          target="_blank"
-        >
-          publish
-        </a>{" "}
-        the file first.
-      </Description>
+export default () => (
+  <DocumentContext.Consumer>
+    {({ isSynced, exportStyles, deleteStyles, documentName, styles }) => {
+      return (
+        <ContentWrapper>
+          <Description style={{ marginBottom: "12px" }}>
+            The plugin will export shared styles from the file and reference them later on when
+            linting. If you would like lint colors in other files, you need to{" "}
+            <a
+              href="https://help.figma.com/hc/en-us/articles/360039162653-Publish-a-file-to-a-Team-Library"
+              target="_blank"
+            >
+              publish
+            </a>{" "}
+            the file first.
+          </Description>
 
-      {isSynced ? (
-        <LoadedStylesButton deleteStyles={deleteStyles} name={name} paintStyles={paintStyles | 0} />
-      ) : (
-        <ButtonPrimary onClick={() => exportStyles()} label={"Upload this document"} />
-      )}
-    </ContentWrapper>
-  )
-}
+          {isSynced ? (
+            <>
+              <LoadedStylesButton
+                deleteStyles={deleteStyles}
+                name={documentName}
+                paintStyles={styles.paintStyles.length | 0}
+              />
+              <Warnings paintStyles={styles.paintStyles} />
+            </>
+          ) : (
+            <ButtonPrimary onClick={() => exportStyles()} label={"Upload this document"} />
+          )}
+        </ContentWrapper>
+      )
+    }}
+  </DocumentContext.Consumer>
+)

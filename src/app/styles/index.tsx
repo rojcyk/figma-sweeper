@@ -12,37 +12,13 @@ import StylesContent from "./stylesContent"
 // Component
 // ******************** //
 
-export default ({
-  styles,
-  name,
-  exportStyles,
-  deleteStyles,
-  expanded,
-  toggleHandler,
-  isSynced
-}: Plugin.ThemeOverviewI) => {
+export default ({ expanded, toggleHandler, isSynced }: Plugin.ThemeOverviewI) => {
   return (
     <SectionWrapper
       isActive={true}
       expanded={expanded}
-      content={
-        <StylesContent
-          exportStyles={exportStyles}
-          deleteStyles={deleteStyles}
-          name={name}
-          paintStyles={styles.paintStyles.length}
-          isSynced={isSynced}
-        />
-      }
-      header={
-        <StylesHeader
-          expanded={expanded}
-          showArrow={isSynced ? true : false}
-          name={name}
-          paintStyles={styles.paintStyles.length}
-          isSynced={isSynced}
-        />
-      }
+      content={<StylesContent />}
+      header={<StylesHeader expanded={expanded} showArrow={isSynced ? true : false} />}
       toggleHandler={() => {
         if (isSynced) toggleHandler("styles")
       }}

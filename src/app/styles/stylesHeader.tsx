@@ -10,6 +10,7 @@ import { Description } from "../components/description"
 import { Arrow } from "../icons/arrow"
 import { ANIMATION_SPEED_MS, BACKGROUND, WHITE } from "../../constants/ui"
 import { HeaderBackground } from "../components/sectionHeader"
+import DocumentContext from "../document"
 
 // ******************** //
 // Styles
@@ -70,39 +71,33 @@ const LoadedStyle = styled.div<{
 // Components
 // ******************** //
 
-export default ({
-  expanded,
-  name,
-  paintStyles,
-  isSynced,
-  showArrow
-}: {
-  expanded: boolean
-  name: string
-  paintStyles: number
-  isSynced: boolean
-  showArrow: boolean
-}) => {
+export default ({ expanded, showArrow }: { expanded: boolean; showArrow: boolean }) => {
   return (
-    <ButtonWrapper isSynced={isSynced}>
-      <Arrow
-        direction={expanded ? "down" : "right"}
-        style={{ opacity: showArrow ? "1" : "0.25", zIndex: 10 }}
-      />
+    <DocumentContext.Consumer>
+      {({ isSynced, documentName, styles }) => {
+        return (
+          <ButtonWrapper isSynced={isSynced}>
+            <Arrow
+              direction={expanded ? "down" : "right"}
+              style={{ opacity: showArrow ? "1" : "0.25", zIndex: 10 }}
+            />
 
-      {name === "" ? (
-        <Headline>Sync styles</Headline>
-      ) : (
-        <React.Fragment>
-          <HeadlineAnimated expanded={expanded}>Sync styles</HeadlineAnimated>
-          <LoadedStyle expanded={expanded}>
-            <Headline>{name}</Headline>
-            <Description>{paintStyles} paint styles</Description>
-          </LoadedStyle>
-        </React.Fragment>
-      )}
+            {documentName === "" ? (
+              <Headline>Sync styles</Headline>
+            ) : (
+              <React.Fragment>
+                <HeadlineAnimated expanded={expanded}>Sync styles</HeadlineAnimated>
+                <LoadedStyle expanded={expanded}>
+                  <Headline>{documentName}</Headline>
+                  <Description>{styles.paintStyles.length} paint styles</Description>
+                </LoadedStyle>
+              </React.Fragment>
+            )}
 
-      <HeaderBackground className={"background"} isExpanded={expanded} />
-    </ButtonWrapper>
+            <HeaderBackground className={"background"} isExpanded={expanded} />
+          </ButtonWrapper>
+        )
+      }}
+    </DocumentContext.Consumer>
   )
 }
