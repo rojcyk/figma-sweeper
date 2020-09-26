@@ -23,7 +23,7 @@ export interface DescriptionProps {
 export const DescriptionStyle = styled.p`
   display: block;
   font-size: 12px;
-  line-height: 18px;
+  line-height: 16px;
   font-weight: 500;
   color: ${GRAY};
   margin: 0;
