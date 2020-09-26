@@ -7,12 +7,13 @@ export const deleteStylesListener = async () => {
   io.on(STYLES_DELETE, async () => {
     console.log("[Linter] Deleting data")
 
-    await figma.clientStorage.setAsync(DOCUMENT_NAME, "")
-    await figma.clientStorage.setAsync(DOCUMENT_PAINT_STYLES, [])
+    await figma.clientStorage.setAsync(DOCUMENT_NAME, undefined)
+    await figma.clientStorage.setAsync(DOCUMENT_PAINT_STYLES, undefined)
 
     io.send(STYLES_UPDATE, {
       name: "",
-      paintStyles: []
+      paintStyles: [],
+      isSynced: false
     })
   })
 }
