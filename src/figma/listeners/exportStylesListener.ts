@@ -44,30 +44,35 @@ export const exportStylesListener = async () => {
     const localStyles = figma.getLocalPaintStyles()
     const name = figma.root.name
 
-    let paintStyles: Plugin.ExportedStyle[] = []
+    if (localStyles.length !== 0) {
+      let paintStyles: Plugin.ExportedStyle[] = []
 
-    localStyles.forEach((style) => {
-      const [valid, _position, requirement] = checkIfStyleParsable(style.paints)
-      const errors = []
+      localStyles.forEach((style) => {
+        const [valid, _position, requirement] = checkIfStyleParsable(style.paints)
+        const errors = []
 
-      if (!requirement.count) errors.push("The paint style has too many fills.")
-      if (!requirement.paint)
-        errors.push(`The paint style is not a solid fill but a "${style.paints[0].type}"`)
+        if (!requirement.count) errors.push("Has too many fills.")
+        if (!requirement.paint) errors.push(`Fill(s) is not a solid type.`)
+        // errors.push(`We currently support solid fill styles only. (${style.paints[0].type})`)
 
-      paintStyles.push({
-        key: style.key,
-        name: style.name,
-        paint: valid ? style.paints[0] : null,
-        errors: valid ? null : errors
+        paintStyles.push({
+          key: style.key,
+          name: style.name,
+          paint: valid ? style.paints[0] : null,
+          errors: valid ? null : errors
+        })
       })
-    })
 
-    await figma.clientStorage.setAsync(DOCUMENT_NAME, name)
-    await figma.clientStorage.setAsync(DOCUMENT_PAINT_STYLES, paintStyles)
+      await figma.clientStorage.setAsync(DOCUMENT_NAME, name)
+      await figma.clientStorage.setAsync(DOCUMENT_PAINT_STYLES, paintStyles)
 
-    io.send(STYLES_UPDATE, {
-      name,
-      paintStyles
-    })
+      io.send(STYLES_UPDATE, {
+        name,
+        paintStyles,
+        isSynced: true
+      })
+    } else {
+      figma.notify("There are no paint styles in this document.")
+    }
   })
 }
