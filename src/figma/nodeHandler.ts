@@ -3,11 +3,25 @@ import { checkStrokes } from "./checkers/checkStroke"
 import { traverse } from "./traverse"
 import { ColorIndex } from "./colorIndex"
 
+export type EditableNode =
+  | FrameNode
+  | GroupNode
+  | ComponentNode
+  | InstanceNode
+  | BooleanOperationNode
+  | VectorNode
+  | StarNode
+  | LineNode
+  | EllipseNode
+  | PolygonNode
+  | RectangleNode
+  | TextNode
+
 // ************************* */
 /* NodeHandling
 // ************************* */
 
-export const handleNode = (node: any, settings: Plugin.Settings, colorIndex: ColorIndex) => {
+export const handleNode = (node: SceneNode, settings: Plugin.Settings, colorIndex: ColorIndex) => {
   const { overwriteFills, overwriteStrokes } = settings.color
 
   switch (node.type) {
@@ -39,7 +53,7 @@ export const handleNode = (node: any, settings: Plugin.Settings, colorIndex: Col
       if (overwriteStrokes) checkStrokes(node, colorIndex, settings)
       break
     //* *************************/
-    /* items below do not have children 
+    /* items below do not have children
     //* *************************/
     case "BOOLEAN_OPERATION":
       // console.log(`this type has children but we shouldn't work with them`)
@@ -89,8 +103,8 @@ export const handleNode = (node: any, settings: Plugin.Settings, colorIndex: Col
       // console.log('this type has NOT children')
       break
 
-    case "SLICE":
-      // This node type is not valid for anything
-      break
+    // case "SLICE":
+    //   // This node type is not valid for anything
+    //   break
   }
 }

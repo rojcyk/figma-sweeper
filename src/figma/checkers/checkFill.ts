@@ -1,23 +1,30 @@
 import { ColorIndex } from "../colorIndex"
+import { EditableNode } from "../nodeHandler"
 import { checkIfStyleParsable } from "../listeners/exportStylesListener"
 
-export const checkFills = (node: any, colorIndex: ColorIndex, settings: Plugin.Settings) => {
-  // When there is no fill, we have nothing to do
-  if (node.fills.length === 0) return null
+export const checkFills = (
+  node: EditableNode,
+  colorIndex: ColorIndex,
+  settings: Plugin.Settings
+) => {
+  // When we are working with a group, return null
+  if (node.type === "GROUP") return null
 
   // If the fill style is already set ignore it, unless specified otherwise by settings
   if (node.fillStyleId !== "" && !settings.color.overwriteStyles) return null
 
   // Check if the style is single, solid color and we can change it, otherwise, ignore it.
-  const [isValid, position] = checkIfStyleParsable(node.fills)
+  const [isValid, position, err, paint] = checkIfStyleParsable(node.fills)
+
+  if (isValid !== true) return null
 
   // If the style is not parsable, return null
-  if (isValid !== true) return null
+  if (paint === undefined || paint.type !== "SOLID") return null
 
   // We contstruct the color for easier processing
   const color: RGBA = {
-    ...node.fills[position].color,
-    a: node.fills[position].opacity
+    ...paint.color,
+    a: paint.opacity ? paint.opacity : 1
   }
 
   // First, before we even start comparing, we check whether the color already exists

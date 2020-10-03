@@ -25,7 +25,8 @@ declare namespace Plugin {
     {
       paint: boolean // Is it a standard SOLID style?
       count: boolean // does it have less than 2 visible layers?
-    }
+    },
+    Paint | undefined
   ]
 
   type ExportedStyle = {

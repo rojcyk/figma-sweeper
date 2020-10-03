@@ -4,37 +4,50 @@ import { DOCUMENT_NAME, DOCUMENT_PAINT_STYLES } from "../../constants/storage"
 import { STYLES_EXPORT, STYLES_UPDATE } from "../../constants/events"
 
 export const checkIfStyleParsable = (
-  paints: readonly Paint[] | PaintStyle[]
+  paints: readonly Paint[] | PluginAPI["mixed"]
 ): Plugin.ParsableStyle => {
   let visibleLayers = 0
   let paintRequirement = true
   let position = -1
   let validPosition = 0
 
-  paints.forEach((paintStyle: any) => {
-    position++
-    if (paintStyle.visible) {
-      visibleLayers++
+  if (paints !== figma.mixed) {
+    paints.forEach((paintStyle: any) => {
+      position++
+      if (paintStyle.visible) {
+        visibleLayers++
 
-      if (paintStyle.type !== "SOLID") {
-        paintRequirement = false
-      } else {
-        validPosition = position
+        if (paintStyle.type !== "SOLID") {
+          paintRequirement = false
+        } else {
+          validPosition = position
+        }
       }
-    }
-  })
+    })
 
-  const lengthRequirement = visibleLayers < 2
-  const valid = paintRequirement && lengthRequirement
+    const lengthRequirement = visibleLayers === 1
+    const valid = paintRequirement && lengthRequirement
 
-  return [
-    valid,
-    validPosition,
-    {
-      paint: paintRequirement,
-      count: lengthRequirement
-    }
-  ]
+    return [
+      valid,
+      validPosition,
+      {
+        paint: paintRequirement,
+        count: lengthRequirement
+      },
+      paints[validPosition]
+    ]
+  } else {
+    return [
+      false,
+      0,
+      {
+        paint: false,
+        count: false
+      },
+      undefined
+    ]
+  }
 }
 
 export const exportStylesListener = async () => {
