@@ -32,21 +32,5 @@ export const linterListener = async () => {
     })
 
     figma.notify("Selection linted 👊")
-
-    // if (imported) {
-    //   // const selection = figma.currentPage.selection
-    //   const colorIndex = new ColorIndex(imported, settings)
-
-    //   if (selection?.length === 0) {
-    //     figma.notify("You need to select something for the linter to work")
-    //   } else {
-    //     await asyncForEach(selection as [], (frame: SceneNode) => {
-    //       handleNode(frame, settings, colorIndex)
-    //     })
-    //     figma.notify("Selection linted 👊")
-    //   }
-    // } else {
-    //   figma.notify("🚧 Synced styles are from another file. You need to publish them first.")
-    // }
   })
 }
