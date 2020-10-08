@@ -26,13 +26,13 @@ declare namespace Plugin {
       paint: boolean // Is it a standard SOLID style?
       count: boolean // does it have less than 2 visible layers?
     },
-    Paint | undefined
+    SolidPaint | undefined
   ]
 
   type ExportedStyle = {
     key: string
     name: string
-    paint: Paint | null
+    paint: SolidPaint | null
     errors: string[] | null
   }
 

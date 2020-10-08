@@ -35,7 +35,7 @@ export const checkIfStyleParsable = (
         paint: paintRequirement,
         count: lengthRequirement
       },
-      paints[validPosition]
+      paints[validPosition] as SolidPaint
     ]
   } else {
     return [
@@ -61,19 +61,51 @@ export const exportStylesListener = async () => {
       let paintStyles: Plugin.ExportedStyle[] = []
 
       localStyles.forEach((style) => {
-        const [valid, _position, requirement] = checkIfStyleParsable(style.paints)
+        const [valid, _position, requirement, fillStyle] = checkIfStyleParsable(style.paints)
         const errors = []
 
         if (!requirement.count) errors.push("Has too many fills.")
         if (!requirement.paint) errors.push(`Fill(s) is not a solid type.`)
         // errors.push(`We currently support solid fill styles only. (${style.paints[0].type})`)
 
-        paintStyles.push({
-          key: style.key,
-          name: style.name,
-          paint: valid ? style.paints[0] : null,
-          errors: valid ? null : errors
-        })
+        let tmpStyle = {
+          color: {
+            r: 0,
+            g: 0,
+            b: 0
+          }
+        }
+
+        let tmpColor = undefined
+
+        if (valid && fillStyle) {
+          // we need to convert colors to 255 base, otherwise it will be too inprecise to compare
+          tmpColor = {
+            r: Math.round(fillStyle.color.r * 255),
+            g: Math.round(fillStyle.color.g * 255),
+            b: Math.round(fillStyle.color.b * 255)
+          }
+
+          paintStyles.push({
+            key: style.key,
+            name: style.name,
+            paint: {
+              type: fillStyle.type,
+              visible: fillStyle.visible,
+              opacity: fillStyle.opacity,
+              blendMode: fillStyle.blendMode,
+              color: tmpColor
+            },
+            errors: valid ? null : errors
+          })
+        } else {
+          paintStyles.push({
+            key: style.key,
+            name: style.name,
+            paint: null,
+            errors: errors
+          })
+        }
       })
 
       await figma.clientStorage.setAsync(DOCUMENT_NAME, name)

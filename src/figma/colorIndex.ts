@@ -120,9 +120,9 @@ export class ColorIndex {
             // key: style.key,
             id: style.id,
             a: opacity,
-            r: color.r,
-            g: color.g,
-            b: color.b,
+            r: Math.round(color.r * 255),
+            g: Math.round(color.g * 255),
+            b: Math.round(color.b * 255),
             lab: this.color2lab(rgba)
           })
         }
@@ -156,11 +156,17 @@ export class ColorIndex {
     return processedArray.find((processedColor) => {
       const opacity = this.checkOpacity(processedColor, color)
 
+      const tmpColor = {
+        r: Math.round(color.r * 255),
+        g: Math.round(color.g * 255),
+        b: Math.round(color.b * 255)
+      }
+
       if (
         opacity &&
-        processedColor.r === color.r &&
-        processedColor.g === color.g &&
-        processedColor.b === color.b
+        processedColor.r === tmpColor.r &&
+        processedColor.g === tmpColor.g &&
+        processedColor.b === tmpColor.b
       )
         return processedColor
       else return undefined
