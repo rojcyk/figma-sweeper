@@ -1,6 +1,6 @@
 import { ColorIndex } from "../colorIndex"
 import { EditableNode } from "../nodeHandler"
-import { checkIfStyleParsable } from "../listeners/exportStylesListener"
+import { checkIfStyleParsable } from "../listeners/isPaintStyleParsable"
 
 export const checkStrokes = (
   node: EditableNode,
