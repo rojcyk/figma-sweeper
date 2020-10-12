@@ -1,3 +1,4 @@
+import { Description } from '../../app/components/description'
 import { checkIfStyleParsable } from './isPaintStyleParsable'
 
 export default (localStyles: PaintStyle[]) => {
@@ -34,6 +35,7 @@ export default (localStyles: PaintStyle[]) => {
           blendMode: fillStyle.blendMode,
           color: tmpColor
         },
+        description: style.description,
         errors: valid ? null : errors
       })
     } else {
@@ -46,5 +48,5 @@ export default (localStyles: PaintStyle[]) => {
     }
   })
 
-  return []
+  return paintStyles
 }

@@ -34,6 +34,7 @@ declare namespace Plugin {
     name: string
     paint: SolidPaint | null
     errors: string[] | null
+    description?: string
   }
 
   interface Color {
