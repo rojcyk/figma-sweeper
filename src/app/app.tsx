@@ -50,6 +50,7 @@ export default class App extends React.Component<Plugin.LaunchProps, Plugin.Stat
     this.state = {
       documentName: this.props.documentName,
       documentPaintStyles: this.props.documentPaintStyles,
+      documentTextStyles: this.props.documentTextStyles,
       settings: this.props.settings,
       isSynced: this.props.isSynced,
       openedState: openedState

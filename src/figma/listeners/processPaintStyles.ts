@@ -1,4 +1,3 @@
-import { Description } from '../../app/components/description'
 import { checkIfStyleParsable } from './isPaintStyleParsable'
 
 export default (localStyles: PaintStyle[]) => {

@@ -5,6 +5,7 @@ declare namespace Plugin {
   interface LaunchProps {
     documentName: string
     documentPaintStyles: ExportedStyle[]
+    documentTextStyles: ExportedTextStyle[]
     settings: Settings
     isSynced: boolean
     openedState: OpenedState
@@ -35,6 +36,20 @@ declare namespace Plugin {
     paint: SolidPaint | null
     errors: string[] | null
     description?: string
+  }
+
+  interface ExportedTextStyle {
+    key: string
+    name: string
+    description?: string
+    fontFamily: string
+    fontStyle: string
+    fontSize: number | PluginAPI['mixed']
+    lineHeight: LineHeight | PluginAPI['mixed']
+    letterSpacing: LetterSpacing | PluginAPI['mixed']
+    textCase: TextCase | PluginAPI['mixed']
+    textDecoration: TextDecoration | PluginAPI['mixed']
+    paragraphSpacing: number
   }
 
   interface Color {

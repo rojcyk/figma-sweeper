@@ -1,5 +1,5 @@
 import io from "figmaio/code"
-import { DOCUMENT_PAINT_STYLES } from "../constants/storage"
+import { DOCUMENT_PAINT_STYLES, DOCUMENT_TEXT_STYLES } from "../constants/storage"
 import asyncForEach from "../helpers/asyncForEach"
 
 export const isImported = (arr: any[], key: string) => {
@@ -11,20 +11,33 @@ export const isImported = (arr: any[], key: string) => {
 
 export const importStyles = async () => {
   try {
-    let importedStyles: any[] = []
+    let importedPaintStyles: any[] = []
+    let importedTextStyles: any[] = []
 
-    const localStyles = figma.getLocalPaintStyles()
-    const styles = await figma.clientStorage.getAsync(DOCUMENT_PAINT_STYLES)
+    const localPaintStyles = figma.getLocalPaintStyles()
+    const localTextStyles = figma.getLocalTextStyles()
 
-    await asyncForEach(styles, async (style: any) => {
+    const fillStyles = await figma.clientStorage.getAsync(DOCUMENT_PAINT_STYLES)
+    const textStyles = await figma.clientStorage.getAsync(DOCUMENT_TEXT_STYLES)
+
+    await asyncForEach(fillStyles, async (style: any) => {
       if (style.errors === null) {
-        let imported = isImported(localStyles, style.key)
+        let imported = isImported(localPaintStyles, style.key)
         if (imported === undefined) imported = await figma.importStyleByKeyAsync(style.key)
-        importedStyles.push(imported)
+        importedPaintStyles.push(imported)
       }
     })
 
-    return importedStyles
+    await asyncForEach(textStyles, async (style: any) => {
+      let imported = isImported(localTextStyles, style.key)
+      if (imported === undefined) imported = await figma.importStyleByKeyAsync(style.key)
+      importedTextStyles.push(imported)
+    })
+
+    return {
+      importedPaintStyles,
+      importedTextStyles
+    }
   } catch (e) {
     return undefined
   }

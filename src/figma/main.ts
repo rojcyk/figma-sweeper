@@ -2,7 +2,7 @@ import io from "figmaio/code"
 
 import { APP_START } from "../constants/events"
 import { WINDOW_HEIGHT, WINDOW_WIDTH } from "../constants/ui"
-import { DOCUMENT_NAME, DOCUMENT_PAINT_STYLES, DB_VERSION } from "../constants/storage"
+import { DOCUMENT_NAME, DOCUMENT_PAINT_STYLES, DOCUMENT_TEXT_STYLES, DB_VERSION } from "../constants/storage"
 import { exportStylesListener } from "./listeners/exportStylesListener"
 import { deleteStylesListener } from "./listeners/deleteStylesListener"
 import { linterListener } from "./listeners/linterListener"
@@ -21,16 +21,20 @@ const main = async () => {
   })
 
   let name = (await figma.clientStorage.getAsync(DOCUMENT_NAME)) as string | undefined
-  let styles = (await figma.clientStorage.getAsync(DOCUMENT_PAINT_STYLES)) as
+  let paintStyles = (await figma.clientStorage.getAsync(DOCUMENT_PAINT_STYLES)) as
     | Plugin.ExportedStyle[]
     | undefined
+  let textStyles = (await figma.clientStorage.getAsync(DOCUMENT_TEXT_STYLES)) as
+  | Plugin.ExportedTextStyle[]
+  | undefined
   const settings = await getSettings()
   const openedState = await getOpenState()
   const currentDBVersion = await getDBVersion()
 
   if (parseInt(currentDBVersion) < parseInt(latestDBVersion)) {
     name = undefined
-    styles = []
+    paintStyles = []
+    textStyles = []
     await figma.clientStorage.setAsync(DB_VERSION, latestDBVersion)
   } else {
     console.log('[Linter] Database up to date')
@@ -44,7 +48,8 @@ const main = async () => {
 
   const launchProps: Plugin.LaunchProps = {
     documentName: name || "",
-    documentPaintStyles: styles || [],
+    documentPaintStyles: paintStyles || [],
+    documentTextStyles: textStyles || [],
     settings: settings,
     isSynced: name !== undefined,
     openedState: openedState

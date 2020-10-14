@@ -2,6 +2,7 @@ import { checkFills } from "./checkers/checkFill"
 import { checkStrokes } from "./checkers/checkStroke"
 import { traverse } from "./traverse"
 import { ColorIndex } from "./colorIndex"
+import { TextIndex } from "./textIndex"
 
 export type EditableNode =
   | FrameNode
@@ -21,7 +22,7 @@ export type EditableNode =
 /* NodeHandling
 // ************************* */
 
-export const handleNode = (node: SceneNode, settings: Plugin.Settings, colorIndex: ColorIndex) => {
+export const handleNode = (node: SceneNode, settings: Plugin.Settings, colorIndex: ColorIndex, textIndex: TextIndex) => {
   const { overwriteFills, overwriteStrokes } = settings.color
 
   switch (node.type) {

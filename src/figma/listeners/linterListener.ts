@@ -1,6 +1,7 @@
 import io from "figmaio/code"
 import { APP_LINT } from "../../constants/events"
 import { ColorIndex } from "../colorIndex"
+import { TextIndex } from "../textIndex"
 import { importStyles } from "../importStyles"
 import asyncForEach from "../../helpers/asyncForEach"
 import { handleNode } from "../nodeHandler"
@@ -26,9 +27,11 @@ export const linterListener = async () => {
     }
 
     // All prerequisities are met, we can lint!
-    const colorIndex = new ColorIndex(imported, settings)
+    const colorIndex = new ColorIndex(imported.importedPaintStyles, settings)
+    const textIndex = new TextIndex(imported.importedTextStyles, settings)
+
     await asyncForEach(selection as [], (frame: SceneNode) => {
-      handleNode(frame, settings, colorIndex)
+      handleNode(frame, settings, colorIndex, textIndex)
     })
 
     figma.notify("Selection linted 👊")
