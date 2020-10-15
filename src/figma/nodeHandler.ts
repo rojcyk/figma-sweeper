@@ -1,5 +1,6 @@
 import { checkFills } from "./checkers/checkFill"
 import { checkStrokes } from "./checkers/checkStroke"
+import { checkText } from "./checkers/checkText"
 import { traverse } from "./traverse"
 import { ColorIndex } from "./colorIndex"
 import { TextIndex } from "./textIndex"
@@ -27,28 +28,28 @@ export const handleNode = (node: SceneNode, settings: Plugin.Settings, colorInde
 
   switch (node.type) {
     case "FRAME":
-      traverse(node.children, handleNode, settings, colorIndex)
+      traverse(node.children, handleNode, settings, colorIndex, textIndex)
 
       if (overwriteFills) checkFills(node, colorIndex, settings)
       if (overwriteStrokes) checkStrokes(node, colorIndex, settings)
       break
 
     case "GROUP":
-      traverse(node.children, handleNode, settings, colorIndex)
+      traverse(node.children, handleNode, settings, colorIndex, textIndex)
 
       if (overwriteFills) checkFills(node, colorIndex, settings)
       if (overwriteStrokes) checkStrokes(node, colorIndex, settings)
       break
 
     case "COMPONENT":
-      traverse(node.children, handleNode, settings, colorIndex)
+      traverse(node.children, handleNode, settings, colorIndex, textIndex)
 
       if (overwriteFills) checkFills(node, colorIndex, settings)
       if (overwriteStrokes) checkStrokes(node, colorIndex, settings)
       break
 
     case "INSTANCE":
-      traverse(node.children, handleNode, settings, colorIndex)
+      traverse(node.children, handleNode, settings, colorIndex, textIndex)
 
       if (overwriteFills) checkFills(node, colorIndex, settings)
       if (overwriteStrokes) checkStrokes(node, colorIndex, settings)
@@ -101,6 +102,9 @@ export const handleNode = (node: SceneNode, settings: Plugin.Settings, colorInde
     case "TEXT":
       if (overwriteFills) checkFills(node, colorIndex, settings)
       if (overwriteStrokes) checkStrokes(node, colorIndex, settings)
+
+      checkText(node, textIndex, settings)
+      
       // console.log('this type has NOT children')
       break
 

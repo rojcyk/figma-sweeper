@@ -29,8 +29,16 @@ export class TextIndex {
    * MAIN FINDER LOGIC
    ***************************/
 
-  findSimilarColor(color: RGBA) {
-    
+  filterByFamily(styles: TextStyle[], family: string) {
+    return styles.filter(textStyle => textStyle.fontName.family === family)
+  }
+
+  filterByStyle(styles: TextStyle[],family: string) {
+    return styles.filter(textStyle => textStyle.fontName.style === family)
+  }
+
+  filterByHeight(styles: TextStyle[],height: number) {
+    return styles.filter(textStyle => textStyle.fontSize === height)
   }
 
   /****************************
