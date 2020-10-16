@@ -10,6 +10,7 @@ import { DocumentProvider } from "./document"
 import { GlobalStyles } from "./globalStyles"
 import Styles from "./styles"
 import Colors from "./colors"
+import Fonts from "./fonts"
 import {
   STYLES_EXPORT,
   STYLES_DELETE,
@@ -44,7 +45,8 @@ export default class App extends React.Component<Plugin.LaunchProps, Plugin.Stat
       ? this.props.openedState
       : {
           styles: true,
-          colors: false
+          colors: false,
+          fonts: false
         }
 
     this.state = {
@@ -77,7 +79,8 @@ export default class App extends React.Component<Plugin.LaunchProps, Plugin.Stat
 
     const newOpenedState: Plugin.OpenedState = {
       styles: true,
-      colors: false
+      colors: false,
+      fonts: false
     }
 
     this.setNewOpenedState(newOpenedState)
@@ -111,6 +114,7 @@ export default class App extends React.Component<Plugin.LaunchProps, Plugin.Stat
       this.setState({
         documentName: data.name,
         documentPaintStyles: data.paintStyles,
+        documentTextStyles: data.textStyles,
         isSynced: data.name !== ""
       })
     })
@@ -125,7 +129,8 @@ export default class App extends React.Component<Plugin.LaunchProps, Plugin.Stat
           exportStyles: this.exportStyles.bind(this),
           deleteStyles: this.deleteStyles.bind(this),
           styles: {
-            paintStyles: this.state.documentPaintStyles
+            paintStyles: this.state.documentPaintStyles,
+            textStyles: this.state.documentTextStyles
           }
         }}
       >
@@ -142,6 +147,13 @@ export default class App extends React.Component<Plugin.LaunchProps, Plugin.Stat
             settings={this.state.settings.color}
             isSynced={this.state.isSynced}
             expanded={this.state.openedState.colors}
+            toggleHandler={this.toogleSection.bind(this)}
+          />
+
+          <Fonts
+            settings={this.state.settings.text}
+            isSynced={this.state.isSynced}
+            expanded={this.state.openedState.fonts}
             toggleHandler={this.toogleSection.bind(this)}
           />
 

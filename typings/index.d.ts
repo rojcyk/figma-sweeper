@@ -16,6 +16,7 @@ declare namespace Plugin {
   interface OpenedState {
     styles: boolean
     colors: boolean
+    fonts: boolean
   }
 
   interface StateProps extends LaunchProps {}
@@ -61,6 +62,7 @@ declare namespace Plugin {
 
   interface Settings {
     color: ColorSettings
+    text: TextSettings
   }
 
   interface ThemeOverviewI {
@@ -84,4 +86,15 @@ declare namespace Plugin {
     findClosestColor: boolean
     colorDistance: ColorDistanceAlgorithm
   }
+
+  interface TextSettings {
+    matchFamilies: boolean
+    matchHeight: boolean
+    matchStyle: boolean
+  }
+
+  type TextSettingsProp =
+    | "matchFamilies"
+    | "matchHeight"
+    | "matchStyle"
 }

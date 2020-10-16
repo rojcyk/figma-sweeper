@@ -36,10 +36,12 @@ const CloseWrapper = styled.div`
 const LoadedStylesButton = ({
   name,
   paintStyles,
+  textStyles,
   deleteStyles
 }: {
   name: string
   paintStyles: number
+  textStyles: number
   deleteStyles: Function
 }) => {
   return (
@@ -53,7 +55,7 @@ const LoadedStylesButton = ({
     >
       <div style={{ textAlign: "left", display: "inline-block" }}>
         <Headline style={{ fontWeight: 700, fontSize: "14px" }}>{name}</Headline>
-        <Description>{paintStyles} paint styles</Description>
+        <Description>{paintStyles} paint styles, {textStyles} text styles </Description>
       </div>
 
       <CloseWrapper onClick={() => deleteStyles()}>
@@ -73,8 +75,8 @@ export default () => (
       return (
         <ContentWrapper>
           <Description style={{ marginBottom: "12px" }}>
-            The plugin will export shared styles from the file and reference them later on when
-            linting. If you would like lint colors in other files, you need to{" "}
+            The plugin will export paint styles and text styles from this file and reference them later on when
+            linting. If you would like lint styles in other files, you need to{" "}
             <a
               href="https://help.figma.com/hc/en-us/articles/360039162653-Publish-a-file-to-a-Team-Library"
               target="_blank"
@@ -90,6 +92,7 @@ export default () => (
                 deleteStyles={deleteStyles}
                 name={documentName}
                 paintStyles={styles.paintStyles.length | 0}
+                textStyles={styles.textStyles.length | 0}
               />
               <Warnings paintStyles={styles.paintStyles} />
             </>

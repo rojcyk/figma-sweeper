@@ -1,6 +1,4 @@
 import { TextIndex } from "../textIndex"
-import { EditableNode } from "../nodeHandler"
-import { checkIfStyleParsable } from "../listeners/isPaintStyleParsable"
 
 export const checkText = (
   node: TextNode,
@@ -8,15 +6,24 @@ export const checkText = (
   settings: Plugin.Settings
 ) => {
   if (node.fontName != figma.mixed && node.fontSize != figma.mixed) {
-    const byFamily = textIndex.filterByFamily(textIndex.textStyles, node.fontName.family)
-    const byFamilyAndStyle = textIndex.filterByStyle(byFamily, node.fontName.style)
-    const byFamilyStyleAndSize = textIndex.filterByHeight(byFamilyAndStyle, node.fontSize)
+    let styles: TextStyle[] = []
 
-    if (byFamilyStyleAndSize.length > 0) {
-      node.textStyleId = byFamilyStyleAndSize[0].id
+    if (settings.text.matchFamilies || settings.text.matchStyle || settings.text.matchHeight)
+      styles = textIndex.textStyles
+
+    if (settings.text.matchFamilies)
+      styles = textIndex.filterByFamily(styles, node.fontName.family)
+
+    if (settings.text.matchStyle)
+      styles = textIndex.filterByStyle(styles, node.fontName.style)
+
+    if (settings.text.matchHeight)
+      styles = textIndex.filterByHeight(styles, node.fontSize)
+
+    if (styles.length > 0) {
+      node.textStyleId = styles[0].id
     }
   }
-
 
   return null
 }

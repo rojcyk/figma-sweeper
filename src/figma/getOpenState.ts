@@ -7,8 +7,9 @@ export const getOpenState = async (): Promise<Plugin.OpenedState> => {
 
   return (
     openedState || {
-      styles: false,
-      colors: false
+      styles: true,
+      colors: false,
+      fonts: false
     }
   )
 }

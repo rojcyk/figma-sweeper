@@ -13,7 +13,7 @@ import { getOpenState } from "./getOpenState"
 import { getDBVersion } from "./getDBVersion"
 
 const main = async () => {
-  const latestDBVersion = '2'
+  const latestDBVersion = '3'
 
   figma.showUI(__html__, {
     width: WINDOW_WIDTH,

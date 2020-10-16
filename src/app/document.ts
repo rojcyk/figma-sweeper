@@ -4,7 +4,8 @@ export const DocumentContext = createContext({
   isSynced: false,
   documentName: "",
   styles: {
-    paintStyles: [] as Plugin.ExportedStyle[]
+    paintStyles: [] as Plugin.ExportedStyle[],
+    textStyles: [] as Plugin.ExportedTextStyle[]
   },
   exportStyles: (): any => {},
   deleteStyles: (): any => {}

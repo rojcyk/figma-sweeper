@@ -89,7 +89,7 @@ export default ({ expanded, showArrow }: { expanded: boolean; showArrow: boolean
                 <HeadlineAnimated expanded={expanded}>Sync styles</HeadlineAnimated>
                 <LoadedStyle expanded={expanded}>
                   <Headline>{documentName}</Headline>
-                  <Description>{styles.paintStyles.length} paint styles</Description>
+                  <Description>{styles.paintStyles.length} paint styles, {styles.textStyles.length} text styles</Description>
                 </LoadedStyle>
               </React.Fragment>
             )}
