@@ -10,9 +10,9 @@ export const defaultColorSettings: Plugin.ColorSettings = {
 }
 
 export const defaultTextSettings: Plugin.TextSettings = {
-  matchFamilies: true,
-  matchStyle: true,
-  matchHeight: true,
+  ignoreFamilies: false,
+  ignoreStyle: false,
+  ignoreHeight: false,
 }
 
 export const getSettings = async (): Promise<Plugin.Settings> => {

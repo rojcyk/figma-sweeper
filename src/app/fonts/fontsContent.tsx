@@ -30,32 +30,32 @@ export const Content = ({
   return (
     <ContentWrapper>
       <Description style={{ paddingBottom: "16px", paddingTop: "0" }}>
-        For now, the plugin is looking for direct matches. It considers font family, font size and font style. Turn everything off to skip font linting.
+        For now, the plugin is looking for direct matches. It considers font family, font size and font style. Turn everything ON to skip font linting.
       </Description>
 
       <Checkbox
-        checked={settings.matchFamilies}
+        checked={settings.ignoreFamilies}
         onCheckboxChange={() => {
-          onSettingsChange("matchFamilies")
+          onSettingsChange("ignoreFamilies")
         }}
       >
-        Match family
+        Ignore font family
       </Checkbox>
       <Checkbox
-        checked={settings.matchStyle}
+        checked={settings.ignoreStyle}
         onCheckboxChange={() => {
-          onSettingsChange("matchStyle")
+          onSettingsChange("ignoreStyle")
         }}
       >
-        Match style
+        Ignore font style
       </Checkbox>
       <Checkbox
-        checked={settings.matchHeight}
+        checked={settings.ignoreHeight}
         onCheckboxChange={() => {
-          onSettingsChange("matchHeight")
+          onSettingsChange("ignoreHeight")
         }}
       >
-        Match height
+        Ignore font height
       </Checkbox>
       <br />
     </ContentWrapper>

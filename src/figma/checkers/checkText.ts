@@ -6,18 +6,18 @@ export const checkText = (
   settings: Plugin.Settings
 ) => {
   if (node.fontName != figma.mixed && node.fontSize != figma.mixed) {
-    let styles: TextStyle[] = []
+    let styles: TextStyle[] = textIndex.textStyles
 
-    if (settings.text.matchFamilies || settings.text.matchStyle || settings.text.matchHeight)
-      styles = textIndex.textStyles
+    if (settings.text.ignoreFamilies && settings.text.ignoreStyle && settings.text.ignoreHeight)
+      return null
 
-    if (settings.text.matchFamilies)
+    if (settings.text.ignoreFamilies !== true)
       styles = textIndex.filterByFamily(styles, node.fontName.family)
 
-    if (settings.text.matchStyle)
+    if (settings.text.ignoreStyle !== true)
       styles = textIndex.filterByStyle(styles, node.fontName.style)
 
-    if (settings.text.matchHeight)
+    if (settings.text.ignoreHeight !== true)
       styles = textIndex.filterByHeight(styles, node.fontSize)
 
     if (styles.length > 0) {

@@ -90,13 +90,13 @@ declare namespace Plugin {
   }
 
   interface TextSettings {
-    matchFamilies: boolean
-    matchHeight: boolean
-    matchStyle: boolean
+    ignoreFamilies: boolean
+    ignoreHeight: boolean
+    ignoreStyle: boolean
   }
 
   type TextSettingsProp =
-    | "matchFamilies"
-    | "matchHeight"
-    | "matchStyle"
+    | "ignoreFamilies"
+    | "ignoreHeight"
+    | "ignoreStyle"
 }
