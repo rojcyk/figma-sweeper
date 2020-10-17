@@ -37,7 +37,10 @@ const main = async () => {
     )
 
   /* If found, we add content to it */
-  ReactDOM.render(<App {...appProps} />, node)
+  ReactDOM.render(
+    <App {...appProps} />,
+    node
+  )
 }
 
 // ******************** //

@@ -1,6 +1,7 @@
 import * as React from "react"
 import styled from "styled-components"
 import io from "figmaio/ui"
+import { Route, NavLink, HashRouter } from "react-router-dom"
 
 // ******************** //
 // LOCAL INCLUDES
@@ -16,7 +17,9 @@ import {
   STYLES_DELETE,
   APP_LINT,
   STYLES_UPDATE,
-  OPENED_STATE_CHANGE
+  OPENED_STATE_CHANGE,
+  COLOR_SETTINGS_STATUS_UPDATE,
+  TEXT_SETTINGS_STATUS_UPDATE
 } from "../constants/events"
 import LinterButton from "./lint/index"
 import { Footer } from "./footer"
@@ -65,13 +68,6 @@ export default class App extends React.Component<Plugin.LaunchProps, Plugin.Stat
 
   private exportStyles() {
     io.send(STYLES_EXPORT)
-
-    // const newOpenedState: Plugin.OpenedState = {
-    //   styles: false,
-    //   colors: false
-    // }
-
-    // this.setNewOpenedState(newOpenedState)
   }
 
   private deleteStyles() {
@@ -118,6 +114,18 @@ export default class App extends React.Component<Plugin.LaunchProps, Plugin.Stat
         isSynced: data.name !== ""
       })
     })
+
+    io.on(COLOR_SETTINGS_STATUS_UPDATE, (newColorSettings) => {
+      let tmpSettings = this.state.settings
+      Object.assign(tmpSettings.color, newColorSettings) 
+      this.setState({ settings: tmpSettings })
+    })
+
+    io.on(TEXT_SETTINGS_STATUS_UPDATE, (newTextSettings) => {
+      let tmpSettings = this.state.settings
+      Object.assign(tmpSettings.text, newTextSettings) 
+      this.setState({ settings: tmpSettings })
+    })
   }
 
   public render(): React.ReactNode {
@@ -134,33 +142,49 @@ export default class App extends React.Component<Plugin.LaunchProps, Plugin.Stat
           }
         }}
       >
-        <Main>
-          <GlobalStyles />
+        <HashRouter>
+          <Route exact path="/" component={() => {
+            return (<Main>
+              <GlobalStyles />
 
-          <Styles
-            isSynced={this.state.isSynced}
-            expanded={this.state.openedState.styles}
-            toggleHandler={this.toogleSection.bind(this)}
-          />
+              <Styles
+                isSynced={this.state.isSynced}
+                expanded={this.state.openedState.styles}
+                toggleHandler={this.toogleSection.bind(this)}
+              />
 
-          <Colors
-            settings={this.state.settings.color}
-            isSynced={this.state.isSynced}
-            expanded={this.state.openedState.colors}
-            toggleHandler={this.toogleSection.bind(this)}
-          />
+              <Colors
+                settings={this.state.settings.color}
+                isSynced={this.state.isSynced}
+                expanded={this.state.openedState.colors}
+                toggleHandler={this.toogleSection.bind(this)}
+              />
 
-          <Fonts
-            settings={this.state.settings.text}
-            isSynced={this.state.isSynced}
-            expanded={this.state.openedState.fonts}
-            toggleHandler={this.toogleSection.bind(this)}
-          />
+              <Fonts
+                settings={this.state.settings.text}
+                isSynced={this.state.isSynced}
+                expanded={this.state.openedState.fonts}
+                toggleHandler={this.toogleSection.bind(this)}
+              />
 
-          <LinterButton linterAction={this.lint} isActive={this.state.isSynced} />
+              <LinterButton linterAction={this.lint} isActive={this.state.isSynced} />
 
-          <Footer />
-        </Main>
+              <Footer />
+
+              <NavLink to="/colors">Colors</NavLink>
+            </Main>)
+            }} />
+          
+          <Route exact path='/colors' component={() => {
+            return (
+              <>
+                <span>hovno</span>
+                <NavLink to="/">Home</NavLink>
+              </>
+            )
+          }} />
+          
+        </HashRouter>
       </DocumentProvider>
     )
   }

@@ -21,30 +21,16 @@ interface ColorSettingsProp {
   toggleHandler: Function
 }
 
-interface ColorSettingsState {
-  settings: Plugin.ColorSettings
-}
-
 // ******************** //
 // COMPONENT
 // ******************** //
 
-export class SettingsForm extends React.Component<ColorSettingsProp, ColorSettingsState> {
-  public constructor(props: ColorSettingsProp) {
-    super(props)
-
-    this.state = {
-      settings: props.settings
-    }
-  }
-
+export class SettingsForm extends React.Component<ColorSettingsProp> {
   public toggleSettings(settingsProp: Plugin.ColorSettingsProp) {
     /* We get the current settings */
-    let tmpSettings = this.state.settings
+    let tmpSettings = this.props.settings
     /* We then toggle the desired property */
     tmpSettings[settingsProp] = !tmpSettings[settingsProp]
-    /* We set it for the state, so the UI can be updated */
-    this.setState({ settings: tmpSettings })
     /* And we also send it over to Figma, so we can store the settings */
     io.send(COLOR_SETTINGS_CHANGE, tmpSettings)
   }
@@ -60,7 +46,7 @@ export class SettingsForm extends React.Component<ColorSettingsProp, ColorSettin
         }
         content={
           <ColorsContent
-            settings={this.state.settings}
+            settings={this.props.settings}
             onSettingsChange={this.toggleSettings.bind(this)}
           />
         }

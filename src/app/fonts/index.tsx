@@ -21,30 +21,16 @@ interface TextSettingsProp {
   toggleHandler: Function
 }
 
-interface TextSettingsState {
-  settings: Plugin.TextSettings
-}
-
 // ******************** //
 // COMPONENT
 // ******************** //
 
-export class SettingsForm extends React.Component<TextSettingsProp, TextSettingsState> {
-  public constructor(props: TextSettingsProp) {
-    super(props)
-
-    this.state = {
-      settings: props.settings
-    }
-  }
-
+export class SettingsForm extends React.Component<TextSettingsProp> {
   public toggleSettings(settingsProp: Plugin.TextSettingsProp) {
     /* We get the current settings */
-    let tmpSettings = this.state.settings
+    let tmpSettings = this.props.settings
     /* We then toggle the desired property */
     tmpSettings[settingsProp] = !tmpSettings[settingsProp]
-    /* We set it for the state, so the UI can be updated */
-    this.setState({ settings: tmpSettings })
     /* And we also send it over to Figma, so we can store the settings */
     io.send(TEXT_SETTINGS_CHANGE, tmpSettings)
   }
@@ -60,7 +46,7 @@ export class SettingsForm extends React.Component<TextSettingsProp, TextSettings
         }
         content={
           <FontsContent
-            settings={this.state.settings}
+            settings={this.props.settings}
             onSettingsChange={this.toggleSettings.bind(this)}
           />
         }

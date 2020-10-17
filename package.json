@@ -10,8 +10,8 @@
     "url": "https://github.com/rojcyk/figma-sweeper.git"
   },
   "bugs": {
-    "url" : "https://github.com/rojcyk/figma-sweeper/issues",
-    "email" : "sweeper@rojcyk.com"
+    "url": "https://github.com/rojcyk/figma-sweeper/issues",
+    "email": "sweeper@rojcyk.com"
   },
   "scripts": {
     "dev": "NODE_ENV=development node ./node_modules/webpack-cli/bin/cli.js --mode=development --watch",
@@ -22,6 +22,7 @@
     "@types/node": "^14.0.23",
     "@types/react": "^16.9.43",
     "@types/react-dom": "^16.9.8",
+    "@types/react-router-dom": "^5.1.6",
     "@types/styled-components": "^5.1.1",
     "@typescript-eslint/eslint-plugin": "^3.8.0",
     "@typescript-eslint/parser": "^3.8.0",
@@ -40,6 +41,7 @@
     "react": "^16.13.1",
     "react-animate-height": "^2.0.23",
     "react-dom": "^16.13.1",
+    "react-router-dom": "^5.2.0",
     "styled-components": "^5.1.1",
     "ts-loader": "^8.0.1",
     "typescript": "^3.9.7",
