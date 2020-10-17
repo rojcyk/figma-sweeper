@@ -129,6 +129,7 @@ export default class App extends React.Component<Plugin.LaunchProps, Plugin.Stat
 
   public render(): React.ReactNode {
     return (
+      <HashRouter>
       <DocumentProvider
         value={{
           isSynced: this.state.isSynced,
@@ -144,36 +145,29 @@ export default class App extends React.Component<Plugin.LaunchProps, Plugin.Stat
         <GlobalStyles />
 
         <Main>
-          <HashRouter>
-            <Route exact path={MAIN_ROUTE} component={() => {
-              return (
-                <MainView 
-                  isSynced={this.state.isSynced}
-                  openedState={this.state.openedState}
-                  settings={this.state.settings}
-                  toogleSection={this.toogleSection.bind(this)}
-                />)
-              }} />
-            
-            <Route exact path={COLORS_ROUTE} component={() => {
-              return (
-                <ColorsView 
-                  syncedColors={this.state.documentPaintStyles}
-                />
-              )
-            }} />
+          <Route exact path={MAIN_ROUTE}>
+            <MainView 
+              isSynced={this.state.isSynced}
+              openedState={this.state.openedState}
+              settings={this.state.settings}
+              toogleSection={this.toogleSection.bind(this)}
+            />
+          </Route>
+          
+          <Route exact path={COLORS_ROUTE}>
+            <ColorsView 
+              syncedColors={this.state.documentPaintStyles}
+            />
+          </Route>
 
-            <Route exact path={TEXTS_ROUTE} component={() => {
-              return (
-                <TextView 
-                  syncedTextStyles={this.state.documentTextStyles}
-                />
-              )
-            }} />
-            
-          </HashRouter>
+          <Route exact path={TEXTS_ROUTE}>
+            <TextView 
+              syncedTextStyles={this.state.documentTextStyles}
+            />
+          </ Route>
         </Main>
       </DocumentProvider>
+      </HashRouter>
     )
   }
 }

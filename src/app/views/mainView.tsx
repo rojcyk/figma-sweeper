@@ -20,8 +20,7 @@ export const MainView = ({
   openedState: Plugin.OpenedState,
   settings: Plugin.Settings,
   toogleSection: Function
-}) => {
-  return (
+}) => 
   <React.Fragment>
     <Styles
       isSynced={isSynced}
@@ -46,5 +45,4 @@ export const MainView = ({
     <LinterButton isActive={isSynced} />
 
     <Footer />
-  </React.Fragment>)
-}
+  </React.Fragment>
