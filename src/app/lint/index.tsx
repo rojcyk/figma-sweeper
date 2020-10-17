@@ -1,11 +1,13 @@
 import React from "react"
 import styled from "styled-components"
+import io from "figmaio/ui"
 
 // ******************** //
 // LOCAL INCLUDES
 // ******************** //
 
 import { ButtonSecondary, ButtonDisabledStyle } from "../components/button"
+import { APP_LINT } from "../../constants/events"
 
 // ******************** //
 // Interface
@@ -13,7 +15,6 @@ import { ButtonSecondary, ButtonDisabledStyle } from "../components/button"
 
 interface LintButton {
   isActive: boolean
-  linterAction: Function
 }
 
 // ******************** //
@@ -41,11 +42,11 @@ const Wrapper = styled.div<{
 // Component
 // ******************** //
 
-export default ({ isActive, linterAction }: LintButton) => {
+export default ({ isActive }: LintButton) => {
   return (
     <Wrapper active={isActive}>
       {isActive ? (
-        <ButtonSecondary label={"Lint selection"} onClick={() => linterAction()} />
+        <ButtonSecondary label={"Lint selection"} onClick={() => io.send(APP_LINT)} />
       ) : (
         <ButtonDisabledStyle>Lint selection</ButtonDisabledStyle>
       )}

@@ -167,7 +167,7 @@ export default class App extends React.Component<Plugin.LaunchProps, Plugin.Stat
                 toggleHandler={this.toogleSection.bind(this)}
               />
 
-              <LinterButton linterAction={this.lint} isActive={this.state.isSynced} />
+              <LinterButton isActive={this.state.isSynced} />
 
               <Footer />
 
