@@ -17,7 +17,16 @@ import {
   COLOR_SETTINGS_STATUS_UPDATE,
   TEXT_SETTINGS_STATUS_UPDATE
 } from "../constants/events"
-import { MainView } from './mainView'
+
+import {
+  MAIN_ROUTE,
+  COLORS_ROUTE,
+  TEXTS_ROUTE
+} from "../constants/routes"
+
+import { MainView } from './views/mainView'
+import { ColorsView } from './views/colorsView'
+import { TextView } from './views/textView'
 
 // ******************** //
 // TOP LVL STYLING
@@ -136,7 +145,7 @@ export default class App extends React.Component<Plugin.LaunchProps, Plugin.Stat
 
         <Main>
           <HashRouter>
-            <Route exact path="/" component={() => {
+            <Route exact path={MAIN_ROUTE} component={() => {
               return (
                 <MainView 
                   isSynced={this.state.isSynced}
@@ -146,12 +155,19 @@ export default class App extends React.Component<Plugin.LaunchProps, Plugin.Stat
                 />)
               }} />
             
-            <Route exact path='/colors' component={() => {
+            <Route exact path={COLORS_ROUTE} component={() => {
               return (
-                <>
-                  <span>hovno</span>
-                  <NavLink to="/">Home</NavLink>
-                </>
+                <ColorsView 
+                  syncedColors={this.state.documentPaintStyles}
+                />
+              )
+            }} />
+
+            <Route exact path={TEXTS_ROUTE} component={() => {
+              return (
+                <TextView 
+                  syncedTextStyles={this.state.documentTextStyles}
+                />
               )
             }} />
             

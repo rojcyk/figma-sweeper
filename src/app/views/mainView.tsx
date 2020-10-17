@@ -1,15 +1,14 @@
 import * as React from "react"
-import { NavLink } from "react-router-dom"
 
 // ******************** //
 // LOCAL INCLUDES
 // ******************** //
 
-import Styles from "./styles"
-import Colors from "./colors"
-import Fonts from "./fonts"
-import LinterButton from "./lint/index"
-import { Footer } from "./footer"
+import Styles from "../styles"
+import Colors from "../colors"
+import Fonts from "../fonts"
+import LinterButton from "../lint/index"
+import { Footer } from "../footer"
 
 export const MainView = ({
   isSynced,
@@ -47,7 +46,5 @@ export const MainView = ({
     <LinterButton isActive={isSynced} />
 
     <Footer />
-
-    <NavLink to="/colors">Colors</NavLink>
   </React.Fragment>)
 }

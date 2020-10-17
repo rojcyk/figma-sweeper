@@ -1,5 +1,6 @@
 import React from "react"
 import styled from "styled-components"
+import { NavLink } from "react-router-dom"
 
 // ******************** //
 // LOCAL INCLUDES
@@ -9,8 +10,9 @@ import { Close } from "../icons/close"
 import { Headline } from "../components/headline"
 import { Description } from "../components/description"
 import { ButtonPrimary, ButtonSecondaryStyle } from "../components/button"
+import { Link } from "../components/navLink"
 import DocumentContext from "../document"
-import Warnings from "./warnings"
+import { COLORS_ROUTE, TEXTS_ROUTE } from "../../constants/routes"
 
 // ******************** //
 // Styles
@@ -94,11 +96,18 @@ export default () => (
                 paintStyles={styles.paintStyles.length | 0}
                 textStyles={styles.textStyles.length | 0}
               />
-              <Warnings paintStyles={styles.paintStyles} />
+
+            <div style={{
+              paddingTop: '12px'
+            }}>
+              <Link to={COLORS_ROUTE}>Uploaded Colors →</Link>
+              <Link to={TEXTS_ROUTE}>Uploaded Fonts →</Link>
+            </div>
             </>
           ) : (
             <ButtonPrimary onClick={() => exportStyles()} label={"Upload this document"} />
           )}
+
         </ContentWrapper>
       )
     }}

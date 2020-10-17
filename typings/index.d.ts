@@ -1,3 +1,5 @@
+declare module '*.png'
+
 declare namespace Plugin {
   type appName = "Appname"
   type ColorDistanceAlgorithm = "euclidean_distance" | "deltae"
