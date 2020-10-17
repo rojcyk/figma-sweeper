@@ -9,20 +9,15 @@ import { Route, NavLink, HashRouter } from "react-router-dom"
 
 import { DocumentProvider } from "./document"
 import { GlobalStyles } from "./globalStyles"
-import Styles from "./styles"
-import Colors from "./colors"
-import Fonts from "./fonts"
 import {
   STYLES_EXPORT,
   STYLES_DELETE,
-  APP_LINT,
   STYLES_UPDATE,
   OPENED_STATE_CHANGE,
   COLOR_SETTINGS_STATUS_UPDATE,
   TEXT_SETTINGS_STATUS_UPDATE
 } from "../constants/events"
-import LinterButton from "./lint/index"
-import { Footer } from "./footer"
+import { MainView } from './mainView'
 
 // ******************** //
 // TOP LVL STYLING
@@ -89,13 +84,8 @@ export default class App extends React.Component<Plugin.LaunchProps, Plugin.Stat
     io.send(OPENED_STATE_CHANGE, newOpenedState)
   }
 
-  private lint() {
-    io.send(APP_LINT)
-  }
-
   public toogleSection(openedProp: Plugin.OpenedProperties) {
     let tmpState = this.state.openedState
-
     tmpState[openedProp] = !tmpState[openedProp]
 
     this.setState({
@@ -142,49 +132,31 @@ export default class App extends React.Component<Plugin.LaunchProps, Plugin.Stat
           }
         }}
       >
-        <HashRouter>
-          <Route exact path="/" component={() => {
-            return (<Main>
-              <GlobalStyles />
+        <GlobalStyles />
 
-              <Styles
-                isSynced={this.state.isSynced}
-                expanded={this.state.openedState.styles}
-                toggleHandler={this.toogleSection.bind(this)}
-              />
-
-              <Colors
-                settings={this.state.settings.color}
-                isSynced={this.state.isSynced}
-                expanded={this.state.openedState.colors}
-                toggleHandler={this.toogleSection.bind(this)}
-              />
-
-              <Fonts
-                settings={this.state.settings.text}
-                isSynced={this.state.isSynced}
-                expanded={this.state.openedState.fonts}
-                toggleHandler={this.toogleSection.bind(this)}
-              />
-
-              <LinterButton isActive={this.state.isSynced} />
-
-              <Footer />
-
-              <NavLink to="/colors">Colors</NavLink>
-            </Main>)
+        <Main>
+          <HashRouter>
+            <Route exact path="/" component={() => {
+              return (
+                <MainView 
+                  isSynced={this.state.isSynced}
+                  openedState={this.state.openedState}
+                  settings={this.state.settings}
+                  toogleSection={this.toogleSection.bind(this)}
+                />)
+              }} />
+            
+            <Route exact path='/colors' component={() => {
+              return (
+                <>
+                  <span>hovno</span>
+                  <NavLink to="/">Home</NavLink>
+                </>
+              )
             }} />
-          
-          <Route exact path='/colors' component={() => {
-            return (
-              <>
-                <span>hovno</span>
-                <NavLink to="/">Home</NavLink>
-              </>
-            )
-          }} />
-          
-        </HashRouter>
+            
+          </HashRouter>
+        </Main>
       </DocumentProvider>
     )
   }
