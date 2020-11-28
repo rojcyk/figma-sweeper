@@ -6,7 +6,7 @@ import styled from "styled-components"
 // ******************** //
 
 import { Check } from "../components/check"
-import { WHITE } from "../../constants/ui"
+import { WHITE, GRAY } from "../../constants/ui"
 
 // ******************** //
 // TOP LVL STYLING
@@ -32,7 +32,7 @@ const CheckboxLabel = styled.span<{
   checked: boolean
 }>`
   font-size: 13px;
-  color: ${({ checked }) => (checked ? "#000000" : "#6F737D")};
+  color: ${({ checked }) => (checked ? "#000000" : GRAY )};
   font-weight: 500;
 `
 

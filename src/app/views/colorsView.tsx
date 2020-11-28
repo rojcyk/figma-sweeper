@@ -5,6 +5,7 @@ import styled from 'styled-components'
 // LOCAL INCLUDES
 // ******************** //
 
+import { GRAY } from '../../constants/ui'
 import { Headline } from "../components/headline"
 import { ContentWrapper } from "../components/contentWrapper"
 import { Back } from "../components/back"
@@ -18,6 +19,7 @@ const ColorsList = styled.ul`
   list-style-type: none;
   margin: 0;
   padding: 0;
+  color ${GRAY};
 
   margin-top: 16px;
 `

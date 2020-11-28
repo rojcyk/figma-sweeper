@@ -5,6 +5,7 @@ import styled from 'styled-components'
 // LOCAL INCLUDES
 // ******************** //
 
+import { GRAY } from "../../constants/ui"
 import { Headline } from "../components/headline"
 import { ContentWrapper } from "../components/contentWrapper"
 import { Back } from "../components/back"
@@ -26,6 +27,7 @@ const TextStyleWrapper = styled.li`
 `
 
 const TextStyleName = styled.span`
+  color: ${GRAY};
   display: block;
   margin-top: 4px;
   font-size: 12px;
@@ -65,7 +67,7 @@ const textItem = (textStyle: Plugin.ExportedTextStyle, index: number) => {
     <TextStylePreview fontSize={textStyle.fontSize} fontStyle={style} fontWeight={weight}>
       Aa
     </TextStylePreview>
-  <TextStyleName>{textStyle.name}</TextStyleName>
+  <TextStyleName>{textStyle.name} • {textStyle.fontFamily}</TextStyleName>
 
   </TextStyleWrapper>)
 }
