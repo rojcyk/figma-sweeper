@@ -1,5 +1,9 @@
 <p align="center">
   <img src="./cover.png">
+  <br />
+  <br />
+  <img src="https://img.shields.io/endpoint?url=https://yuanqing.github.io/figma-plugins-stats/plugin/891651591932556735/installs.json">
+
 </p>
 
 # Sweeper
