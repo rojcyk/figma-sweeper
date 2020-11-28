@@ -26,6 +26,8 @@ export type EditableNode =
 export const handleNode = (node: SceneNode, settings: Plugin.Settings, colorIndex: ColorIndex, textIndex: TextIndex) => {
   const { overwriteFills, overwriteStrokes } = settings.color
 
+  console.log(node.type)
+
   switch (node.type) {
     case "FRAME":
       traverse(node.children, handleNode, settings, colorIndex, textIndex)
@@ -39,6 +41,10 @@ export const handleNode = (node: SceneNode, settings: Plugin.Settings, colorInde
 
       if (overwriteFills) checkFills(node, colorIndex, settings)
       if (overwriteStrokes) checkStrokes(node, colorIndex, settings)
+      break
+
+    case "COMPONENT_SET":
+      traverse(node.children, handleNode, settings, colorIndex, textIndex)
       break
 
     case "COMPONENT":
