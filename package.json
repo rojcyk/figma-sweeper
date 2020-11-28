@@ -18,7 +18,7 @@
     "build": "node ./node_modules/webpack-cli/bin/cli.js --mode=production"
   },
   "devDependencies": {
-    "@figma/plugin-typings": "latest",
+    "@figma/plugin-typings": "^1.19.0",
     "@types/node": "^14.0.23",
     "@types/react": "^16.9.43",
     "@types/react-dom": "^16.9.8",
