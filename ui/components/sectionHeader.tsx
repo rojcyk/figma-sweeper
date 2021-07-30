@@ -5,7 +5,7 @@ import styled from "styled-components"
 // LOCAL INCLUDES
 // ******************** //
 
-import { Headline } from "../components/headline"
+import { Headline } from "./headline"
 import { Arrow } from "../icons/arrow"
 import { BACKGROUND, WHITE, ANIMATION_SPEED_MS } from "../../constants/ui"
 

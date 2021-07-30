@@ -5,7 +5,7 @@ import styled from "styled-components"
 // LOCAL INCLUDES
 // ******************** //
 
-import { Check } from "../components/check"
+import { Check } from "./check"
 import { WHITE, GRAY } from "../../constants/ui"
 
 // ******************** //

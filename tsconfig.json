@@ -1,7 +1,11 @@
 {
     "include": [
       "src/**/*",
-      "typings/**/*"
+      "typings/**/*",
+      "ui",
+      "code",
+      "constants",
+      "helpers"
     ],
     "exclude": [
       "node_modules",

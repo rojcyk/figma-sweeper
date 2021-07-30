@@ -19,7 +19,7 @@ const ColorsList = styled.ul`
   list-style-type: none;
   margin: 0;
   padding: 0;
-  color ${GRAY};
+  color: ${GRAY};
 
   margin-top: 16px;
 `
