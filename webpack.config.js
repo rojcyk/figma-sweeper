@@ -19,7 +19,7 @@ module.exports = (e, argv) => {
 
     entry: {
       ui: './ui/ui.tsx', // The entry point for your UI code
-      code: './code/code.ts' // The entry point for your plugin code
+      code: './code/index.ts' // The entry point for your plugin code
     },
 
     module: {
