@@ -5,14 +5,26 @@
       "ui",
       "code",
       "constants",
-      "helpers"
+      "utils"
     ],
     "exclude": [
       "node_modules",
       "dist"
     ],
     "compilerOptions": {
-      "lib": [ "es2015", "dom"],
+      "baseUrl": ".",
+      "paths": {
+        "@constants/*": ["constants/*"],
+        "@storage/*": ["code/storage/*"],
+        "@utils/*": ["code/utils/*"],
+        "@events": ["constants/events"],
+        "@ui": ["constants/ui"],
+        "@routes": ["constants/routes"]
+      },
+      "lib": [
+        "es2015",
+        "dom"
+      ],
       "typeRoots": [
         "./node_modules/@types",
         "./node_modules/@figma"

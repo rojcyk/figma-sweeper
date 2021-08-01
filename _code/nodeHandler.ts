@@ -60,6 +60,7 @@ export const handleNode = (node: SceneNode, settings: Plugin.Settings, colorInde
       if (overwriteFills) checkFills(node, colorIndex, settings)
       if (overwriteStrokes) checkStrokes(node, colorIndex, settings)
       break
+      
     //* *************************/
     /* items below do not have children
     //* *************************/

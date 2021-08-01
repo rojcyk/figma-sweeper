@@ -7,6 +7,7 @@ import { Route, NavLink, HashRouter } from "react-router-dom"
 // LOCAL INCLUDES
 // ******************** //
 
+import LinterButton from "./lint/index"
 import { DocumentProvider } from "./document"
 import { GlobalStyles } from "./globalStyles"
 import {
@@ -47,127 +48,111 @@ const Main = styled.main`
 export default class App extends React.Component<Plugin.LaunchProps, Plugin.StateProps> {
   public constructor(props: any) {
     super(props)
-
-    const openedState: Plugin.OpenedState = this.props.isSynced
-      ? this.props.openedState
-      : {
-          styles: true,
-          colors: false,
-          fonts: false
-        }
-
-    this.state = {
-      documentName: this.props.documentName,
-      documentPaintStyles: this.props.documentPaintStyles,
-      documentTextStyles: this.props.documentTextStyles,
-      settings: this.props.settings,
-      isSynced: this.props.isSynced,
-      openedState: openedState
-    }
   }
 
   // ************************************************ //
   // Main render method
   // ************************************************ //
 
-  private exportStyles() {
-    io.send(STYLES_EXPORT)
-  }
+  // private exportStyles() {
+  //   io.send(STYLES_EXPORT)
+  // }
 
-  private deleteStyles() {
-    io.send(STYLES_DELETE)
+  // private deleteStyles() {
+  //   io.send(STYLES_DELETE)
 
-    const newOpenedState: Plugin.OpenedState = {
-      styles: true,
-      colors: false,
-      fonts: false
-    }
+  //   const newOpenedState: Plugin.OpenedState = {
+  //     styles: true,
+  //     colors: false,
+  //     fonts: false
+  //   }
 
-    this.setNewOpenedState(newOpenedState)
-  }
+  //   this.setNewOpenedState(newOpenedState)
+  // }
 
-  private setNewOpenedState(newOpenedState: Plugin.OpenedState) {
-    this.setState({
-      openedState: newOpenedState
-    })
-    io.send(OPENED_STATE_CHANGE, newOpenedState)
-  }
+  // private setNewOpenedState(newOpenedState: Plugin.OpenedState) {
+  //   this.setState({
+  //     openedState: newOpenedState
+  //   })
+  //   io.send(OPENED_STATE_CHANGE, newOpenedState)
+  // }
 
-  public toogleSection(openedProp: Plugin.OpenedProperties) {
-    let tmpState = this.state.openedState
-    tmpState[openedProp] = !tmpState[openedProp]
+  // public toogleSection(openedProp: Plugin.OpenedProperties) {
+  //   let tmpState = this.state.openedState
+  //   tmpState[openedProp] = !tmpState[openedProp]
 
-    this.setState({
-      openedState: tmpState
-    })
+  //   this.setState({
+  //     openedState: tmpState
+  //   })
 
-    io.send(OPENED_STATE_CHANGE, tmpState)
-  }
+  //   io.send(OPENED_STATE_CHANGE, tmpState)
+  // }
 
-  public componentDidMount() {
-    io.on(STYLES_UPDATE, (data) => {
-      this.setState({
-        documentName: data.name,
-        documentPaintStyles: data.paintStyles,
-        documentTextStyles: data.textStyles,
-        isSynced: data.name !== ""
-      })
-    })
+  // public componentDidMount() {
+  //   io.on(STYLES_UPDATE, (data) => {
+  //     this.setState({
+  //       documentName: data.name,
+  //       documentPaintStyles: data.paintStyles,
+  //       documentTextStyles: data.textStyles,
+  //       isSynced: data.name !== ""
+  //     })
+  //   })
 
-    io.on(COLOR_SETTINGS_STATUS_UPDATE, (newColorSettings) => {
-      let tmpSettings = this.state.settings
-      Object.assign(tmpSettings.color, newColorSettings) 
-      this.setState({ settings: tmpSettings })
-    })
+  //   io.on(COLOR_SETTINGS_STATUS_UPDATE, (newColorSettings) => {
+  //     let tmpSettings = this.state.settings
+  //     Object.assign(tmpSettings.color, newColorSettings) 
+  //     this.setState({ settings: tmpSettings })
+  //   })
 
-    io.on(TEXT_SETTINGS_STATUS_UPDATE, (newTextSettings) => {
-      let tmpSettings = this.state.settings
-      Object.assign(tmpSettings.text, newTextSettings) 
-      this.setState({ settings: tmpSettings })
-    })
-  }
+  //   io.on(TEXT_SETTINGS_STATUS_UPDATE, (newTextSettings) => {
+  //     let tmpSettings = this.state.settings
+  //     Object.assign(tmpSettings.text, newTextSettings) 
+  //     this.setState({ settings: tmpSettings })
+  //   })
+  // }
 
   public render(): React.ReactNode {
     return (
-      <HashRouter>
-      <DocumentProvider
-        value={{
-          isSynced: this.state.isSynced,
-          documentName: this.state.documentName,
-          exportStyles: this.exportStyles.bind(this),
-          deleteStyles: this.deleteStyles.bind(this),
-          styles: {
-            paintStyles: this.state.documentPaintStyles,
-            textStyles: this.state.documentTextStyles
-          }
-        }}
-      >
-        <GlobalStyles />
+      <div><LinterButton isActive={true} /></div>
+      // <HashRouter>
+      // <DocumentProvider
+      //   value={{
+      //     isSynced: this.state.isSynced,
+      //     documentName: this.state.documentName,
+      //     exportStyles: this.exportStyles.bind(this),
+      //     deleteStyles: this.deleteStyles.bind(this),
+      //     styles: {
+      //       paintStyles: this.state.documentPaintStyles,
+      //       textStyles: this.state.documentTextStyles
+      //     }
+      //   }}
+      // >
+      //   <GlobalStyles />
 
-        <Main>
-          <Route exact path={MAIN_ROUTE}>
-            <MainView 
-              isSynced={this.state.isSynced}
-              openedState={this.state.openedState}
-              settings={this.state.settings}
-              toogleSection={this.toogleSection.bind(this)}
-            />
-          </Route>
+      //   <Main>
+      //     <Route exact path={MAIN_ROUTE}>
+      //       <MainView 
+      //         isSynced={this.state.isSynced}
+      //         openedState={this.state.openedState}
+      //         settings={this.state.settings}
+      //         toogleSection={this.toogleSection.bind(this)}
+      //       />
+      //     </Route>
           
-          <Route exact path={COLORS_ROUTE}>
-            <ColorsView 
-              syncedColors={this.state.documentPaintStyles}
-            />
-          </Route>
+      //     <Route exact path={COLORS_ROUTE}>
+      //       <ColorsView 
+      //         syncedColors={this.state.documentPaintStyles}
+      //       />
+      //     </Route>
 
-          <Route exact path={TEXTS_ROUTE}>
-            <TextView 
-              syncedTextStyles={this.state.documentTextStyles}
-            />
-          </ Route>
-        </Main>
-      </DocumentProvider>
-      </HashRouter>
+      //     <Route exact path={TEXTS_ROUTE}>
+      //       <TextView 
+      //         syncedTextStyles={this.state.documentTextStyles}
+      //       />
+      //     </ Route>
+      //   </Main>
+      // </DocumentProvider>
+      // </HashRouter>
     )
   }
 }

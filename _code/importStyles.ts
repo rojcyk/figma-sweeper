@@ -1,4 +1,3 @@
-import io from "figmaio/code"
 import { DOCUMENT_PAINT_STYLES, DOCUMENT_TEXT_STYLES } from "../constants/storage"
 import asyncForEach from "../helpers/asyncForEach"
 

@@ -13,6 +13,14 @@ import { BACKGROUND, WHITE, ANIMATION_SPEED_MS } from "../../constants/ui"
 // Helpers
 // ******************** //
 
+const HeaderLabel = styled.span`
+  z-index: 10;
+  position: "relative";
+  font-size: 16px;
+  font-weight: 500;
+  text-transform: capitalize;
+`
+
 const HeaderWrapper = styled.div<{ isActive: boolean }>`
   position: relative;
   height: 56px;
@@ -50,10 +58,7 @@ export const HeaderBackground = styled.div<{ isExpanded: boolean }>`
     isExpanded
       ? `
       border-radius: 16px;
-      border-top: 12px solid ${WHITE};
-      border-bottom: 12px solid ${WHITE};
-      border-left: 6px solid ${WHITE};
-      border-right: 6px solid ${WHITE};
+      border: 8px solid ${WHITE};
     `
       : `
       border: 0 solid ${WHITE};
@@ -85,29 +90,31 @@ const LabelWrapper = styled.div<{ isActive: boolean }>`
 // Component
 // ******************** //
 
-export default ({
-  isExpanded,
-  isActive,
-  label
-}: {
+interface HeaderProps {
   isExpanded: boolean
   isActive: boolean
   label: string
-}) => {
-  return (
-    <HeaderWrapper isActive={isActive}>
-      <LabelWrapper isActive={isActive}>
-        <Arrow
-          direction={isExpanded ? "down" : "right"}
-          style={{
-            position: "relative",
-            opacity: isActive ? "1" : "0.25",
-            zIndex: 10
-          }}
-        />
-        <Headline style={{ zIndex: 10, position: "relative" }}>{label}</Headline>
-      </LabelWrapper>
-      <HeaderBackground className="background" isExpanded={isExpanded} />
-    </HeaderWrapper>
-  )
 }
+
+export class Header extends React.Component<HeaderProps, {}> {
+  public render(): React.ReactNode {
+    return (
+      <HeaderWrapper isActive={this.props.isActive}>
+        <LabelWrapper isActive={this.props.isActive}>
+          <Arrow
+            direction={this.props.isExpanded ? "down" : "right"}
+            style={{
+              position: "relative",
+              opacity: this.props.isActive ? "1" : "0.25",
+              zIndex: 10
+            }}
+          />
+          <HeaderLabel>{this.props.label}</HeaderLabel>
+        </LabelWrapper>
+        <HeaderBackground className="background" isExpanded={this.props.isExpanded} />
+      </HeaderWrapper>
+    )
+  }
+}
+
+export default Header

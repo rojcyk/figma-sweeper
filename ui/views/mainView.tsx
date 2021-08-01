@@ -22,7 +22,7 @@ export const MainView = ({
   toogleSection: Function
 }) => 
   <React.Fragment>
-    <Styles
+    {/* <Styles
       isSynced={isSynced}
       expanded={openedState.styles}
       toggleHandler={toogleSection}
@@ -40,7 +40,7 @@ export const MainView = ({
       isSynced={isSynced}
       expanded={openedState.fonts}
       toggleHandler={toogleSection}
-    />
+    /> */}
 
     <LinterButton isActive={isSynced} />
 

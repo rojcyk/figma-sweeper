@@ -1,16 +1,39 @@
 declare module '*.png'
 
 declare namespace Plugin {
-  type appName = "Appname"
   type ColorDistanceAlgorithm = "euclidean_distance" | "deltae"
 
+  interface SettingsProps {
+    deleteHidden?: boolean,
+    pixelPerfect?: boolean,
+    skipLocked?: boolean,
+    noGroups?: boolean,
+    ungroupSingleGroup?: boolean,
+    removeStyleOverrides?: boolean,
+    requireFillStyles?: boolean,
+    requireStrokeStyles?: boolean,
+    requireEffectStyles?: boolean,
+  }
+  
+  interface SettingsState {
+    deleteHidden: boolean,
+    pixelPerfect: boolean,
+    skipLocked: boolean,
+    noGroups: boolean,
+    ungroupSingleGroup: boolean,
+    removeStyleOverrides: boolean,
+    requireFillStyles: boolean,
+    requireStrokeStyles: boolean,
+    requireEffectStyles: boolean,
+  }
+
   interface LaunchProps {
-    documentName: string
-    documentPaintStyles: ExportedStyle[]
-    documentTextStyles: ExportedTextStyle[]
-    settings: Settings
-    isSynced: boolean
-    openedState: OpenedState
+    // documentName: string
+    // documentPaintStyles: ExportedStyle[]
+    // documentTextStyles: ExportedTextStyle[]
+    // settings: Settings
+    // isSynced: boolean
+    // openedState: OpenedState
   }
 
   type OpenedProperties = "styles" | "colors"
@@ -63,8 +86,7 @@ declare namespace Plugin {
   }
 
   interface Settings {
-    color: ColorSettings
-    text: TextSettings
+    
   }
 
   interface ThemeOverviewI {

@@ -1,4 +1,4 @@
-export default async (
+export const asyncForEach = async (
   array: any[],
   callback: any,
 ): Promise<void> => {

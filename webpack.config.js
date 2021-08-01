@@ -2,7 +2,7 @@ const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
 const dotenv = require('dotenv')
-const InlineChunkHtmlPlugin = require('./helpers/inlinePlugin')
+const InlineChunkHtmlPlugin = require('./vendor/inlinePlugin')
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = (e, argv) => {
@@ -42,7 +42,16 @@ module.exports = (e, argv) => {
 
     // Webpack tries these extensions for you if you omit the extension like "import './file'"
     resolve: {
-      extensions: ['.tsx', '.ts', '.jsx', '.js']
+      extensions: ['.tsx', '.ts', '.jsx', '.js'],
+      alias: {
+        // add as many aliases as you like! 
+        '@constants': path.resolve(__dirname, 'constants'),
+        '@storage': path.resolve(__dirname, 'code/storage'),
+        '@utils': path.resolve(__dirname, 'code/utils'),
+        '@events': path.resolve(__dirname, 'constants/events'),
+        '@ui': path.resolve(__dirname, 'constants/ui'),
+        '@routes': path.resolve(__dirname, 'constants/routes'),
+      }
       // modules: ['/node_modules'],
     },
 
