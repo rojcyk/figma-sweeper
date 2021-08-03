@@ -1,41 +1,28 @@
 import React from "react"
-import styled, { StyledComponent } from "styled-components"
+import styled from "styled-components"
 
 // ******************** //
 // LOCAL INCLUDES
 // ******************** //
 
-import {
-  FS_SMALL,
-  BLACK,
-  WHITE,
-  BLUE,
-  BACKGROUND,
-  SEPARATOR,
-  ANIMATION_SPEED_MS
-} from "@ui"
+import { BLACK, WHITE, BLUE, BACKGROUND, SEPARATOR } from "../../constants/ui"
 
 // ******************************** //
 // Styles
 // ******************************** //
 
-const SharedButtonStyles = styled.button<{ hasIcon: boolean }>`
+const SharedButtonStyles = styled.button`
   cursor: pointer;
   width: 100%;
   border-radius: 6px;
   padding: 10px 12px;
-  font-size: ${FS_SMALL};
+  font-size: 14px;
   font-weight: 500;
-  transition: all ${ANIMATION_SPEED_MS}ms ease-out;
+  transition: all 0.2s ease-out;
   outline: none;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  ${props => props.hasIcon ? 'padding-right: 8px;' : ''}
 `
 
-export const ButtonPrimaryStyle = styled(SharedButtonStyles)`
+export const ButtonPripmaryStyle = styled(SharedButtonStyles)`
   background-color: ${BLUE};
   border: 1px solid #127ac6;
   color: ${WHITE};
@@ -55,11 +42,11 @@ export const ButtonSecondaryStyle = styled(SharedButtonStyles)`
   color: ${BLACK};
   fill: ${BLACK} !important;
   text-shadow: 0 1px 0 ${WHITE};
-  /* box-shadow: inset 0 2px ${WHITE}, 0 3px 6px rgba(0, 0, 0, 0.08); */
+  box-shadow: inset 0 2px ${WHITE}, 0 3px 6px rgba(0, 0, 0, 0.12);
 
   &:hover {
     background-color: ${WHITE};
-    /* box-shadow: inset 0 1px 0 ${WHITE}, 0 2px 4px rgba(0, 0, 0, 0.04); */
+    box-shadow: inset 0 1px 0 ${WHITE}, 0 2px 4px rgba(0, 0, 0, 0.08);
   }
 `
 
@@ -78,33 +65,37 @@ export const ButtonDisabledStyle = styled(SharedButtonStyles)`
 // Interfaces
 // ******************************** //
 
-interface DisabledButton {
+interface Button {
   label: string
-  icon?: React.ReactElement
-  style?: React.CSSProperties
-  onClick?: Function
-}
-
-interface Button extends DisabledButton {
+  icon?: any
   onClick: Function
 }
 
 interface ButtonGenerator extends Button {
-  Wrapper: StyledComponent<any,any>
+  Wrapper: any
 }
 
 // ******************************** //
 // Button Generator
 // ******************************** //
 
-export const generateButton = ({ label, icon, onClick, Wrapper, style }: ButtonGenerator) => {
+export const generateButton = ({ label, icon, onClick, Wrapper }: ButtonGenerator) => {
+  let style: React.CSSProperties = {}
+
+  if (icon) {
+    Object.assign(style, {
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center"
+    })
+  }
+
   return (
-    <Wrapper
-      hasIcon={icon ? true : false}
-      onClick={() => onClick()}
-      style={style}>
-      {label} {icon}
-    </Wrapper>
+    <ButtonPripmaryStyle onClick={() => onClick()}>
+      <div style={style}>
+        {label} {icon}
+      </div>
+    </ButtonPripmaryStyle>
   )
 }
 
@@ -115,7 +106,7 @@ export const generateButton = ({ label, icon, onClick, Wrapper, style }: ButtonG
 export const ButtonPrimary = (props: Button) => {
   return generateButton({
     ...props,
-    Wrapper: ButtonPrimaryStyle
+    Wrapper: ButtonPripmaryStyle
   })
 }
 
@@ -123,13 +114,5 @@ export const ButtonSecondary = (props: Button) => {
   return generateButton({
     ...props,
     Wrapper: ButtonSecondaryStyle
-  })
-}
-
-export const ButtonDisabled = (props: DisabledButton) => {
-  return generateButton({
-    ...props,
-    onClick: props.onClick ? props.onClick : () => {},
-    Wrapper: ButtonDisabledStyle
   })
 }

@@ -28,6 +28,7 @@ declare namespace Plugin {
   }
 
   interface LaunchProps {
+    settings: SettingsState
     // documentName: string
     // documentPaintStyles: ExportedStyle[]
     // documentTextStyles: ExportedTextStyle[]

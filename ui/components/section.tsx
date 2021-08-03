@@ -6,60 +6,113 @@ import AnimateHeight from "react-animate-height"
 // LOCAL INCLUDES
 // ******************** //
 
-import { WHITE, SEPARATOR, ANIMATION_SPEED_MS } from "../../constants/ui"
+import { WHITE, BACKGROUND, SEPARATOR, ANIMATION_SPEED_MS, BORDER_RADIUS_M } from "@ui"
+import { Arrow } from '@icons/arrow'
 
-// ******************** //
-// Interface
-// ******************** //
-
-export interface SectionProps {
-  expanded: boolean
-  toggleHandler: Function
-  content: JSX.Element
-  header: JSX.Element
-  isActive: boolean
-}
-
-// ******************** //
-// LOCAL HELPERS
-// ******************** //
-
-const Wrapper = styled.div<{
+export const SectionWrapper = styled.div<{
   expanded: boolean
 }>`
   transition: all ${ANIMATION_SPEED_MS}ms ease-out;
-  background-color: ${WHITE};
-  border-top: ${(props) => (props.expanded ? `3px solid ${SEPARATOR}` : `0 solid ${SEPARATOR}`)};
-  border-bottom: ${(props) =>
-    props.expanded ? `4px solid ${SEPARATOR}` : `1px solid ${SEPARATOR}`};
+  border-top: ${({ expanded }) => expanded ? `3px solid ${SEPARATOR}` : `1px solid rgba(255,255,255,0)`};
+  border-bottom: ${({ expanded }) => expanded ? `4px solid ${SEPARATOR}` : `1px solid ${SEPARATOR}`};
+`
+
+// ******************** //
+// Helpers
+// ******************** //
+
+const SectionHeaderLabel = styled.span`
+  z-index: 10;
+  font-size: 16px;
+  font-weight: 500;
+  text-transform: capitalize;
+`
+
+const SectionHeaderBackground = styled.div<{ expanded: boolean }>`
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: all ${ANIMATION_SPEED_MS}ms ease-out;
+
+  ${({ expanded }) =>
+    expanded
+      ? `
+      border: 6px solid ${WHITE};
+      border-radius: ${6 + BORDER_RADIUS_M}px;
+    `
+      : `
+      border: 0 solid ${WHITE};
+      border-radius: 0;
+  `}
+`
+
+const SectionHeaderWrapper = styled.div`
+  position: relative;
+  height: 56px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 16px 16px;
+
+  ${SectionHeaderBackground} {
+    background-color: ${WHITE};
+    /* background-color: yellow; */
+  }
+
+  &:hover {
+    ${SectionHeaderBackground} {
+      background-color: ${BACKGROUND};
+    }
+  }
 `
 
 // ******************** //
 // Component
 // ******************** //
 
-export const SectionWrapper = ({
-  content,
-  header,
-  toggleHandler,
-  expanded,
-  isActive
-}: SectionProps) => {
+interface SectionHeaderProps {
+  expanded: boolean
+  children: any
+  onClick: Function
+}
+
+export const SectionHeader = ({ expanded, children, onClick }: SectionHeaderProps) => {
+  return (
+    <SectionHeaderWrapper onClick={() => onClick()}>
+      <Arrow
+        direction={expanded ? "down" : "right"}
+        style={{ position: "relative", zIndex: 10 }}
+      />
+      <SectionHeaderLabel>{children}</SectionHeaderLabel>
+
+      <SectionHeaderBackground expanded={expanded}/>
+    </SectionHeaderWrapper>
+  )
+}
+
+
+// ******************** //
+// Interface
+// ******************** //
+
+interface SectionContentProps {
+  expanded: boolean
+  children: any
+  style?: React.CSSProperties
+}
+
+export const SectionContent = ({ children, expanded, style }: SectionContentProps) => {
   const height = expanded ? "auto" : 0
 
   return (
-    <Wrapper expanded={expanded}>
-      <div
-        onClick={() => {
-          if (isActive) toggleHandler()
-        }}
-      >
-        {header}
-      </div>
-
-      <AnimateHeight duration={ANIMATION_SPEED_MS} height={height}>
-        {content}
-      </AnimateHeight>
-    </Wrapper>
+    <AnimateHeight
+      style={style}
+      duration={ANIMATION_SPEED_MS}
+      height={height}>
+      {children}
+    </AnimateHeight>
   )
 }

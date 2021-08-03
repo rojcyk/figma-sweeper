@@ -51,6 +51,8 @@ module.exports = (e, argv) => {
         '@events': path.resolve(__dirname, 'constants/events'),
         '@ui': path.resolve(__dirname, 'constants/ui'),
         '@routes': path.resolve(__dirname, 'constants/routes'),
+        '@components': path.resolve(__dirname, 'ui/components'),
+        '@icons': path.resolve(__dirname, 'ui/icons'),
       }
       // modules: ['/node_modules'],
     },

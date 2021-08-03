@@ -1,37 +1,46 @@
 import * as React from "react"
-import styled from "styled-components"
-import io from "figmaio/ui"
-import { Route, NavLink, HashRouter } from "react-router-dom"
+import styled, { createGlobalStyle } from "styled-components"
+// import io from "figmaio/ui"
 
 // ******************** //
 // LOCAL INCLUDES
 // ******************** //
 
-import LinterButton from "./lint/index"
-import { DocumentProvider } from "./document"
-import { GlobalStyles } from "./globalStyles"
-import {
-  STYLES_EXPORT,
-  STYLES_DELETE,
-  STYLES_UPDATE,
-  OPENED_STATE_CHANGE,
-  COLOR_SETTINGS_STATUS_UPDATE,
-  TEXT_SETTINGS_STATUS_UPDATE
-} from "../constants/events"
-
-import {
-  MAIN_ROUTE,
-  COLORS_ROUTE,
-  TEXTS_ROUTE
-} from "../constants/routes"
-
-import { MainView } from './views/mainView'
-import { ColorsView } from './views/colorsView'
-import { TextView } from './views/textView'
+import { BACKGROUND, WHITE } from "@ui"
+import LinterContext from "./linterContext"
+import { StylesheetView } from "./stylesheet"
 
 // ******************** //
 // TOP LVL STYLING
 // ******************** //
+
+export const GlobalStyles = createGlobalStyle`
+  *, *:before, *:after {
+    box-sizing: border-box;
+  }
+
+  html {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* IE 10+ */
+  }
+
+  ::-webkit-scrollbar {
+    width: 0px;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
+  }
+
+  html,
+  body {
+    padding: 0;
+    margin: 0;
+    /* background-color: ${BACKGROUND}; */
+    background-color: ${WHITE};
+  }
+`
 
 const Main = styled.main`
   position: relative;
@@ -46,113 +55,21 @@ const Main = styled.main`
 // ******************** //
 
 export default class App extends React.Component<Plugin.LaunchProps, Plugin.StateProps> {
-  public constructor(props: any) {
+  public constructor(props: Plugin.LaunchProps) {
     super(props)
   }
 
-  // ************************************************ //
-  // Main render method
-  // ************************************************ //
-
-  // private exportStyles() {
-  //   io.send(STYLES_EXPORT)
-  // }
-
-  // private deleteStyles() {
-  //   io.send(STYLES_DELETE)
-
-  //   const newOpenedState: Plugin.OpenedState = {
-  //     styles: true,
-  //     colors: false,
-  //     fonts: false
-  //   }
-
-  //   this.setNewOpenedState(newOpenedState)
-  // }
-
-  // private setNewOpenedState(newOpenedState: Plugin.OpenedState) {
-  //   this.setState({
-  //     openedState: newOpenedState
-  //   })
-  //   io.send(OPENED_STATE_CHANGE, newOpenedState)
-  // }
-
-  // public toogleSection(openedProp: Plugin.OpenedProperties) {
-  //   let tmpState = this.state.openedState
-  //   tmpState[openedProp] = !tmpState[openedProp]
-
-  //   this.setState({
-  //     openedState: tmpState
-  //   })
-
-  //   io.send(OPENED_STATE_CHANGE, tmpState)
-  // }
-
-  // public componentDidMount() {
-  //   io.on(STYLES_UPDATE, (data) => {
-  //     this.setState({
-  //       documentName: data.name,
-  //       documentPaintStyles: data.paintStyles,
-  //       documentTextStyles: data.textStyles,
-  //       isSynced: data.name !== ""
-  //     })
-  //   })
-
-  //   io.on(COLOR_SETTINGS_STATUS_UPDATE, (newColorSettings) => {
-  //     let tmpSettings = this.state.settings
-  //     Object.assign(tmpSettings.color, newColorSettings) 
-  //     this.setState({ settings: tmpSettings })
-  //   })
-
-  //   io.on(TEXT_SETTINGS_STATUS_UPDATE, (newTextSettings) => {
-  //     let tmpSettings = this.state.settings
-  //     Object.assign(tmpSettings.text, newTextSettings) 
-  //     this.setState({ settings: tmpSettings })
-  //   })
-  // }
-
   public render(): React.ReactNode {
     return (
-      <div><LinterButton isActive={true} /></div>
-      // <HashRouter>
-      // <DocumentProvider
-      //   value={{
-      //     isSynced: this.state.isSynced,
-      //     documentName: this.state.documentName,
-      //     exportStyles: this.exportStyles.bind(this),
-      //     deleteStyles: this.deleteStyles.bind(this),
-      //     styles: {
-      //       paintStyles: this.state.documentPaintStyles,
-      //       textStyles: this.state.documentTextStyles
-      //     }
-      //   }}
-      // >
-      //   <GlobalStyles />
+      <LinterContext.Provider value={{
+        isSynced: true
+      }}>
+        <GlobalStyles />
 
-      //   <Main>
-      //     <Route exact path={MAIN_ROUTE}>
-      //       <MainView 
-      //         isSynced={this.state.isSynced}
-      //         openedState={this.state.openedState}
-      //         settings={this.state.settings}
-      //         toogleSection={this.toogleSection.bind(this)}
-      //       />
-      //     </Route>
-          
-      //     <Route exact path={COLORS_ROUTE}>
-      //       <ColorsView 
-      //         syncedColors={this.state.documentPaintStyles}
-      //       />
-      //     </Route>
-
-      //     <Route exact path={TEXTS_ROUTE}>
-      //       <TextView 
-      //         syncedTextStyles={this.state.documentTextStyles}
-      //       />
-      //     </ Route>
-      //   </Main>
-      // </DocumentProvider>
-      // </HashRouter>
+        <Main>
+          <StylesheetView />
+        </Main>
+      </LinterContext.Provider>
     )
   }
 }

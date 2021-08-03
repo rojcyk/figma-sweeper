@@ -5,42 +5,91 @@ import styled from "styled-components"
 // LOCAL INCLUDES
 // ******************** //
 
-import { Check } from "./check"
-import { WHITE, GRAY } from "../../constants/ui"
+import {
+  BLACK,
+  WHITE,
+  GRAY,
+  SEPARATOR,
+  BLUE,
+  BLUE_DARK,
+  FS_SMALL,
+  BACKGROUND,
+  BORDER_RADIUS_S,
+  BORDER_RADIUS_M
+} from "@ui"
 
 // ******************** //
 // TOP LVL STYLING
 // ******************** //
 
+export const Check = styled.div<{
+  checked: boolean
+}>`
+  display: inline-block;
+  position: relative;
+  width: 18px;
+  height: 18px;
+  border-radius: ${BORDER_RADIUS_S}px;
+  margin-right: 6px;
+  flex-shrink: 0;
+
+  ${({ checked }) =>
+    checked
+      ? `
+      background-color: ${BLUE};
+      border: 1px solid ${BLUE_DARK};
+      text-shadow: 0 1px 0 rgba(0, 0, 0, 0.16);
+      box-shadow: inset 0 2px 0 #56a4ff;
+      color: ${WHITE};
+
+      &:after {
+        top: 0;
+        left: 0;
+        padding-top: 1px;
+        content: '✓';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+      }
+    `
+      : `
+      background-color: #F7F8FA;
+      border: 1px solid ${SEPARATOR};
+      text-shadow: 0 1px 0 ${WHITE};
+    `}
+`
+
 const CheckboxWrapper = styled.div`
   display: flex;
-  align-items: center;
   margin-bottom: 4px;
   padding: 4px;
-  border-radius: 4px;
+  padding-right: 8px;
+  border-radius: ${BORDER_RADIUS_M}px;
   cursor: pointer;
-  background-color: ${WHITE};
   transition: all 160ms ease-out;
 
   &:hover {
     transition: all 160ms ease-out;
-    background-color: #f2f4f7;
+    background-color: ${BACKGROUND};
   }
 `
 
 const CheckboxLabel = styled.span<{
   checked: boolean
 }>`
-  font-size: 13px;
-  color: ${({ checked }) => (checked ? "#000000" : GRAY )};
+  font-size: ${FS_SMALL};
+  line-height: 130%;
+  color: ${({ checked }) => (checked ? BLACK : GRAY )};
   font-weight: 500;
+  padding-top: 1px;
 `
 
 // ******************** //
 // COMPONENT
 // ******************** //
 
-const Checkbox = ({
+export const Checkbox = ({
   checked,
   children,
   onCheckboxChange

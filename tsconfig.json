@@ -18,6 +18,8 @@
         "@storage/*": ["code/storage/*"],
         "@utils/*": ["code/utils/*"],
         "@events": ["constants/events"],
+        "@components/*": ["ui/components/*"],
+        "@icons/*": ["ui/icons/*"],
         "@ui": ["constants/ui"],
         "@routes": ["constants/routes"]
       },

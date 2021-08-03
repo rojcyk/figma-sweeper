@@ -21,6 +21,7 @@ declare function require(path: string): any
 
 const main = async () => {
   /* We are waiting from data coming from the code part of the app */
+
   const appProps = (await io.async(APP_START)) as Plugin.LaunchProps
 
   console.log(`[Linter] App props:`)

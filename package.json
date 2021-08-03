@@ -9,9 +9,6 @@
     "type": "git",
     "url": "https://github.com/rojcyk/figma-sweeper.git"
   },
-  "paths": {
-    "@events/*": ["constants/events*"]
-  },
   "bugs": {
     "url": "https://github.com/rojcyk/figma-sweeper/issues",
     "email": "sweeper@rojcyk.com"

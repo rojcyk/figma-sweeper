@@ -25,10 +25,7 @@ io.on(APP_LINT, async () => {
     return null
   }
 
-  // // All prerequisities are met, we can lint!
-  // const colorIndex = new ColorIndex(imported.importedPaintStyles, settings)
-  // const textIndex = new TextIndex(imported.importedTextStyles, settings)
-
+  // All prerequisities are met, we can lint!
   await asyncForEach(selection, (frame: SceneNode) => {
     handleNode(frame, { })
   })
