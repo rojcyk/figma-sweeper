@@ -53,6 +53,7 @@ module.exports = (e, argv) => {
         '@routes': path.resolve(__dirname, 'constants/routes'),
         '@components': path.resolve(__dirname, 'ui/components'),
         '@icons': path.resolve(__dirname, 'ui/icons'),
+        '@views': path.resolve(__dirname, 'ui/views'),
       }
       // modules: ['/node_modules'],
     },

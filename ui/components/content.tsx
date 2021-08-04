@@ -14,8 +14,4 @@ const ContentStyle = styled.div`
 // Component
 // ******************** //
 
-export const Content = (props: any) => {
-  return (
-    <ContentStyle {...props} />
-  )
-}
+export const Content = (props: any) => <ContentStyle {...props} />

@@ -13,18 +13,19 @@ import {
   BLUE,
   BLUE_DARK,
   FS_SMALL,
+  FS_TINY,
   BACKGROUND,
   BORDER_RADIUS_S,
   BORDER_RADIUS_M
 } from "@ui"
 
+import { P } from '@components/typography'
+
 // ******************** //
 // TOP LVL STYLING
 // ******************** //
 
-export const Check = styled.div<{
-  checked: boolean
-}>`
+export const Check = styled.div<{ checked: boolean }>`
   display: inline-block;
   position: relative;
   width: 18px;
@@ -75,14 +76,25 @@ const CheckboxWrapper = styled.div`
   }
 `
 
-const CheckboxLabel = styled.span<{
-  checked: boolean
-}>`
+const Label = styled.span<{ checked: boolean }>`
+  display: inline-block;
   font-size: ${FS_SMALL};
   line-height: 130%;
   color: ${({ checked }) => (checked ? BLACK : GRAY )};
   font-weight: 500;
   padding-top: 1px;
+  user-select: none;
+`
+
+const ContentWrapper = styled.div``
+
+const ContentDescription = styled.p`
+  font-size: ${FS_TINY};
+  line-height: 130%;
+  color: ${GRAY};
+  margin: 0;
+  padding: 4px 0 4px 0;
+  user-select: none;
 `
 
 // ******************** //
@@ -91,19 +103,22 @@ const CheckboxLabel = styled.span<{
 
 export const Checkbox = ({
   checked,
-  children,
+  label,
+  description,
   onCheckboxChange
 }: {
   checked: boolean
-  children: any
+  label: string,
+  description?: string,
   onCheckboxChange: Function
 }) => {
   return (
     <CheckboxWrapper onClick={() => onCheckboxChange()}>
       <Check checked={checked} />
-      <CheckboxLabel checked={checked} style={{ display: "inline-block" }}>
-        {children}
-      </CheckboxLabel>
+      <ContentWrapper>
+        <Label checked={checked}>{label}</Label>
+        {description && <ContentDescription>{description}</ContentDescription>}
+      </ContentWrapper>
     </CheckboxWrapper>
   )
 }

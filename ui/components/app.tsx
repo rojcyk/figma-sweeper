@@ -1,14 +1,15 @@
 import * as React from "react"
 import styled, { createGlobalStyle } from "styled-components"
-// import io from "figmaio/ui"
+import io from "figmaio/ui"
 
 // ******************** //
 // LOCAL INCLUDES
 // ******************** //
 
-import { BACKGROUND, WHITE } from "@ui"
-import LinterContext from "./linterContext"
-import { StylesheetView } from "./stylesheet"
+import { BACKGROUND } from "@ui"
+import { SETTINGS_UPDATE } from "@events"
+import LinterContext from "../linterContext"
+import { StylesheetView } from "@views/settingsView"
 
 // ******************** //
 // TOP LVL STYLING
@@ -37,8 +38,7 @@ export const GlobalStyles = createGlobalStyle`
   body {
     padding: 0;
     margin: 0;
-    /* background-color: ${BACKGROUND}; */
-    background-color: ${WHITE};
+    background-color: ${BACKGROUND};
   }
 `
 
@@ -57,17 +57,24 @@ const Main = styled.main`
 export default class App extends React.Component<Plugin.LaunchProps, Plugin.StateProps> {
   public constructor(props: Plugin.LaunchProps) {
     super(props)
+
+    this.state = { settings: props.settings  }
+  }
+
+  toggleSettings (settingProp: Plugin.SettingsProp) {
+    const settings  = this.state.settings
+    settings[settingProp] = !settings[settingProp]
+    this.setState({ settings })
+    io.send(SETTINGS_UPDATE, settings)
   }
 
   public render(): React.ReactNode {
     return (
-      <LinterContext.Provider value={{
-        isSynced: true
-      }}>
+      <LinterContext.Provider value={this.state.settings}>
         <GlobalStyles />
 
         <Main>
-          <StylesheetView />
+          <StylesheetView toggle={this.toggleSettings.bind(this)} />
         </Main>
       </LinterContext.Provider>
     )

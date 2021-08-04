@@ -6,8 +6,8 @@ import io from "figmaio/ui"
 // LOCAL INCLUDES
 // ******************** //
 
-import { APP_START } from "../constants/events"
-import App from "./app"
+import { APP_START } from "@events"
+import App from "@components/app"
 
 // ******************** //
 // Figma hacks

@@ -1,5 +1,8 @@
 export const APP_START = "appStart"
 export const APP_LINT = "appLint"
+export const SETTINGS_UPDATE = 'settingsUpdate'
+
+
 export const STYLES_EXPORT = "stylesExport"
 export const STYLES_DELETE = "stylesDelete"
 export const STYLES_UPDATE = "stylesUpdated"

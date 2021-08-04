@@ -8,15 +8,6 @@ import styled from "styled-components"
 import { BLUE, FS_SMALL, GRAY } from "@ui"
 
 // ******************** //
-// Interface
-// ******************** //
-
-export interface DescriptionProps {
-  children: any
-  style?: React.CSSProperties
-}
-
-// ******************** //
 // Styles
 // ******************** //
 
@@ -38,6 +29,4 @@ export const ParagraphStyle = styled.p`
 // Component
 // ******************** //
 
-export const P = ({ children, style }: DescriptionProps) => {
-  return <ParagraphStyle style={style}>{children}</ParagraphStyle>
-}
+export const P = (props: any) => <ParagraphStyle {...props} />

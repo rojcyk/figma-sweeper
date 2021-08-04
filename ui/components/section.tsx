@@ -9,9 +9,8 @@ import AnimateHeight from "react-animate-height"
 import { WHITE, BACKGROUND, SEPARATOR, ANIMATION_SPEED_MS, BORDER_RADIUS_M } from "@ui"
 import { Arrow } from '@icons/arrow'
 
-export const SectionWrapper = styled.div<{
-  expanded: boolean
-}>`
+export const SectionWrapper = styled.div<{ expanded: boolean }>`
+  background-color: ${WHITE};
   transition: all ${ANIMATION_SPEED_MS}ms ease-out;
   border-top: ${({ expanded }) => expanded ? `3px solid ${SEPARATOR}` : `1px solid rgba(255,255,255,0)`};
   border-bottom: ${({ expanded }) => expanded ? `4px solid ${SEPARATOR}` : `1px solid ${SEPARATOR}`};

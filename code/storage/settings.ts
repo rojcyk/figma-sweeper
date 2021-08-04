@@ -1,23 +1,12 @@
 import { SETTINGS } from "@constants/storage"
-
-const defaultSettings: Plugin.SettingsState = {
-  deleteHidden: false,
-  pixelPerfect: false,
-  skipLocked: true,
-  noGroups: false,
-  ungroupSingleGroup: true,
-  removeStyleOverrides: false,
-  requireFillStyles: true,
-  requireStrokeStyles: true,
-  requireEffectStyles: true
-}
+import { SETTINGS_DEFAULT } from "@constants/settings"
 
 export const get_settings = async (): Promise<Plugin.SettingsState> => {
   const settings = await figma.clientStorage.getAsync(SETTINGS) as Plugin.SettingsState | undefined
 
   if (settings === undefined) {
-    await figma.clientStorage.setAsync(SETTINGS, defaultSettings)
-    return defaultSettings
+    await figma.clientStorage.setAsync(SETTINGS, SETTINGS_DEFAULT)
+    return SETTINGS_DEFAULT
   }
 
   return settings

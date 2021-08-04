@@ -21,7 +21,8 @@
         "@components/*": ["ui/components/*"],
         "@icons/*": ["ui/icons/*"],
         "@ui": ["constants/ui"],
-        "@routes": ["constants/routes"]
+        "@routes": ["constants/routes"],
+        "@views/*": ["ui/views/*"]
       },
       "lib": [
         "es2015",
