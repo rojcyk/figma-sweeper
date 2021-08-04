@@ -2,6 +2,11 @@ declare module '*.png'
 
 declare namespace Plugin {
 
+  interface LaunchProps {
+    settings: SettingsState
+    openState: OpenState
+  }
+
   type SettingsProp =
     'deleteHidden' |
     'pixelPerfect' |
@@ -23,16 +28,10 @@ declare namespace Plugin {
     [K in SettingsProp]: boolean
   }
 
-  interface LaunchProps {
-    settings: SettingsState
-  }
+  type OpenSection = "general" | "styles"
 
-  type OpenedProperties = "styles" | "colors"
-
-  interface OpenedState {
-    styles: boolean
-    colors: boolean
-    fonts: boolean
+  type OpenState = {
+    [K in OpenSection]: boolean
   }
 
   interface StateProps extends LaunchProps {}
@@ -99,7 +98,6 @@ declare namespace Plugin {
     overwriteStrokes: boolean
     ignoreOpacity: boolean
     findClosestColor: boolean
-    colorDistance: ColorDistanceAlgorithm
   }
 
   interface TextSettings {

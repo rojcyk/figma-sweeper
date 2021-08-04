@@ -2,7 +2,7 @@ import io from 'figmaio/code'
 
 import { APP_START } from '@events'
 
-export const launchUI = (data?: any, message?: string) => {
+export const launchUI = (data?: Plugin.LaunchProps, message?: string) => {
   figma.showUI(__html__, {
     width: 300,
     height: 480

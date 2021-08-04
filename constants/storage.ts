@@ -7,3 +7,4 @@
 // export const OPENED_STATE = "openedState"
 export const DB_VERSION = 'dbVersion'
 export const SETTINGS = 'settings'
+export const OPEN_STATE = 'openState'

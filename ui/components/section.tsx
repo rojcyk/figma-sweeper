@@ -6,8 +6,14 @@ import AnimateHeight from "react-animate-height"
 // LOCAL INCLUDES
 // ******************** //
 
-import { WHITE, BACKGROUND, SEPARATOR, ANIMATION_SPEED_MS, BORDER_RADIUS_M } from "@ui"
 import { Arrow } from '@icons/arrow'
+import {
+  WHITE,
+  BACKGROUND_LIGHT,
+  SEPARATOR,
+  ANIMATION_SPEED_MS,
+  BORDER_RADIUS_M
+} from "@ui"
 
 export const SectionWrapper = styled.div<{ expanded: boolean }>`
   background-color: ${WHITE};
@@ -58,12 +64,11 @@ const SectionHeaderWrapper = styled.div`
 
   ${SectionHeaderBackground} {
     background-color: ${WHITE};
-    /* background-color: yellow; */
   }
 
   &:hover {
     ${SectionHeaderBackground} {
-      background-color: ${BACKGROUND};
+      background-color: ${BACKGROUND_LIGHT};
     }
   }
 `

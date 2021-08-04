@@ -10,6 +10,7 @@ export const BLACK = "#26303B"
 export const GRAY = "#5C6975"
 export const SEPARATOR = "#DFE6EF"
 export const BACKGROUND = "#F0F2F5"
+export const BACKGROUND_LIGHT = "#F7F8FA"
 export const BLUE = "#1E86FF"
 export const BLUE_LIGHT = '#EEF5FF'
 export const BLUE_DARK = '#1071B7'

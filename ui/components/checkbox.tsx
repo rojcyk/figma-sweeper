@@ -15,11 +15,11 @@ import {
   FS_SMALL,
   FS_TINY,
   BACKGROUND,
+  BACKGROUND_LIGHT,
   BORDER_RADIUS_S,
   BORDER_RADIUS_M
 } from "@ui"
 
-import { P } from '@components/typography'
 
 // ******************** //
 // TOP LVL STYLING
@@ -55,7 +55,7 @@ export const Check = styled.div<{ checked: boolean }>`
       }
     `
       : `
-      background-color: #F7F8FA;
+      background-color: ${BACKGROUND_LIGHT};
       border: 1px solid ${SEPARATOR};
       text-shadow: 0 1px 0 ${WHITE};
     `}

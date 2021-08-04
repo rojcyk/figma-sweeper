@@ -58,7 +58,10 @@ export default class App extends React.Component<Plugin.LaunchProps, Plugin.Stat
   public constructor(props: Plugin.LaunchProps) {
     super(props)
 
-    this.state = { settings: props.settings  }
+    this.state = {
+      openState: props.openState,
+      settings: props.settings
+    }
   }
 
   toggleSettings (settingProp: Plugin.SettingsProp) {
@@ -74,7 +77,7 @@ export default class App extends React.Component<Plugin.LaunchProps, Plugin.Stat
         <GlobalStyles />
 
         <Main>
-          <StylesheetView toggle={this.toggleSettings.bind(this)} />
+          <StylesheetView openState={this.props.openState} toggle={this.toggleSettings.bind(this)} />
         </Main>
       </LinterContext.Provider>
     )
