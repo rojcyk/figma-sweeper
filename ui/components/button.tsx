@@ -19,7 +19,7 @@ import {
 // Styles
 // ******************************** //
 
-const SharedButtonStyles = styled.button<{ hasIcon: boolean }>`
+const SharedButtonStyles = styled.button<{ icon: boolean }>`
   cursor: pointer;
   width: 100%;
   border-radius: 6px;
@@ -31,8 +31,9 @@ const SharedButtonStyles = styled.button<{ hasIcon: boolean }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  text-decoration: none;
 
-  ${props => props.hasIcon ? 'padding-right: 8px;' : ''}
+  ${props => props.icon ? 'padding-right: 8px;' : ''}
 `
 
 export const ButtonPrimaryStyle = styled(SharedButtonStyles)`
@@ -80,56 +81,44 @@ export const ButtonDisabledStyle = styled(SharedButtonStyles)`
 
 interface DisabledButton {
   label: string
+  as?: any
   icon?: React.ReactElement
   style?: React.CSSProperties
   onClick?: Function
 }
 
-interface Button extends DisabledButton {
-  onClick: Function
-}
+interface Button extends DisabledButton {}
 
-interface ButtonGenerator extends Button {
-  Wrapper: StyledComponent<any,any>
-}
-
-// ******************************** //
-// Button Generator
-// ******************************** //
-
-export const generateButton = ({ label, icon, onClick, Wrapper, style }: ButtonGenerator) => {
-  return (
-    <Wrapper
-      hasIcon={icon ? true : false}
-      onClick={() => onClick()}
-      style={style}>
-      {label} {icon}
-    </Wrapper>
-  )
-}
 
 // ******************************** //
 // EXPORTED BUTTONS
 // ******************************** //
 
 export const ButtonPrimary = (props: Button) => {
-  return generateButton({
-    ...props,
-    Wrapper: ButtonPrimaryStyle
-  })
+  return <ButtonPrimaryStyle
+      as={props.as}
+      icon={props.icon ? true : false}
+      onClick={props.onClick ? props.onClick : null}
+      style={props.style}>
+      {props.label} {props.icon}
+    </ButtonPrimaryStyle>
 }
 
 export const ButtonSecondary = (props: Button) => {
-  return generateButton({
-    ...props,
-    Wrapper: ButtonSecondaryStyle
-  })
+  return <ButtonSecondaryStyle
+      as={props.as}
+      icon={props.icon ? true : false}
+      onClick={props.onClick ? props.onClick : null}
+      style={props.style}>
+      {props.label} {props.icon}
+    </ButtonSecondaryStyle>
 }
 
 export const ButtonDisabled = (props: DisabledButton) => {
-  return generateButton({
-    ...props,
-    onClick: props.onClick ? props.onClick : () => {},
-    Wrapper: ButtonDisabledStyle
-  })
+  return <ButtonDisabledStyle
+      as={props.as}
+      icon={props.icon ? true : false}
+      style={props.style}>
+      {props.label} {props.icon}
+    </ButtonDisabledStyle>
 }

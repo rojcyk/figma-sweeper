@@ -1,5 +1,7 @@
 import React, { useState, useContext } from "react"
+import styled from 'styled-components'
 import io from 'figmaio/ui'
+import { Route, NavLink, HashRouter } from "react-router-dom"
 
 // ******************** //
 // LOCAL INCLUDES
@@ -9,10 +11,24 @@ import { SectionWrapper, SectionHeader, SectionContent } from '@components/secti
 import { Checkbox } from "@components/checkbox"
 import { Content } from "@components/content"
 import { P } from "@components/typography"
+import { ButtonPrimary } from "@components/button"
 import { LinterContext } from "../linterContext"
 import { OPEN_STATE_UPDATE } from "@events"
-// 
-export const StylesheetView = (props: { toggle: Function, openState: Plugin.OpenState }) => {
+import { Arrow } from "@icons/arrow"
+import { LINT_ROUTE } from '@routes'
+
+
+const LintWrapper = styled.div`
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 16px;
+  background: rgb(255,255,255);
+  background: linear-gradient(0deg, rgba(255,255,255,1) 20%, rgba(255,255,255,0) 100%);
+`
+
+export const MainView = (props: { toggle: Function, openState: Plugin.OpenState }) => {
   const settings = useContext(LinterContext)
 
   const [openState, setOpenState] = useState({
@@ -29,7 +45,7 @@ export const StylesheetView = (props: { toggle: Function, openState: Plugin.Open
   }
 
   return (
-    <React.Fragment>
+    <div style={{ paddingBottom: '64px' }}>
       <SectionWrapper expanded={openState.general}>
         <SectionHeader expanded={openState.general} onClick={() => toggleOpenState('general')}>General</SectionHeader>
         <SectionContent expanded={openState.general}>
@@ -103,6 +119,12 @@ export const StylesheetView = (props: { toggle: Function, openState: Plugin.Open
           </Content>
         </SectionContent>
       </SectionWrapper>
-    </React.Fragment>
+
+      <LintWrapper>
+        <NavLink to={LINT_ROUTE} style={{ textDecoration: 'none' }}>
+          <ButtonPrimary label={'Start linting'} icon={<Arrow />} />
+        </NavLink>
+      </LintWrapper>
+    </div>
   )
 }

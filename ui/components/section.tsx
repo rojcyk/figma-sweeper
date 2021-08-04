@@ -17,7 +17,7 @@ import {
 
 export const SectionWrapper = styled.div<{ expanded: boolean }>`
   background-color: ${WHITE};
-  transition: all ${ANIMATION_SPEED_MS}ms ease-out;
+  transition: all ${ANIMATION_SPEED_MS}ms cubic-bezier(0.22, 1, 0.36, 1);
   border-top: ${({ expanded }) => expanded ? `3px solid ${SEPARATOR}` : `1px solid rgba(255,255,255,0)`};
   border-bottom: ${({ expanded }) => expanded ? `4px solid ${SEPARATOR}` : `1px solid ${SEPARATOR}`};
 `

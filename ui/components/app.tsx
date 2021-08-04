@@ -1,5 +1,6 @@
 import * as React from "react"
 import styled, { createGlobalStyle } from "styled-components"
+import { Route, NavLink, HashRouter } from "react-router-dom"
 import io from "figmaio/ui"
 
 // ******************** //
@@ -9,7 +10,12 @@ import io from "figmaio/ui"
 import { BACKGROUND } from "@ui"
 import { SETTINGS_UPDATE } from "@events"
 import LinterContext from "../linterContext"
-import { StylesheetView } from "@views/settingsView"
+import { MainView } from "@views/mainView"
+
+import {
+  MAIN_ROUTE,
+  LINT_ROUTE
+} from "@routes"
 
 // ******************** //
 // TOP LVL STYLING
@@ -73,13 +79,22 @@ export default class App extends React.Component<Plugin.LaunchProps, Plugin.Stat
 
   public render(): React.ReactNode {
     return (
-      <LinterContext.Provider value={this.state.settings}>
+      <React.Fragment>
         <GlobalStyles />
 
-        <Main>
-          <StylesheetView openState={this.props.openState} toggle={this.toggleSettings.bind(this)} />
-        </Main>
-      </LinterContext.Provider>
+        <LinterContext.Provider value={this.state.settings}>
+          <HashRouter>
+            <Main>
+              <Route exact path={MAIN_ROUTE}>
+                <MainView openState={this.props.openState} toggle={this.toggleSettings.bind(this)} />
+              </Route>
+              <Route exact path={LINT_ROUTE}>
+                <div>Lintiiiiiing</div>
+              </Route>
+            </Main>
+          </HashRouter>
+        </LinterContext.Provider>
+      </React.Fragment>
     )
   }
 }
