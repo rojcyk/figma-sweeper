@@ -19,16 +19,15 @@ import {
 // Styles
 // ******************************** //
 
-const SharedButtonStyles = styled.button<{ icon: boolean }>`
+const SharedButtonStyles = styled.button<{ icon: boolean, inline?: boolean }>`
   cursor: pointer;
-  width: 100%;
   border-radius: 6px;
   padding: 10px 12px;
   font-size: ${FS_SMALL};
   font-weight: 500;
   transition: all ${ANIMATION_SPEED_MS}ms ease-out;
   outline: none;
-  display: flex;
+  ${props => props.inline ? 'display: inline-flex;' : 'display: flex; width: 100%;'}
   justify-content: space-between;
   align-items: center;
   text-decoration: none;
@@ -81,6 +80,7 @@ export const ButtonDisabledStyle = styled(SharedButtonStyles)`
 
 interface DisabledButton {
   label: string
+  inline?: boolean
   as?: any
   icon?: React.ReactElement
   style?: React.CSSProperties
@@ -96,29 +96,32 @@ interface Button extends DisabledButton {}
 
 export const ButtonPrimary = (props: Button) => {
   return <ButtonPrimaryStyle
-      as={props.as}
-      icon={props.icon ? true : false}
-      onClick={props.onClick ? props.onClick : null}
-      style={props.style}>
-      {props.label} {props.icon}
-    </ButtonPrimaryStyle>
+    inline={props.inline}
+    as={props.as}
+    icon={props.icon ? true : false}
+    onClick={props.onClick ? props.onClick : null}
+    style={props.style}>
+    {props.label} {props.icon}
+  </ButtonPrimaryStyle>
 }
 
 export const ButtonSecondary = (props: Button) => {
   return <ButtonSecondaryStyle
-      as={props.as}
-      icon={props.icon ? true : false}
-      onClick={props.onClick ? props.onClick : null}
-      style={props.style}>
-      {props.label} {props.icon}
-    </ButtonSecondaryStyle>
+    inline={props.inline}
+    as={props.as}
+    icon={props.icon ? true : false}
+    onClick={props.onClick ? props.onClick : null}
+    style={props.style}>
+    {props.label} {props.icon}
+  </ButtonSecondaryStyle>
 }
 
 export const ButtonDisabled = (props: DisabledButton) => {
   return <ButtonDisabledStyle
-      as={props.as}
-      icon={props.icon ? true : false}
-      style={props.style}>
-      {props.label} {props.icon}
-    </ButtonDisabledStyle>
+    inline={props.inline}
+    as={props.as}
+    icon={props.icon ? true : false}
+    style={props.style}>
+    {props.label} {props.icon}
+  </ButtonDisabledStyle>
 }

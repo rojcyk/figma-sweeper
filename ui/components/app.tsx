@@ -11,6 +11,7 @@ import { BACKGROUND } from "@ui"
 import { SETTINGS_UPDATE } from "@events"
 import LinterContext from "../linterContext"
 import { MainView } from "@views/mainView"
+import { LintView } from "@views/lintView"
 
 import {
   MAIN_ROUTE,
@@ -89,7 +90,7 @@ export default class App extends React.Component<Plugin.LaunchProps, Plugin.Stat
                 <MainView openState={this.props.openState} toggle={this.toggleSettings.bind(this)} />
               </Route>
               <Route exact path={LINT_ROUTE}>
-                <div>Lintiiiiiing</div>
+                <LintView />
               </Route>
             </Main>
           </HashRouter>
