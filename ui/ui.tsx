@@ -1,6 +1,7 @@
 import * as React from "react"
 import * as ReactDOM from "react-dom"
 import io from "figmaio/ui"
+import { HashRouter as Router } from 'react-router-dom'
 
 // ******************** //
 // LOCAL INCLUDES
@@ -37,7 +38,7 @@ const main = async () => {
 
   /* If found, we add content to it */
   ReactDOM.render(
-    <App {...appProps} />,
+    <Router><App {...appProps} /></Router>,
     node
   )
 }

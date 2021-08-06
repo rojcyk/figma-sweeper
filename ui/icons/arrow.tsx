@@ -5,14 +5,14 @@ import styled from "styled-components"
 // LOCAL INCLUDES
 // ******************** //
 
-import { ANIMATION_SPEED_MS } from "../../constants/ui"
+import { ANIMATION_SPEED_MS } from "@ui"
+import { IconWrapper } from '@components/iconWrapper'
 
 // ******************** //
 // Styles
 // ******************** //
 
 const ArrowStyles = styled.svg`
-  margin-right: 12px;
   transition: all ${ANIMATION_SPEED_MS}ms ease-out;
 `
 
@@ -29,7 +29,7 @@ interface ArrowProps {
 // Component
 // ******************** //
 
-export const Arrow: React.StatelessComponent<ArrowProps> = (props: ArrowProps) => {
+export const Arrow = (props: ArrowProps) => {
   let transform
 
   const direction = props.direction || "right"
@@ -50,13 +50,15 @@ export const Arrow: React.StatelessComponent<ArrowProps> = (props: ArrowProps) =
   }
 
   return (
-    <ArrowStyles
-      width="4"
-      height="6"
-      viewBox="0 0 4 6"
-      style={{ transform: transform, ...props.style }}
-    >
-      <path d="M0.125 6L0.125 0L3.875 3L0.125 6Z" />
-    </ArrowStyles>
+    <IconWrapper>
+      <ArrowStyles
+        width="4"
+        height="6"
+        viewBox="0 0 4 6"
+        style={{ transform: transform, ...props.style }}
+      >
+        <path d="M0.125 6L0.125 0L3.875 3L0.125 6Z" />
+      </ArrowStyles>
+    </IconWrapper>
   )
 }

@@ -1,6 +1,6 @@
-import * as React from "react"
+import React, { useState } from "react"
 import styled, { createGlobalStyle } from "styled-components"
-import { Route, NavLink, HashRouter } from "react-router-dom"
+import { Route, Switch, useLocation } from "react-router-dom"
 import io from "figmaio/ui"
 
 // ******************** //
@@ -28,6 +28,7 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   html {
+    /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; */
     font-family: 'Inter', sans-serif;
     font-size: 12px;
     overflow-y: scroll;
@@ -47,6 +48,15 @@ export const GlobalStyles = createGlobalStyle`
     margin: 0;
     background-color: ${BACKGROUND};
   }
+
+  .switch-wrapper {
+    position: relative;
+  }
+
+  .switch-wrapper > div {
+    position: absolute;
+    width: 100%;
+  }
 `
 
 const Main = styled.main`
@@ -61,41 +71,39 @@ const Main = styled.main`
 // MAIN APP CLASS
 // ******************** //
 
-export default class App extends React.Component<Plugin.LaunchProps, Plugin.StateProps> {
-  public constructor(props: Plugin.LaunchProps) {
-    super(props)
+export const App = (props: Plugin.LaunchProps) => {
+  const [settings, setSettings] = useState(props.settings)
+  const [openState] = useState(props.openState)
+  const location = useLocation()
 
-    this.state = {
-      openState: props.openState,
-      settings: props.settings
-    }
+  function toggleSettings (settingProp: Plugin.SettingsProp) {
+    const newSettings  = settings
+    newSettings[settingProp] = !newSettings[settingProp]
+    setSettings(newSettings)
+    io.send(SETTINGS_UPDATE, newSettings)
   }
 
-  toggleSettings (settingProp: Plugin.SettingsProp) {
-    const settings  = this.state.settings
-    settings[settingProp] = !settings[settingProp]
-    this.setState({ settings })
-    io.send(SETTINGS_UPDATE, settings)
-  }
-
-  public render(): React.ReactNode {
-    return (
-      <React.Fragment>
-        <GlobalStyles />
-
-        <LinterContext.Provider value={this.state.settings}>
-          <HashRouter>
-            <Main>
-              <Route exact path={MAIN_ROUTE}>
-                <MainView openState={this.props.openState} toggle={this.toggleSettings.bind(this)} />
-              </Route>
-              <Route exact path={LINT_ROUTE}>
-                <LintView />
-              </Route>
-            </Main>
-          </HashRouter>
-        </LinterContext.Provider>
-      </React.Fragment>
-    )
-  }
+  return (
+    <LinterContext.Provider value={settings}>
+      <GlobalStyles />
+      <Main>
+        {/* <TransitionGroup>
+          <CSSTransition
+            in
+            appear={true}
+            timeout={300}
+            classNames='fade'
+            key={location.key}
+          > */}
+          <Switch>
+            <Route exact path={MAIN_ROUTE}><MainView openState={openState} toggle={toggleSettings.bind(this)} /></Route>
+            <Route exact path={LINT_ROUTE}><LintView /></Route>
+          </Switch>
+            {/* </CSSTransition>
+        </TransitionGroup> */}
+      </Main>
+    </LinterContext.Provider>
+  )
 }
+
+export default App

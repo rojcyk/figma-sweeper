@@ -46,7 +46,7 @@ export const H3 = styled.h3`
 export const P = styled.p`
   font-size: ${FS_SMALL};
   line-height: 130%;
-  font-weight: 500;
+  font-weight: 400;
   color: ${GRAY};
   margin: 0;
   padding: 0;

@@ -12,12 +12,13 @@ import { WHITE, SEPARATOR } from '@ui'
 const NavigationWrapper = styled.div`
   position: relative;
   background-color: ${WHITE};
-  border-bottom: 1px solid ${SEPARATOR};
-  height: 96px;
+  /* border-bottom: 1px solid ${SEPARATOR}; */
+  height: 68px;
 `
 
 interface NavigationBarProps {
   title: string
+  action?: React.ReactElement
 }
 
 const Title = styled(H1)`
@@ -26,10 +27,20 @@ const Title = styled(H1)`
   left: 16px;
 `
 
+const ButtonWrapper = styled.div`
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+`
+
 export const NavigationBar = (props: NavigationBarProps) => {
   return(
     <NavigationWrapper>
       <Title>{props.title}</Title>
+      <ButtonWrapper>
+        {props.action}
+        {/* <ButtonPrimary label='test' /> */}
+      </ButtonWrapper>
     </NavigationWrapper>
   )
 }

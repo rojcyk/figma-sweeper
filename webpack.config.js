@@ -29,7 +29,7 @@ module.exports = (e, argv) => {
         // { test: /\.jsx?$/, use: 'babel-loader', exclude: /node_modules/ },
 
         // Enables including CSS by doing "import './file.css'" in your TypeScript code
-        // { test: /\.css$/, loader: [{ loader: 'style-loader' }, { loader: 'css-loader' }] },
+        // { test: /\.css$/, use: ["style-loader", "css-loader"] },
 
         // Allows you to use "<%= require('./file.svg') %>" in your HTML code to get a data URI
         {

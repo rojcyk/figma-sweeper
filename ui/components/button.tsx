@@ -19,20 +19,36 @@ import {
 // Styles
 // ******************************** //
 
-const SharedButtonStyles = styled.button<{ icon: boolean, inline?: boolean }>`
+const SharedButtonStyles = styled.button<{ icon: boolean, inline?: boolean, small?: boolean }>`
   cursor: pointer;
   border-radius: 6px;
-  padding: 10px 12px;
   font-size: ${FS_SMALL};
   font-weight: 500;
+  line-height: 20px;
   transition: all ${ANIMATION_SPEED_MS}ms ease-out;
   outline: none;
-  ${props => props.inline ? 'display: inline-flex;' : 'display: flex; width: 100%;'}
-  justify-content: space-between;
-  align-items: center;
   text-decoration: none;
 
-  ${props => props.icon ? 'padding-right: 8px;' : ''}
+  ${props => props.small === true ? `
+    padding: 4px 10px;
+  ` : `
+    padding: 7px 12px;
+  `}
+
+  ${props => props.inline ? `
+    display: inline-flex;
+    align-items: center;
+  ` : `
+    display: flex; width: 100%;
+    align-items: center;
+  `}
+
+  ${props => props.icon ? `
+    padding-right: 8px;
+    justify-content: space-between;
+  ` : `
+    justify-content: center;
+  `}
 `
 
 export const ButtonPrimaryStyle = styled(SharedButtonStyles)`
@@ -41,11 +57,39 @@ export const ButtonPrimaryStyle = styled(SharedButtonStyles)`
   color: ${WHITE};
   fill: ${WHITE} !important;
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.16);
-  box-shadow: inset 0 2px 0 #56a4ff, 0 4px 8px rgba(0, 0, 0, 0.16);
+  box-shadow: inset 0 1px 0 #56a4ff, 0 4px 8px rgba(0, 0, 0, 0.16);
 
   &:hover {
     background-color: #0c71e9;
     box-shadow: inset 0 1px 0 #56a4ff, 0 2px 4px rgba(0, 0, 0, 0.24);
+  }
+`
+
+export const ButtonPrimaryOutlineStyle = styled(SharedButtonStyles)`
+  background-color: #EDF5FF;
+  border: 1px solid #D5E8FF;
+  color: ${BLUE};
+  fill: ${BLUE} !important;
+  /* text-shadow: 0 1px 0 rgba(0, 0, 0, 0.16);
+  box-shadow: inset 0 2px 0 #56a4ff, 0 4px 8px rgba(0, 0, 0, 0.16); */
+  box-shadow: inset 0 1px 0 ${WHITE};
+  text-shadow: 0 1px 0 ${WHITE};
+
+  &:hover {
+    background-color: #D5E8FF;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.4);
+    /* box-shadow: inset 0 1px 0 #56a4ff, 0 2px 4px rgba(0, 0, 0, 0.24); */
+  }
+`
+
+export const ButtonPrimaryNakedStyle = styled(SharedButtonStyles)`
+  color: ${BLUE};
+  fill: ${BLUE} !important;
+  border: none;
+  background-color: rgba(255,255,255,0);
+
+  &:hover {
+    background-color: #D5E8FF;
   }
 `
 
@@ -55,10 +99,11 @@ export const ButtonSecondaryStyle = styled(SharedButtonStyles)`
   color: ${BLACK};
   fill: ${BLACK} !important;
   text-shadow: 0 1px 0 ${WHITE};
-  /* box-shadow: inset 0 2px ${WHITE}, 0 3px 6px rgba(0, 0, 0, 0.08); */
+  box-shadow: inset 0 1px ${WHITE};
 
   &:hover {
     background-color: ${WHITE};
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.5);
     /* box-shadow: inset 0 1px 0 ${WHITE}, 0 2px 4px rgba(0, 0, 0, 0.04); */
   }
 `
@@ -80,6 +125,7 @@ export const ButtonDisabledStyle = styled(SharedButtonStyles)`
 
 interface DisabledButton {
   label: string
+  small?: boolean
   inline?: boolean
   as?: any
   icon?: React.ReactElement
@@ -96,6 +142,7 @@ interface Button extends DisabledButton {}
 
 export const ButtonPrimary = (props: Button) => {
   return <ButtonPrimaryStyle
+    small={props.small}
     inline={props.inline}
     as={props.as}
     icon={props.icon ? true : false}
@@ -105,8 +152,33 @@ export const ButtonPrimary = (props: Button) => {
   </ButtonPrimaryStyle>
 }
 
+export const ButtonPrimaryOutline = (props: Button) => {
+  return <ButtonPrimaryOutlineStyle
+    small={props.small}
+    inline={props.inline}
+    as={props.as}
+    icon={props.icon ? true : false}
+    onClick={props.onClick ? props.onClick : null}
+    style={props.style}>
+    {props.label} {props.icon}
+  </ButtonPrimaryOutlineStyle>
+}
+
+export const ButtonPrimaryNaked = (props: Button) => {
+  return <ButtonPrimaryNakedStyle
+    small={props.small}
+    inline={props.inline}
+    as={props.as}
+    icon={props.icon ? true : false}
+    onClick={props.onClick ? props.onClick : null}
+    style={props.style}>
+    {props.label} {props.icon}
+  </ButtonPrimaryNakedStyle>
+}
+
 export const ButtonSecondary = (props: Button) => {
   return <ButtonSecondaryStyle
+    small={props.small}
     inline={props.inline}
     as={props.as}
     icon={props.icon ? true : false}
@@ -118,6 +190,7 @@ export const ButtonSecondary = (props: Button) => {
 
 export const ButtonDisabled = (props: DisabledButton) => {
   return <ButtonDisabledStyle
+    small={props.small}
     inline={props.inline}
     as={props.as}
     icon={props.icon ? true : false}
