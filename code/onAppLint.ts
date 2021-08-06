@@ -2,20 +2,11 @@ import io from "figmaio/code"
 
 import { APP_LINT } from '@events'
 import { asyncForEach } from '@utils/asyncForEach'
-import { handleNode } from '@utils/nodeHandler'
+import { handleNode } from '@utils/handleNode'
 
-io.on(APP_LINT, async () => {
-  console.log('===== New Lint =====')
-
-  // Get the currently saved settings.
-  // const settings = await getSettings()
-
-  // Get the currently saved settings.
-  // const imported = await importStyles()
-  // if (imported === undefined) {
-  //   figma.notify("🚧 Synced styles are from another file. You need to publish them first.")
-  //   return null
-  // }
+io.on(APP_LINT, async (settings: Plugin.SettingsState) => {
+  console.log('[Plugin] Initiating linting')
+  console.log('[Plugin] Settings', settings)
 
   // // If there is nothing selected, we have nothing to do.
   const selection = figma.currentPage.selection as SceneNode[]
@@ -26,9 +17,7 @@ io.on(APP_LINT, async () => {
   }
 
   // All prerequisities are met, we can lint!
-  await asyncForEach(selection, (frame: SceneNode) => {
-    handleNode(frame, { })
-  })
+  await asyncForEach(selection, (frame: SceneNode) => handleNode(frame, settings))
 
   figma.notify("Selection linted 👊")
 })

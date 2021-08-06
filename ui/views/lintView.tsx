@@ -75,7 +75,7 @@ export const LintView = () => {
           <ButtonSecondary inline={true} label={'Back'} />
         </NavLink> */}
 
-        <ButtonPrimary  onClick={() => io.send(APP_LINT)} label={'Lint selection'} />
+        <ButtonPrimary  onClick={() => io.send(APP_LINT, settings)} label={'Lint selection'} />
         <ButtonSecondary inline={true} label={'Autofix'} />
       </LintWrapper>
     </Main>
