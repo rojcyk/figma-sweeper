@@ -12,7 +12,7 @@ import { Checkbox } from "@components/checkbox"
 import { Content } from "@components/content"
 import { P } from "@components/typography"
 import { ButtonPrimary } from "@components/button"
-import { LinterContext } from "../linterContext"
+import { LinterContext } from "../components/linterContext"
 import { OPEN_STATE_UPDATE } from "@events"
 import { Arrow } from "@icons/arrow"
 import { LINT_ROUTE } from '@routes'

@@ -9,7 +9,7 @@ import io from "figmaio/ui"
 
 import { BACKGROUND } from "@ui"
 import { SETTINGS_UPDATE } from "@events"
-import LinterContext from "../linterContext"
+import LinterContext from "./linterContext"
 import { MainView } from "@views/mainView"
 import { LintView } from "@views/lintView"
 

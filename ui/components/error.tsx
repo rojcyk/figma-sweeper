@@ -12,7 +12,7 @@ import { Route, NavLink, HashRouter } from "react-router-dom"
 // import { Content } from "@components/content"
 // import { P } from "@components/typography"
 import { ButtonPrimary, ButtonSecondary, ButtonPrimaryOutline } from "@components/button"
-import { LinterContext } from "../linterContext"
+import { LinterContext } from "./linterContext"
 import { MAIN_ROUTE } from '@routes'
 import { APP_LINT } from '@events'
 import { NavigationBar } from '@components/navigationBar'

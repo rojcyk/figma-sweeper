@@ -8,7 +8,7 @@ import io from "figmaio/ui"
 
 import { WHITE } from '@ui'
 import { APP_LINT } from "@events"
-import LinterContext from "../linterContext"
+import LinterContext from "./linterContext"
 import { ButtonPrimary } from "@components/button"
 
 // ******************** //
