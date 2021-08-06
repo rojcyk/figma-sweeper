@@ -30,12 +30,10 @@ const LintWrapper = styled.div`
 
 export const MainView = (props: { toggle: Function, openState: Plugin.OpenState }) => {
   const settings = useContext(LinterContext)
-
   const [openState, setOpenState] = useState({
     general: props.openState.general,
     styles: props.openState.styles
   })
-
 
   const toggleOpenState = (prop: Plugin.OpenSection) => {
     const newState = { ...openState }
@@ -50,7 +48,6 @@ export const MainView = (props: { toggle: Function, openState: Plugin.OpenState 
         <SectionHeader expanded={openState.general} onClick={() => toggleOpenState('general')}>General</SectionHeader>
         <SectionContent expanded={openState.general}>
           <Content>
-
             <Checkbox
               label={'Delete hidden layers'}
               checked={settings.deleteHidden}
@@ -114,8 +111,7 @@ export const MainView = (props: { toggle: Function, openState: Plugin.OpenState 
               label={'Require effect styles'}
               checked={settings.requireEffectStyles}
               onCheckboxChange={() => props.toggle('requireEffectStyles')}
-            />
-          
+            />   
           </Content>
         </SectionContent>
       </SectionWrapper>

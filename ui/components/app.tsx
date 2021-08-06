@@ -74,10 +74,9 @@ const Main = styled.main`
 export const App = (props: Plugin.LaunchProps) => {
   const [settings, setSettings] = useState(props.settings)
   const [openState] = useState(props.openState)
-  const location = useLocation()
 
   function toggleSettings (settingProp: Plugin.SettingsProp) {
-    const newSettings  = settings
+    const newSettings  = { ...settings }
     newSettings[settingProp] = !newSettings[settingProp]
     setSettings(newSettings)
     io.send(SETTINGS_UPDATE, newSettings)
@@ -87,20 +86,10 @@ export const App = (props: Plugin.LaunchProps) => {
     <LinterContext.Provider value={settings}>
       <GlobalStyles />
       <Main>
-        {/* <TransitionGroup>
-          <CSSTransition
-            in
-            appear={true}
-            timeout={300}
-            classNames='fade'
-            key={location.key}
-          > */}
-          <Switch>
-            <Route exact path={MAIN_ROUTE}><MainView openState={openState} toggle={toggleSettings.bind(this)} /></Route>
-            <Route exact path={LINT_ROUTE}><LintView /></Route>
-          </Switch>
-            {/* </CSSTransition>
-        </TransitionGroup> */}
+        <Switch>
+          <Route exact path={MAIN_ROUTE}><MainView openState={openState} toggle={toggleSettings.bind(this)} /></Route>
+          <Route exact path={LINT_ROUTE}><LintView /></Route>
+        </Switch>
       </Main>
     </LinterContext.Provider>
   )
