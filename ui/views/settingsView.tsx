@@ -15,7 +15,7 @@ import { ButtonPrimary } from "@components/button"
 import { LinterContext } from "../components/linterContext"
 import { OPEN_STATE_UPDATE } from "@events"
 import { Arrow } from "@icons/arrow"
-import { LINT_ROUTE } from '@routes'
+import { MAIN_ROUTE } from '@routes'
 
 
 const LintWrapper = styled.div`
@@ -28,25 +28,21 @@ const LintWrapper = styled.div`
   background: linear-gradient(0deg, rgba(255,255,255,1) 20%, rgba(255,255,255,0) 100%);
 `
 
-export const MainView = (props: { toggle: Function, openState: Plugin.OpenState }) => {
+export const SettingsView = (props: { toggle: Function, openState: Plugin.OpenState, setOpenState: Function }) => {
   const settings = useContext(LinterContext)
-  const [openState, setOpenState] = useState({
-    general: props.openState.general,
-    styles: props.openState.styles
-  })
 
   const toggleOpenState = (prop: Plugin.OpenSection) => {
-    const newState = { ...openState }
-    newState[prop] = !openState[prop]
-    setOpenState(newState)
+    const newState = { ...props.openState }
+    newState[prop] = !props.openState[prop]
+    props.setOpenState(newState)
     io.send(OPEN_STATE_UPDATE, newState)
   }
 
   return (
     <div style={{ paddingBottom: '64px' }}>
-      <SectionWrapper expanded={openState.general}>
-        <SectionHeader expanded={openState.general} onClick={() => toggleOpenState('general')}>General</SectionHeader>
-        <SectionContent expanded={openState.general}>
+      <SectionWrapper expanded={props.openState.general}>
+        <SectionHeader expanded={props.openState.general} onClick={() => toggleOpenState('general')}>General</SectionHeader>
+        <SectionContent expanded={props.openState.general}>
           <Content>
             <Checkbox
               label={'Delete hidden layers'}
@@ -73,19 +69,19 @@ export const MainView = (props: { toggle: Function, openState: Plugin.OpenState 
               onCheckboxChange={() => props.toggle('skipLocked')}
             />
             
-            <Checkbox
+            {/* <Checkbox
               label={'Clear component style overrides'}
               description={'If you use components and you override thier styles (not content), these changes will be removed.'}
               checked={settings.removeStyleOverrides}
               onCheckboxChange={() => props.toggle('removeStyleOverrides')}
-            />
+            /> */}
           </Content>
         </SectionContent>
       </SectionWrapper>
 
-      <SectionWrapper expanded={openState.styles}>
-        <SectionHeader expanded={openState.styles} onClick={() => toggleOpenState('styles')}>Styles</SectionHeader>
-        <SectionContent expanded={openState.styles}>
+      <SectionWrapper expanded={props.openState.styles}>
+        <SectionHeader expanded={props.openState.styles} onClick={() => toggleOpenState('styles')}>Styles</SectionHeader>
+        <SectionContent expanded={props.openState.styles}>
           <Content>
             <P style={{ marginBottom: '12px' }}>If you use text, fill, stroke, or effect styles it is required a style to be set.</P>
 
@@ -117,8 +113,8 @@ export const MainView = (props: { toggle: Function, openState: Plugin.OpenState 
       </SectionWrapper>
 
       <LintWrapper>
-        <NavLink to={LINT_ROUTE} style={{ textDecoration: 'none' }}>
-          <ButtonPrimary label={'Start linting'} icon={<Arrow />} />
+        <NavLink to={MAIN_ROUTE} style={{ textDecoration: 'none' }}>
+          <ButtonPrimary label={'Save'} />
         </NavLink>
       </LintWrapper>
     </div>

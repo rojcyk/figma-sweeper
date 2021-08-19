@@ -14,7 +14,7 @@ import { Route, NavLink, HashRouter } from "react-router-dom"
 import { ButtonPrimary, ButtonSecondary, ButtonPrimaryOutline } from "@components/button"
 import { LinterContext } from "./linterContext"
 import { MAIN_ROUTE } from '@routes'
-import { APP_LINT } from '@events'
+import { APP_LINT, SELECTION_UPDATE } from '@events'
 import { NavigationBar } from '@components/navigationBar'
 import { P } from '@components/typography'
 import { SEPARATOR, WHITE } from "@constants/ui"
@@ -61,13 +61,19 @@ const ErrorActions = styled.div`
 export const LintError = ({
   icon,
   title,
+  buttonLabel,
   errors
 }: {
   title: string,
   icon: React.ReactElement
+  buttonLabel?: string
   errors: any[]
 }) => {
   const settings = useContext(LinterContext)
+
+  const selectElements = () => {
+    io.send(SELECTION_UPDATE, errors)
+  }
 
   return (
     <ErrorWrapper>
@@ -84,8 +90,11 @@ export const LintError = ({
           }
 
           <ErrorActions>
-            <ButtonPrimaryOutline small={true} inline={true} label={'Delete'} />
-            <ButtonSecondary small={true} inline={true} label={'Select'} />
+            {buttonLabel && <ButtonPrimaryOutline small={true} inline={true} label={buttonLabel} />}
+            <ButtonSecondary small={true} inline={true} label={'Select'} onClick={() => {
+              console.log('hovno')
+              selectElements()
+            }} />
           </ErrorActions>
         </ErrorContent>
     </ErrorWrapper>

@@ -89,7 +89,7 @@ export const ButtonPrimaryNakedStyle = styled(SharedButtonStyles)`
   background-color: rgba(255,255,255,0);
 
   &:hover {
-    background-color: #D5E8FF;
+    background-color: #EDF5FF;
   }
 `
 

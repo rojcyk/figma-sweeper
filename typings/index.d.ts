@@ -5,6 +5,7 @@ declare namespace Plugin {
   interface LaunchProps {
     settings: SettingsState
     openState: OpenState
+    errors: CanvasErrors
   }
 
   type SettingsProp =
@@ -27,6 +28,18 @@ declare namespace Plugin {
   type SettingsState = {
     [K in SettingsProp]: boolean
   }
+
+  interface CanvasError {
+    nodeId: string,
+    nodeName: string,
+    nodeType: string
+  }
+  
+  type CanvasErrors = {
+    [K in SettingsProp]: CanvasError[]
+  }
+  
+  type ChildrenNode = FrameNode | GroupNode | ComponentSetNode | ComponentNode | InstanceNode
 
   type OpenSection = "general" | "styles"
 

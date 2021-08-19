@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import styled, { createGlobalStyle } from "styled-components"
 import { Route, Switch, useLocation } from "react-router-dom"
 import io from "figmaio/ui"
@@ -7,57 +7,21 @@ import io from "figmaio/ui"
 // LOCAL INCLUDES
 // ******************** //
 
-import { BACKGROUND } from "@ui"
-import { SETTINGS_UPDATE } from "@events"
+import { SETTINGS_UPDATE, ERRORS_UPDATE, APP_LINT } from "@events"
 import LinterContext from "./linterContext"
-import { MainView } from "@views/mainView"
+import { SettingsView } from "@views/settingsView"
 import { LintView } from "@views/lintView"
+import { GlobalStyles } from "./globalStyles"
 
 import {
   MAIN_ROUTE,
-  LINT_ROUTE
+  SETTINGS_ROUTE
 } from "@routes"
 
 // ******************** //
 // TOP LVL STYLING
 // ******************** //
 
-export const GlobalStyles = createGlobalStyle`
-  *, *:before, *:after {
-    box-sizing: border-box;
-  }
-
-  html {
-    /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; */
-    font-family: 'Inter', sans-serif;
-    font-size: 12px;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none;  /* IE 10+ */
-  }
-
-  ::-webkit-scrollbar {
-    width: 0px;  /* Remove scrollbar space */
-    background: transparent;  /* Optional: just make scrollbar invisible */
-  }
-
-  html,
-  body {
-    padding: 0;
-    margin: 0;
-    background-color: ${BACKGROUND};
-  }
-
-  .switch-wrapper {
-    position: relative;
-  }
-
-  .switch-wrapper > div {
-    position: absolute;
-    width: 100%;
-  }
-`
 
 const Main = styled.main`
   position: relative;
@@ -72,8 +36,9 @@ const Main = styled.main`
 // ******************** //
 
 export const App = (props: Plugin.LaunchProps) => {
+  const [errors, setErrors] = useState(props.errors)
   const [settings, setSettings] = useState(props.settings)
-  const [openState] = useState(props.openState)
+  const [openState, setOpenState] = useState(props.openState)
 
   function toggleSettings (settingProp: Plugin.SettingsProp) {
     const newSettings  = { ...settings }
@@ -82,13 +47,20 @@ export const App = (props: Plugin.LaunchProps) => {
     io.send(SETTINGS_UPDATE, newSettings)
   }
 
+  useEffect(() => {
+    io.on(ERRORS_UPDATE, (data) => {
+      setErrors(data)
+    })
+  }, [])
+
+
   return (
     <LinterContext.Provider value={settings}>
       <GlobalStyles />
       <Main>
         <Switch>
-          <Route exact path={MAIN_ROUTE}><MainView openState={openState} toggle={toggleSettings.bind(this)} /></Route>
-          <Route exact path={LINT_ROUTE}><LintView /></Route>
+          <Route exact path={MAIN_ROUTE}><LintView setErrors={setErrors} errors={errors} /></Route>
+          <Route exact path={SETTINGS_ROUTE}><SettingsView openState={openState} setOpenState={setOpenState} toggle={toggleSettings.bind(this)} /></Route>
         </Switch>
       </Main>
     </LinterContext.Provider>

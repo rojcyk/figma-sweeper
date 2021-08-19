@@ -1,8 +1,10 @@
 export const APP_START = "appStart"
 export const APP_LINT = "appLint"
+export const ERRORS_UPDATE = 'errorsUpdate'
 export const SETTINGS_UPDATE = 'settingsUpdate'
 export const OPEN_STATE_UPDATE = 'openStateUpdate'
-
+export const SELECTION_UPDATE = 'selectionUpdate'
+export const IN_PROGRESS_UPDATE = 'inProgressUpdate'
 
 export const STYLES_EXPORT = "stylesExport"
 export const STYLES_DELETE = "stylesDelete"
