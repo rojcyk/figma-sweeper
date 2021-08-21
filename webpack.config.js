@@ -19,7 +19,7 @@ module.exports = (e, argv) => {
 
     entry: {
       ui: './ui/ui.tsx', // The entry point for your UI code
-      code: './code/index.ts' // The entry point for your plugin code
+      code: './plugin/index.ts' // The entry point for your plugin code
     },
 
     module: {
@@ -46,8 +46,8 @@ module.exports = (e, argv) => {
       alias: {
         // add as many aliases as you like! 
         '@constants': path.resolve(__dirname, 'constants'),
-        '@storage': path.resolve(__dirname, 'code/storage'),
-        '@utils': path.resolve(__dirname, 'code/utils'),
+        '@storage': path.resolve(__dirname, 'plugin/storage'),
+        '@utils': path.resolve(__dirname, 'plugin/utils'),
         '@events': path.resolve(__dirname, 'constants/events'),
         '@ui': path.resolve(__dirname, 'constants/ui'),
         '@routes': path.resolve(__dirname, 'constants/routes'),
