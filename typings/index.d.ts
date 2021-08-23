@@ -18,7 +18,8 @@ declare namespace Plugin {
     'requireTextStyles' |
     'requireFillStyles' |
     'requireStrokeStyles' |
-    'requireEffectStyles'
+    'requireEffectStyles' |
+    'noDefaultNames'
 
 
   type SettingsProps = {

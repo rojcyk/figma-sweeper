@@ -26,8 +26,8 @@ io.on(APP_LINT, async (settings: Plugin.SettingsState) => {
   // console.log('Require text style:', errorManager.select('requireTextStyles'))
   // console.log('Require stroke style:', errorManager.select('requireStrokeStyles'))
   // console.log('Require effect style:', errorManager.select('requireEffectStyles'))
-  // console.log(errorManager.errors)
-
+  
+  console.log(errorManager.errors)
   io.send(ERRORS_UPDATE, errorManager.errors)
 
   // figma.ui.postMessage({

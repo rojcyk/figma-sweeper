@@ -8,5 +8,6 @@ export const SETTINGS_DEFAULT: Plugin.SettingsState = {
   requireFillStyles: true,
   requireStrokeStyles: true,
   requireEffectStyles: true,
-  requireTextStyles: true
+  requireTextStyles: true,
+  noDefaultNames: false
 }

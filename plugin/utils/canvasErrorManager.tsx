@@ -21,7 +21,8 @@ export const defaultValues: Plugin.CanvasErrors = {
   requireTextStyles: [],
   requireEffectStyles: [],
   requireFillStyles: [],
-  requireStrokeStyles: [] 
+  requireStrokeStyles: [],
+  noDefaultNames: []
 }
 
 export class CanvasErrorManager {
@@ -40,7 +41,8 @@ export class CanvasErrorManager {
       requireTextStyles: [],
       requireEffectStyles: [],
       requireFillStyles: [],
-      requireStrokeStyles: [] 
+      requireStrokeStyles: [],
+      noDefaultNames: []
     }
   }
 
