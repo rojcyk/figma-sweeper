@@ -8,7 +8,7 @@ declare namespace Plugin {
     errors: CanvasErrors
   }
 
-  type SettingsProp =
+  type SettingsBooleanProp =
     'deleteHidden' |
     'pixelPerfect' |
     'skipLocked' |
@@ -19,15 +19,31 @@ declare namespace Plugin {
     'requireFillStyles' |
     'requireStrokeStyles' |
     'requireEffectStyles' |
-    'noDefaultNames'
+    'layerNameLinting'
 
+  type SettingsOtherProp =
+    'layerNameCase'
 
-  type SettingsProps = {
-    [K in SettingsProp]?: boolean
+  type SettingsProp =
+    SettingsBooleanProp |
+    SettingsOtherProp
+
+  type SettingsCase = 'noCase' | 'camelCase' | 'snakeCase' | 'kebabCase' | 'pascalCase'
+
+  type SettingsBooleanProps = {
+    [K in SettingsBooleanProp]?: boolean
   }
 
-  type SettingsState = {
-    [K in SettingsProp]: boolean
+  type SettingsBooleanState = {
+    [K in SettingsBooleanProp]: boolean
+  }
+
+  interface SettingsProps extends SettingsBooleanProps {
+    layerNameCase: SettingsCase
+  }
+
+  interface SettingsState extends SettingsBooleanState {
+    layerNameCase: SettingsCase
   }
 
   interface CanvasError {
@@ -37,7 +53,7 @@ declare namespace Plugin {
   }
   
   type CanvasErrors = {
-    [K in SettingsProp]: CanvasError[]
+    [K in SettingsBooleanProp]: CanvasError[]
   }
   
   type ChildrenNode = FrameNode | GroupNode | ComponentSetNode | ComponentNode | InstanceNode

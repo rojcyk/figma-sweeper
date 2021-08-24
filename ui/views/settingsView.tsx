@@ -12,6 +12,7 @@ import { Checkbox } from "@components/checkbox"
 import { Content } from "@components/content"
 import { P } from "@components/typography"
 import { ButtonPrimary } from "@components/button"
+import { Select } from "@components/select"
 import { LinterContext } from "../components/linterContext"
 import { OPEN_STATE_UPDATE } from "@events"
 import { Arrow } from "@icons/arrow"
@@ -28,7 +29,7 @@ const LintWrapper = styled.div`
   background: linear-gradient(0deg, rgba(255,255,255,1) 20%, rgba(255,255,255,0) 100%);
 `
 
-export const SettingsView = (props: { toggle: Function, openState: Plugin.OpenState, setOpenState: Function }) => {
+export const SettingsView = (props: { toggle: Function, change: Function, openState: Plugin.OpenState, setOpenState: Function }) => {
   const settings = useContext(LinterContext)
 
   const toggleOpenState = (prop: Plugin.OpenSection) => {
@@ -36,6 +37,10 @@ export const SettingsView = (props: { toggle: Function, openState: Plugin.OpenSt
     newState[prop] = !props.openState[prop]
     props.setOpenState(newState)
     io.send(OPEN_STATE_UPDATE, newState)
+  }
+
+  const onCaseSelect = (selectedElement: any) => {
+    props.change('layerNameCase', selectedElement.target.value)
   }
 
   return (
@@ -58,7 +63,7 @@ export const SettingsView = (props: { toggle: Function, openState: Plugin.OpenSt
 
             <Checkbox
               label={'Make pixel-perfect'}
-              description={'Reposition elements to whole numbers.'}
+              description={'Reposition and resize elements to whole numbers. Ignores vectors like boolean operations, polygons, stars etc.'}
               checked={settings.pixelPerfect}
               onCheckboxChange={() => props.toggle('pixelPerfect')}
             />
@@ -68,13 +73,32 @@ export const SettingsView = (props: { toggle: Function, openState: Plugin.OpenSt
               checked={settings.skipLocked}
               onCheckboxChange={() => props.toggle('skipLocked')}
             />
-            
-            {/* <Checkbox
-              label={'Clear component style overrides'}
-              description={'If you use components and you override thier styles (not content), these changes will be removed.'}
-              checked={settings.removeStyleOverrides}
-              onCheckboxChange={() => props.toggle('removeStyleOverrides')}
-            /> */}
+
+            <Checkbox
+              label={'Layer name linting'}
+              description={'Names like Frame 1, Group 2, Rectangle 3 are a no-go. You can also specify casing:'}
+              checked={settings.layerNameLinting}
+              onCheckboxChange={() => props.toggle('layerNameLinting')}
+            />
+
+            {settings.layerNameLinting &&
+              <div style={{ paddingLeft: '2.2rem' }}>
+                <Select
+                  icon={<Arrow direction='down' />}
+                  name="casingSettings"
+                  id="casingSettings"
+                  onChange={onCaseSelect}
+                  value={settings.layerNameCase}
+                >
+                  
+                  <option value="noCase">No case</option>
+                  <option value="camelCase">camelCase</option>
+                  <option value="snakeCase">snake_case</option>
+                  <option value="kebabCase">kebab-case</option>
+                  <option value="pascalCase">PascalCase</option>
+                </Select>
+              </div>
+            }
           </Content>
         </SectionContent>
       </SectionWrapper>
@@ -112,7 +136,7 @@ export const SettingsView = (props: { toggle: Function, openState: Plugin.OpenSt
         </SectionContent>
       </SectionWrapper>
 
-      <LintWrapper>
+      <LintWrapper style={{ zIndex: 100 }}>
         <NavLink to={MAIN_ROUTE} style={{ textDecoration: 'none' }}>
           <ButtonPrimary label={'Save'} />
         </NavLink>

@@ -81,6 +81,35 @@ const requireEffectStyles = (errorManager: CanvasErrorManager, node: EcceftStyle
   }
 }
 
+const noDefaultNames = (errorManager: CanvasErrorManager, node: SceneNode, reg: RegExp) => {
+  switch (errorManager.settings.layerNameCase) {
+    case 'noCase':
+      const noCaseResult = reg.exec(node.name)
+      if (noCaseResult !== null) errorManager.log('layerNameLinting', node)
+      break
+    case 'camelCase':
+      const camelRegex = /^([a-z]+[A-Z][a-z]+|[a-z]+)$/
+      const camelResult = camelRegex.exec(node.name)
+      if (camelResult === null) errorManager.log('layerNameLinting', node)
+      break
+    case 'snakeCase':
+      const snakeRegex = /^([a-z]+_[a-z]+|[a-z]+)$/
+      const snakeResult = snakeRegex.exec(node.name)
+      if (snakeResult === null) errorManager.log('layerNameLinting', node)
+      break
+    case 'kebabCase':
+      const kebabRegex = /^([a-z]+-[a-z]+|[a-z]+)$/
+      const kebabResult = kebabRegex.exec(node.name)
+      if (kebabResult === null) errorManager.log('layerNameLinting', node)
+      break
+    case 'pascalCase':
+      const pascalRegex = /^([A-Z][a-z]+[A-Z][a-z]+|[A-Z][a-z]+)$/
+      const pascalResult = pascalRegex.exec(node.name)
+      if (pascalResult === null) errorManager.log('layerNameLinting', node)
+      break
+  }
+}
+
 // ************************* */ 
 /* NodeHandling
 // ************************* */
@@ -92,13 +121,8 @@ export const processNode = (node: SceneNode, errorManager: CanvasErrorManager) =
   const shouldProcessNode = !(node.locked && settings.skipLocked)
   if (shouldProcessNode === false) return
 
-  // console.log('Node name:', node.name )
-  // console.log('Node type:', node.type)
-  // console.log('---------------------------')
-
   // Linting available for all elements
   if (settings.deleteHidden) deleteHidden(errorManager, node)
-  if (settings.pixelPerfect) makePixelPerfect(errorManager, node)
 
   switch (node.type) {
     case "FRAME":
@@ -107,6 +131,8 @@ export const processNode = (node: SceneNode, errorManager: CanvasErrorManager) =
       if (settings.requireFillStyles) requireFillStyles(errorManager, node)
       if (settings.requireStrokeStyles) requireStrokeStyles(errorManager, node)
       if (settings.requireEffectStyles) requireEffectStyles(errorManager, node)
+      if (settings.layerNameLinting) noDefaultNames(errorManager, node, /^Frame\s[0-9]+$/)
+      if (settings.pixelPerfect) makePixelPerfect(errorManager, node)
 
       // if (overwriteFills) checkFills(node, settings)
       // if (overwriteStrokes) checkStrokes(node, settings)
@@ -116,7 +142,8 @@ export const processNode = (node: SceneNode, errorManager: CanvasErrorManager) =
       traverse(node.children, processNode, errorManager)
 
       if (settings.ungroupSingleGroup) ungroupSingleGroup(errorManager, node)
-
+      if (settings.layerNameLinting) noDefaultNames(errorManager, node, /^Group\s[0-9]+$/)
+      
       // if (overwriteFills) checkFills(node, settings)
       // if (overwriteStrokes) checkStrokes(node, settings)
       break
@@ -127,6 +154,9 @@ export const processNode = (node: SceneNode, errorManager: CanvasErrorManager) =
       if (settings.requireFillStyles) requireFillStyles(errorManager, node)
       if (settings.requireStrokeStyles) requireStrokeStyles(errorManager, node)
       if (settings.requireEffectStyles) requireEffectStyles(errorManager, node)
+      if (settings.layerNameLinting) noDefaultNames(errorManager, node, /^Component\s[0-9]+$/)
+      if (settings.pixelPerfect) makePixelPerfect(errorManager, node)
+
       break
 
     case "COMPONENT":
@@ -135,6 +165,8 @@ export const processNode = (node: SceneNode, errorManager: CanvasErrorManager) =
       if (settings.requireFillStyles) requireFillStyles(errorManager, node)
       if (settings.requireStrokeStyles) requireStrokeStyles(errorManager, node)
       if (settings.requireEffectStyles) requireEffectStyles(errorManager, node)
+      if (settings.layerNameLinting) noDefaultNames(errorManager, node, /^Component\s[0-9]+$/)
+      if (settings.pixelPerfect) makePixelPerfect(errorManager, node)
 
       // if (overwriteFills) checkFills(node settings)
       // if (overwriteStrokes) checkStrokes(node settings)
@@ -146,6 +178,7 @@ export const processNode = (node: SceneNode, errorManager: CanvasErrorManager) =
       if (settings.requireFillStyles) requireFillStyles(errorManager, node)
       if (settings.requireStrokeStyles) requireStrokeStyles(errorManager, node)
       if (settings.requireEffectStyles) requireEffectStyles(errorManager, node)
+      if (settings.pixelPerfect) makePixelPerfect(errorManager, node)
 
       // if (overwriteFills) checkFills(node settings)
       // if (overwriteStrokes) checkStrokes(node, settings)
@@ -155,6 +188,7 @@ export const processNode = (node: SceneNode, errorManager: CanvasErrorManager) =
       if (settings.requireFillStyles) requireFillStyles(errorManager, node)
       if (settings.requireStrokeStyles) requireStrokeStyles(errorManager, node)
       if (settings.requireEffectStyles) requireEffectStyles(errorManager, node)
+
       // console.log(`this type has children but we shouldn't work with them`)
       // if (overwriteFills) checkFills(node, settings)
       // if (overwriteStrokes) checkStrokes(node, settings)
@@ -168,6 +202,7 @@ export const processNode = (node: SceneNode, errorManager: CanvasErrorManager) =
       if (settings.requireFillStyles) requireFillStyles(errorManager, node)
       if (settings.requireStrokeStyles) requireStrokeStyles(errorManager, node)
       if (settings.requireEffectStyles) requireEffectStyles(errorManager, node)
+      if (settings.layerNameLinting) noDefaultNames(errorManager, node, /^Vector\s[0-9]+$/)
       // console.log('this type has NOT children')
       // if (overwriteFills) checkFills(node, settings)
       // if (overwriteStrokes) checkStrokes(node, settings)
@@ -177,6 +212,7 @@ export const processNode = (node: SceneNode, errorManager: CanvasErrorManager) =
       if (settings.requireFillStyles) requireFillStyles(errorManager, node)
       if (settings.requireStrokeStyles) requireStrokeStyles(errorManager, node)
       if (settings.requireEffectStyles) requireEffectStyles(errorManager, node)
+      if (settings.layerNameLinting) noDefaultNames(errorManager, node, /^Star\s[0-9]+$/)
       // console.log('this type has NOT children')
       // if (overwriteFills) checkFills(node, settings)
       // if (overwriteStrokes) checkStrokes(node, settings)
@@ -186,6 +222,7 @@ export const processNode = (node: SceneNode, errorManager: CanvasErrorManager) =
       if (settings.requireFillStyles) requireFillStyles(errorManager, node)
       if (settings.requireStrokeStyles) requireStrokeStyles(errorManager, node)
       if (settings.requireEffectStyles) requireEffectStyles(errorManager, node)
+      if (settings.layerNameLinting) noDefaultNames(errorManager, node, /^Line\s[0-9]+$/)
       // console.log('this type has NOT children')
       // if (overwriteFills) checkFills(node, settings)
       // if (overwriteStrokes) checkStrokes(node, settings)
@@ -195,6 +232,7 @@ export const processNode = (node: SceneNode, errorManager: CanvasErrorManager) =
       if (settings.requireFillStyles) requireFillStyles(errorManager, node)
       if (settings.requireStrokeStyles) requireStrokeStyles(errorManager, node)
       if (settings.requireEffectStyles) requireEffectStyles(errorManager, node)
+      if (settings.layerNameLinting) noDefaultNames(errorManager, node, /^Ellipse\s[0-9]+$/)
       // console.log('this type has NOT children')
       // if (overwriteFills) checkFills(node, settings)
       // if (overwriteStrokes) checkStrokes(node, settings)
@@ -204,6 +242,7 @@ export const processNode = (node: SceneNode, errorManager: CanvasErrorManager) =
       if (settings.requireFillStyles) requireFillStyles(errorManager, node)
       if (settings.requireStrokeStyles) requireStrokeStyles(errorManager, node)
       if (settings.requireEffectStyles) requireEffectStyles(errorManager, node)
+      if (settings.layerNameLinting) noDefaultNames(errorManager, node, /^Polygon\s[0-9]+$/)
       // console.log('this type has NOT children')
       // if (overwriteFills) checkFills(node,  settings)
       // if (overwriteStrokes) checkStrokes(node,  settings)
@@ -213,6 +252,18 @@ export const processNode = (node: SceneNode, errorManager: CanvasErrorManager) =
       if (settings.requireFillStyles) requireFillStyles(errorManager, node)
       if (settings.requireStrokeStyles) requireStrokeStyles(errorManager, node)
       if (settings.requireEffectStyles) requireEffectStyles(errorManager, node)
+      if (settings.layerNameLinting) noDefaultNames(errorManager, node, /^Rectangle\s[0-9]+$/)
+      if (settings.pixelPerfect) makePixelPerfect(errorManager, node)
+      // if (overwriteFills) checkFills(node, colorIndex, settings)
+      // if (overwriteStrokes) checkStrokes(node, colorIndex, settings)
+      // console.log('this type has NOT children')
+      break
+  
+    case "STAR":
+      if (settings.requireFillStyles) requireFillStyles(errorManager, node)
+      if (settings.requireStrokeStyles) requireStrokeStyles(errorManager, node)
+      if (settings.requireEffectStyles) requireEffectStyles(errorManager, node)
+      if (settings.layerNameLinting) noDefaultNames(errorManager, node, /^Star\s[0-9]+$/)
       // if (overwriteFills) checkFills(node, colorIndex, settings)
       // if (overwriteStrokes) checkStrokes(node, colorIndex, settings)
       // console.log('this type has NOT children')
@@ -223,13 +274,15 @@ export const processNode = (node: SceneNode, errorManager: CanvasErrorManager) =
       if (settings.requireFillStyles) requireFillStyles(errorManager, node)
       if (settings.requireEffectStyles) requireEffectStyles(errorManager, node)
       if (settings.requireStrokeStyles) requireStrokeStyles(errorManager, node)
+      if (settings.pixelPerfect) makePixelPerfect(errorManager, node)
       // if (overwriteFills) checkFills(node, colorIndex, settings)
       // if (overwriteStrokes) checkStrokes(node, colorIndex, settings)      
       // console.log('this type has NOT children')
       break
 
     case "SLICE":
-      // This node type is not valid for anything
+      if (settings.layerNameLinting) noDefaultNames(errorManager, node, /^Slice\s[0-9]+$/)
+      if (settings.pixelPerfect) makePixelPerfect(errorManager, node)
       break
   } 
 }

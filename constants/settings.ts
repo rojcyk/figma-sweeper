@@ -9,5 +9,6 @@ export const SETTINGS_DEFAULT: Plugin.SettingsState = {
   requireStrokeStyles: true,
   requireEffectStyles: true,
   requireTextStyles: true,
-  noDefaultNames: false
+  layerNameLinting: false,
+  layerNameCase: 'noCase'
 }

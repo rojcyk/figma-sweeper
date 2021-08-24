@@ -4,7 +4,7 @@ import { SETTINGS_DEFAULT } from "@constants/settings"
 export const get_settings = async (): Promise<Plugin.SettingsState> => {
   const settings = await figma.clientStorage.getAsync(SETTINGS) as Plugin.SettingsState | undefined
 
-  if (settings === undefined) {
+  if (settings === undefined || settings === null) {
     await figma.clientStorage.setAsync(SETTINGS, SETTINGS_DEFAULT)
     return SETTINGS_DEFAULT
   }

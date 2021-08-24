@@ -1,16 +1,3 @@
-// export const DEFAULT_STATE: CanvasErrors = {
-//   deleteHidden: [],
-//   pixelPerfect: [],
-//   skipLocked: [],
-//   noGroups: [],
-//   ungroupSingleGroup: [],
-//   removeStyleOverrides: [],
-//   requireTextStyles: [],
-//   requireEffectStyles: [],
-//   requireFillStyles: [],
-//   requireStrokeStyles: [] 
-// }
-
 export const defaultValues: Plugin.CanvasErrors = {
   deleteHidden: [],
   pixelPerfect: [],
@@ -22,7 +9,7 @@ export const defaultValues: Plugin.CanvasErrors = {
   requireEffectStyles: [],
   requireFillStyles: [],
   requireStrokeStyles: [],
-  noDefaultNames: []
+  layerNameLinting: []
 }
 
 export class CanvasErrorManager {
@@ -42,11 +29,11 @@ export class CanvasErrorManager {
       requireEffectStyles: [],
       requireFillStyles: [],
       requireStrokeStyles: [],
-      noDefaultNames: []
+      layerNameLinting: []
     }
   }
 
-  public log(errorName: Plugin.SettingsProp, node: SceneNode) {
+  public log(errorName: Plugin.SettingsBooleanProp, node: SceneNode) {
     const found = this.errors[errorName].find(err => err.nodeId === node.id)    
 
     if (found === undefined) {
@@ -58,7 +45,7 @@ export class CanvasErrorManager {
     }
   }
 
-  public select(errorType: Plugin.SettingsProp) {
+  public select(errorType: Plugin.SettingsBooleanProp) {
     return this.errors[errorType].map((errorLog) => {
       const node = figma.getNodeById(errorLog.nodeId)
       if (node) return node

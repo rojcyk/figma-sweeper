@@ -19,7 +19,7 @@ import {
 // Styles
 // ******************************** //
 
-const SharedButtonStyles = styled.button<{ icon: boolean, inline?: boolean, small?: boolean }>`
+const SharedButtonStyles = styled.button<{ icon?: boolean, inline?: boolean, small?: boolean }>`
   cursor: pointer;
   border-radius: 6px;
   font-size: ${FS_SMALL};

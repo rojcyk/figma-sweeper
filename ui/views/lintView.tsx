@@ -17,6 +17,7 @@ import { Arrow } from '@icons/arrow'
 import { Eye } from '@icons/eye'
 import { Folder } from '@icons/folder'
 import { Style } from '@icons/style'
+import { Text } from '@icons/text'
 import { PixelPerfect } from '@icons/pixelPerfect'
 import { NavigationBar } from '@components/navigationBar'
 import LintError from '@components/error'
@@ -106,6 +107,7 @@ class LoopManager {
 export const LintView = ({ errors, setErrors }: { errors: Plugin.CanvasErrors, setErrors: Function }) => {
   const settings = useContext(LinterContext)
   const errorCount = countErrors(errors)
+  const nameCase = settings.layerNameCase === 'noCase' ? 'no-default-name' : settings.layerNameCase
 
   const [inProgress, setInProgress] = useState(false)
   
@@ -144,6 +146,10 @@ export const LintView = ({ errors, setErrors }: { errors: Plugin.CanvasErrors, s
 
             {errors.pixelPerfect.length > 0 &&
               <LintError title={'Make pixel perfect'} buttonLabel='Perfect' errors={errors.pixelPerfect} icon={<PixelPerfect />} />
+            }
+
+            {errors.layerNameLinting.length > 0 &&
+              <LintError title={'Name linting'} rule={nameCase} errors={errors.layerNameLinting} icon={<Text />} />
             }
 
             {errors.requireTextStyles.length > 0 &&

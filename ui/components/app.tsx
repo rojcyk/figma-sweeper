@@ -40,9 +40,16 @@ export const App = (props: Plugin.LaunchProps) => {
   const [settings, setSettings] = useState(props.settings)
   const [openState, setOpenState] = useState(props.openState)
 
-  function toggleSettings (settingProp: Plugin.SettingsProp) {
+  function toggleSettings (settingProp: Plugin.SettingsBooleanProp) {
     const newSettings  = { ...settings }
     newSettings[settingProp] = !newSettings[settingProp]
+    setSettings(newSettings)
+    io.send(SETTINGS_UPDATE, newSettings)
+  }
+
+  function changeSettings (settingProp: Plugin.SettingsOtherProp, value: any) {
+    const newSettings  = { ...settings }
+    newSettings[settingProp] = value
     setSettings(newSettings)
     io.send(SETTINGS_UPDATE, newSettings)
   }
@@ -60,7 +67,7 @@ export const App = (props: Plugin.LaunchProps) => {
       <Main>
         <Switch>
           <Route exact path={MAIN_ROUTE}><LintView setErrors={setErrors} errors={errors} /></Route>
-          <Route exact path={SETTINGS_ROUTE}><SettingsView openState={openState} setOpenState={setOpenState} toggle={toggleSettings.bind(this)} /></Route>
+          <Route exact path={SETTINGS_ROUTE}><SettingsView openState={openState} setOpenState={setOpenState} toggle={toggleSettings.bind(this)} change={changeSettings.bind(this)} /></Route>
         </Switch>
       </Main>
     </LinterContext.Provider>

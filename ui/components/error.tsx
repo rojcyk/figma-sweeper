@@ -62,9 +62,11 @@ export const LintError = ({
   icon,
   title,
   buttonLabel,
-  errors
+  errors,
+  rule
 }: {
   title: string,
+  rule?: string,
   icon: React.ReactElement
   buttonLabel?: string
   errors: any[]
@@ -85,14 +87,13 @@ export const LintError = ({
           <ErrorTitle>{title}</ErrorTitle>
 
           {errors.length === 1 ?
-            <ErrorLayerCount>{errors.length} layer matching this rule</ErrorLayerCount> :
-            <ErrorLayerCount>{errors.length} layers matching this rule</ErrorLayerCount>
+            <ErrorLayerCount>{errors.length} layer matching {rule ? rule : 'this' } rule</ErrorLayerCount> :
+            <ErrorLayerCount>{errors.length} layers matching {rule ? rule : 'this' } rule</ErrorLayerCount>
           }
 
           <ErrorActions>
             {buttonLabel && <ButtonPrimaryOutline small={true} inline={true} label={buttonLabel} />}
             <ButtonSecondary small={true} inline={true} label={'Select'} onClick={() => {
-              console.log('hovno')
               selectElements()
             }} />
           </ErrorActions>
