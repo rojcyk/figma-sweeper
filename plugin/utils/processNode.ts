@@ -81,6 +81,14 @@ const requireEffectStyles = (errorManager: CanvasErrorManager, node: EcceftStyle
   }
 }
 
+const skipWithString = (node: SceneNode, regStr: string) => {
+  const strRegex = new RegExp(`^${regStr}`)
+  const result = strRegex.exec(node.name)
+
+  if (result) return true
+  else return false
+}
+
 const noDefaultNames = (errorManager: CanvasErrorManager, node: SceneNode, reg: RegExp) => {
   switch (errorManager.settings.layerNameCase) {
     case 'noCase':
@@ -120,6 +128,11 @@ export const processNode = (node: SceneNode, errorManager: CanvasErrorManager) =
   // Should we skip linting this node?
   const shouldProcessNode = !(node.locked && settings.skipLocked)
   if (shouldProcessNode === false) return
+
+  if (settings.ignoreLayers) {
+    const shouldSkip = skipWithString(node, settings.ignoreLayersWith)
+    if (shouldSkip) return
+  }
 
   // Linting available for all elements
   if (settings.deleteHidden) deleteHidden(errorManager, node)

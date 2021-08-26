@@ -11,5 +11,7 @@ export const SETTINGS_DEFAULT: Plugin.Settings = {
   requireTextStyles: true,
   layerNameLinting: false,
   layerNameCase: 'noCase',
-  enforceUploadedStyles: false
+  enforceUploadedStyles: false,
+  ignoreLayers: false,
+  ignoreLayersWith: '_'
 }

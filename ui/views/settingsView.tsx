@@ -21,7 +21,7 @@ import { Style } from "@icons/style"
 import { MAIN_ROUTE, COLORS_ROUTE, TEXTS_ROUTE } from '@routes'
 import { TokenSection } from '@components/tokenSection'
 import { Separator } from '@components/separator'
-
+import { Input } from '@components/input'
 
 const LintWrapper = styled.div`
   position: fixed;
@@ -33,9 +33,17 @@ const LintWrapper = styled.div`
   background: linear-gradient(0deg, rgba(255,255,255,1) 20%, rgba(255,255,255,0) 100%);
 `
 
+const Spacer = styled.div`
+  padding-left: 3rem;
+  margin-bottom: 4px;
+`
+
 
 export const SettingsView = (props: { toggle: Function, change: Function, openState: Plugin.OpenState, setOpenState: Function }) => {
   const settings = useContext(LinterContext)
+  // const { value:ignoreString, bind:ignoreStringBind } = useInput(settings.ignoreLayersWith)
+
+  const [ignoreString, setIgnoreString] = useState(settings.ignoreLayersWith)
 
   const toggleOpenState = (prop: Plugin.OpenSection) => {
     const newState = { ...props.openState }
@@ -73,6 +81,26 @@ export const SettingsView = (props: { toggle: Function, change: Function, openSt
             />
 
             <Checkbox
+              label={'Ignore layers'}
+              description={'That start with a string:'}
+              checked={settings.ignoreLayers}
+              onCheckboxChange={() =>
+                props.toggle('ignoreLayers')
+              }
+            />
+
+            {settings.ignoreLayers &&
+              <Spacer>
+                <Input value={ignoreString} onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  setIgnoreString(event.target.value)
+                  const newSettings = { ...settings }
+                  newSettings.ignoreLayersWith = event.target.value
+                  props.change(newSettings)
+                }} /> 
+              </Spacer>
+            }
+
+            <Checkbox
               label={'Delete hidden layers'}
               checked={settings.deleteHidden}
               onCheckboxChange={() => props.toggle('deleteHidden')}
@@ -99,7 +127,7 @@ export const SettingsView = (props: { toggle: Function, change: Function, openSt
             />
 
             {settings.layerNameLinting &&
-              <div style={{ paddingLeft: '3rem' }}>
+              <Spacer>
                 <Select
                   icon={<Arrow direction='down' />}
                   name="casingSettings"
@@ -118,7 +146,7 @@ export const SettingsView = (props: { toggle: Function, change: Function, openSt
                   <option value="kebabCase">kebab-case</option>
                   <option value="pascalCase">PascalCase</option>
                 </Select>
-              </div>
+              </Spacer>
             }
           </Content>
         </SectionContent>

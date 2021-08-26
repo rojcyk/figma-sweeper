@@ -21,7 +21,8 @@ declare namespace Plugin {
     'requireStrokeStyles' |
     'requireEffectStyles' |
     'layerNameLinting' |
-    'enforceUploadedStyles'
+    'enforceUploadedStyles' |
+    'ignoreLayers'
 
   type SettingsBoolean = {
     [K in SettingsBooleanProp]: boolean;
@@ -29,6 +30,7 @@ declare namespace Plugin {
 
   interface Settings extends SettingsBoolean {
     layerNameCase: 'noCase' | 'camelCase' | 'snakeCase' | 'kebabCase' | 'pascalCase',    
+    ignoreLayersWith: string
   }
 
   type SettingsProp = (keyof Settings)
