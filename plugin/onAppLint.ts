@@ -5,7 +5,7 @@ import { asyncForEach } from '@utils/asyncForEach'
 import { processNode } from '@utils/processNode'
 import { CanvasErrorManager } from '@utils/canvasErrorManager'
 
-io.on(APP_LINT, async (settings: Plugin.SettingsState) => {
+io.on(APP_LINT, async (settings: Plugin.Settings) => {
   console.log('[Plugin] Initiating linting')
   // console.log('[Plugin] Settings', settings)
 

@@ -8,3 +8,5 @@
 export const DB_VERSION = 'dbVersion'
 export const SETTINGS = 'settings'
 export const OPEN_STATE = 'openState'
+export const SYNCED_PAINT_STYLES = 'syncedPaintStyles'
+export const SYNCED_TEXT_STYLES = 'syncedPaintStyles'

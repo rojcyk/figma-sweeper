@@ -3,10 +3,11 @@ import { OPEN_STATE } from "@constants/storage"
 export const get_open_state = async (): Promise<Plugin.OpenState> => {
   const opened_state = await figma.clientStorage.getAsync(OPEN_STATE) as Plugin.OpenState | undefined
 
-  if (opened_state === undefined) {
+  if (opened_state === undefined || opened_state === null) {
     const default_state: Plugin.OpenState = {
       general: false,
-      styles: false
+      styles: false,
+      tokens: false
     }
 
     await figma.clientStorage.setAsync(OPEN_STATE, default_state)

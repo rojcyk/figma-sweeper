@@ -45,8 +45,8 @@ const SectionHeaderBackground = styled.div<{ expanded: boolean }>`
   ${({ expanded }) =>
     expanded
       ? `
-      border: 6px solid ${WHITE};
-      border-radius: ${6 + BORDER_RADIUS_M}px;
+      border: 12px solid ${WHITE};
+      border-radius: ${12 + BORDER_RADIUS_M}px;
     `
       : `
       border: 0 solid ${WHITE};
@@ -60,7 +60,7 @@ const SectionHeaderWrapper = styled.div`
   cursor: pointer;
   display: flex;
   align-items: center;
-  padding: 16px 16px;
+  padding: 16px 16px 16px 18px;
 
   ${SectionHeaderBackground} {
     background-color: ${WHITE};
@@ -88,7 +88,7 @@ export const SectionHeader = ({ expanded, children, onClick }: SectionHeaderProp
     <SectionHeaderWrapper onClick={() => onClick()}>
       <Arrow
         direction={expanded ? "down" : "right"}
-        style={{ position: "relative", zIndex: 10 }}
+        style={{ position: "relative", zIndex: 10, marginRight: '4px' }}
       />
       <SectionHeaderLabel>{children}</SectionHeaderLabel>
 

@@ -11,11 +11,13 @@ import { SETTINGS_UPDATE, ERRORS_UPDATE, APP_LINT } from "@events"
 import LinterContext from "./linterContext"
 import { SettingsView } from "@views/settingsView"
 import { LintView } from "@views/lintView"
+import { ColorsView } from "@views/colorsView"
 import { GlobalStyles } from "./globalStyles"
 
 import {
   MAIN_ROUTE,
-  SETTINGS_ROUTE
+  SETTINGS_ROUTE,
+  COLORS_ROUTE
 } from "@routes"
 
 // ******************** //
@@ -41,17 +43,15 @@ export const App = (props: Plugin.LaunchProps) => {
   const [openState, setOpenState] = useState(props.openState)
 
   function toggleSettings (settingProp: Plugin.SettingsBooleanProp) {
-    const newSettings  = { ...settings }
+    const newSettings: Plugin.Settings  = { ...settings }
     newSettings[settingProp] = !newSettings[settingProp]
     setSettings(newSettings)
     io.send(SETTINGS_UPDATE, newSettings)
   }
 
-  function changeSettings (settingProp: Plugin.SettingsOtherProp, value: any) {
-    const newSettings  = { ...settings }
-    newSettings[settingProp] = value
-    setSettings(newSettings)
-    io.send(SETTINGS_UPDATE, newSettings)
+  function changeSettings (updatedSettings: Plugin.Settings) {
+    setSettings(updatedSettings)
+    io.send(SETTINGS_UPDATE, updatedSettings)
   }
 
   useEffect(() => {
@@ -68,6 +68,7 @@ export const App = (props: Plugin.LaunchProps) => {
         <Switch>
           <Route exact path={MAIN_ROUTE}><LintView setErrors={setErrors} errors={errors} /></Route>
           <Route exact path={SETTINGS_ROUTE}><SettingsView openState={openState} setOpenState={setOpenState} toggle={toggleSettings.bind(this)} change={changeSettings.bind(this)} /></Route>
+          <Route exact path={COLORS_ROUTE}><ColorsView /></Route>
         </Switch>
       </Main>
     </LinterContext.Provider>

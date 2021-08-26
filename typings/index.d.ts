@@ -3,9 +3,10 @@ declare module '*.png'
 declare namespace Plugin {
 
   interface LaunchProps {
-    settings: SettingsState
+    settings: Settings
     openState: OpenState
     errors: CanvasErrors
+    paintStyles: ImportedColor[]
   }
 
   type SettingsBooleanProp =
@@ -19,52 +20,71 @@ declare namespace Plugin {
     'requireFillStyles' |
     'requireStrokeStyles' |
     'requireEffectStyles' |
-    'layerNameLinting'
+    'layerNameLinting' |
+    'enforceUploadedStyles'
 
-  type SettingsOtherProp =
-    'layerNameCase'
-
-  type SettingsProp =
-    SettingsBooleanProp |
-    SettingsOtherProp
-
-  type SettingsCase = 'noCase' | 'camelCase' | 'snakeCase' | 'kebabCase' | 'pascalCase'
-
-  type SettingsBooleanProps = {
-    [K in SettingsBooleanProp]?: boolean
+  type SettingsBoolean = {
+    [K in SettingsBooleanProp]: boolean;
   }
 
-  type SettingsBooleanState = {
-    [K in SettingsBooleanProp]: boolean
+  interface Settings extends SettingsBoolean {
+    layerNameCase: 'noCase' | 'camelCase' | 'snakeCase' | 'kebabCase' | 'pascalCase',    
   }
 
-  interface SettingsProps extends SettingsBooleanProps {
-    layerNameCase: SettingsCase
-  }
-
-  interface SettingsState extends SettingsBooleanState {
-    layerNameCase: SettingsCase
-  }
+  type SettingsProp = (keyof Settings)
 
   interface CanvasError {
     nodeId: string,
     nodeName: string,
     nodeType: string
   }
+
+  type ErrorLogGroup =
+    'deleteHidden' |
+    'pixelPerfect' |
+    'skipLocked' |
+    'noGroups' |
+    'ungroupSingleGroup' |
+    'removeStyleOverrides' |
+    'requireTextStyles' |
+    'requireFillStyles' |
+    'requireStrokeStyles' |
+    'requireEffectStyles' |
+    'layerNameLinting'
   
   type CanvasErrors = {
-    [K in SettingsBooleanProp]: CanvasError[]
+    [K in ErrorLogGroup]: CanvasError[]
   }
   
   type ChildrenNode = FrameNode | GroupNode | ComponentSetNode | ComponentNode | InstanceNode
 
-  type OpenSection = "general" | "styles"
+  type OpenSection = "general" | "styles" | "tokens"
 
   type OpenState = {
     [K in OpenSection]: boolean
   }
 
   interface StateProps extends LaunchProps {}
+
+  interface Color {
+    r: number
+    g: number
+    b: number
+  }
+
+  interface ImportedColor {
+    key: string
+    name: string
+    color: Color
+    hex: string
+    opacity: number
+  }
+
+
+  // --------------------------------------
+  // --------------------------------------
+  // --------------------------------------
+  // --------------------------------------
 
   type ParsableStyle = [
     boolean, // is it parsable?
@@ -96,13 +116,6 @@ declare namespace Plugin {
     textCase: TextCase | PluginAPI['mixed']
     textDecoration: TextDecoration | PluginAPI['mixed']
     paragraphSpacing: number
-  }
-
-  interface Color {
-    r: number
-    g: number
-    b: number
-    opacity: number
   }
 
   interface Settings {

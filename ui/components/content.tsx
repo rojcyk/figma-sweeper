@@ -7,7 +7,7 @@ import styled from "styled-components"
 // ******************** //
 
 const ContentStyle = styled.div`
-  padding: 4px 16px 16px 16px;
+  padding: 0px 12px 16px 12px;
 `
 
 // ******************** //

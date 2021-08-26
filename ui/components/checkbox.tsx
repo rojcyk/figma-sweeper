@@ -31,7 +31,7 @@ export const Check = styled.div<{ checked: boolean }>`
   width: 18px;
   height: 18px;
   border-radius: ${BORDER_RADIUS_S}px;
-  margin-right: 6px;
+  margin-right: 8px;
   flex-shrink: 0;
 
   ${({ checked }) =>
@@ -64,8 +64,7 @@ export const Check = styled.div<{ checked: boolean }>`
 const CheckboxWrapper = styled.div`
   display: flex;
   margin-bottom: 4px;
-  padding: 4px;
-  padding-right: 8px;
+  padding: 4px 8px 4px 8px;
   border-radius: ${BORDER_RADIUS_M}px;
   cursor: pointer;
   transition: all 160ms ease-out;
@@ -93,7 +92,7 @@ const ContentDescription = styled.p`
   line-height: 130%;
   color: ${GRAY};
   margin: 0;
-  padding: 4px 0 4px 0;
+  padding: 4px 0 2px 0;
   user-select: none;
 `
 

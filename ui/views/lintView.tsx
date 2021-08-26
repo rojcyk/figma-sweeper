@@ -79,9 +79,9 @@ const countErrors = (errors: Plugin.CanvasErrors) => {
 class LoopManager {
   inProgress: boolean
   counter: number
-  settings: Plugin.SettingsState
+  settings: Plugin.Settings
 
-  constructor (settings: Plugin.SettingsState) {
+  constructor (settings: Plugin.Settings) {
     this.inProgress = false
     this.counter = 0
     this.settings = settings

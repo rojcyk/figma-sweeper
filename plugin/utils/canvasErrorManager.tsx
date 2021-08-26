@@ -13,10 +13,10 @@ export const defaultValues: Plugin.CanvasErrors = {
 }
 
 export class CanvasErrorManager {
-  settings: Plugin.SettingsState
+  settings: Plugin.Settings
   errors: Plugin.CanvasErrors
 
-  constructor(pluginSettings: Plugin.SettingsState) {
+  constructor(pluginSettings: Plugin.Settings) {
     this.settings = pluginSettings
     this.errors = {
       deleteHidden: [],
@@ -33,7 +33,7 @@ export class CanvasErrorManager {
     }
   }
 
-  public log(errorName: Plugin.SettingsBooleanProp, node: SceneNode) {
+  public log(errorName: Plugin.ErrorLogGroup, node: SceneNode) {
     const found = this.errors[errorName].find(err => err.nodeId === node.id)    
 
     if (found === undefined) {
@@ -45,8 +45,8 @@ export class CanvasErrorManager {
     }
   }
 
-  public select(errorType: Plugin.SettingsBooleanProp) {
-    return this.errors[errorType].map((errorLog) => {
+  public select(errorName: Plugin.ErrorLogGroup) {
+    return this.errors[errorName].map((errorLog) => {
       const node = figma.getNodeById(errorLog.nodeId)
       if (node) return node
     })

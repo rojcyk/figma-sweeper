@@ -27,7 +27,6 @@ export const Text = (props: Props) => {
       height="20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg">
-        <path fill="#fff" d="M0 0h20v20H0z"/>
         <path fill="#000" d="M4 4h11v1H4zM7 15h5v1H7z"/>
         <path fill="#000" d="M4 4h1v3H4zM14 4h1v3h-1zM9 5h1v10H9z"/>
     </TextStyle>

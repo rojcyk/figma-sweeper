@@ -1,4 +1,4 @@
-export const SETTINGS_DEFAULT: Plugin.SettingsState = {
+export const SETTINGS_DEFAULT: Plugin.Settings = {
   deleteHidden: false,
   pixelPerfect: false,
   skipLocked: true,
@@ -10,5 +10,6 @@ export const SETTINGS_DEFAULT: Plugin.SettingsState = {
   requireEffectStyles: true,
   requireTextStyles: true,
   layerNameLinting: false,
-  layerNameCase: 'noCase'
+  layerNameCase: 'noCase',
+  enforceUploadedStyles: false
 }

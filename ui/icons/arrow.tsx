@@ -50,12 +50,12 @@ export const Arrow = (props: ArrowProps) => {
   }
 
   return (
-    <IconWrapper>
+    <IconWrapper style={{ ...(props.style) }}>
       <ArrowStyles
         width="4"
         height="6"
         viewBox="0 0 4 6"
-        style={{ transform: transform, ...props.style }}
+        style={{ transform: transform }}
       >
         <path d="M0.125 6L0.125 0L3.875 3L0.125 6Z" />
       </ArrowStyles>
