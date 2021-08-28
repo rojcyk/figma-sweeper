@@ -105,7 +105,7 @@ class LoopManager {
 }
 
 export const LintView = ({ errors, setErrors }: { errors: Plugin.CanvasErrors, setErrors: Function }) => {
-  const settings = useContext(LinterContext)
+  const { settings } = useContext(LinterContext)
   const errorCount = countErrors(errors)
   const nameCase = settings.layerNameCase === 'noCase' ? 'no-default-name' : settings.layerNameCase
 
@@ -192,7 +192,7 @@ export const LintView = ({ errors, setErrors }: { errors: Plugin.CanvasErrors, s
         {inProgress === true &&
           <>
             <ButtonSecondary  onClick={() => {setInProgress(false)}} label={'Stop linting'} />
-            <ButtonPrimary inline={true} label={'Autofix'} />
+            {/* <ButtonPrimary inline={true} label={'Autofix'} /> */}
           </>
         }
       </LintWrapper>

@@ -7,6 +7,7 @@ declare namespace Plugin {
     openState: OpenState
     errors: CanvasErrors
     paintStyles: ImportedColor[]
+    textStyles: ImportedText[]
   }
 
   type SettingsBooleanProp =
@@ -75,11 +76,25 @@ declare namespace Plugin {
   }
 
   interface ImportedColor {
+    id: string
     key: string
     name: string
+    fullName: string
+    fullPath: string[]
     color: Color
     hex: string
     opacity: number
+  }
+
+  interface ImportedText {
+    id: string
+    key: string
+    name: string
+    fullName: string
+    fullPath: string[]
+    fontSize: number
+    fontName: FontName
+    textCase: TextCase
   }
 
 

@@ -11,6 +11,7 @@ import {
   WHITE,
   BLUE,
   BACKGROUND,
+  BACKGROUND_LIGHT,
   SEPARATOR,
   ANIMATION_SPEED_MS
 } from "@ui"
@@ -19,7 +20,7 @@ import {
 // Styles
 // ******************************** //
 
-const SharedButtonStyles = styled.button<{ icon?: boolean, inline?: boolean, small?: boolean }>`
+const SharedButtonStyles = styled.button<{ icon?: boolean, inline?: boolean, small?: boolean, label?: string }>`
   cursor: pointer;
   border-radius: 6px;
   font-size: ${FS_SMALL};
@@ -41,6 +42,12 @@ const SharedButtonStyles = styled.button<{ icon?: boolean, inline?: boolean, sma
   ` : `
     display: flex; width: 100%;
     align-items: center;
+  `}
+
+  ${props => props.label ? `
+    padding-left: 12px;
+  ` : `
+    padding-left: 8px;
   `}
 
   ${props => props.icon ? `
@@ -108,6 +115,17 @@ export const ButtonSecondaryStyle = styled(SharedButtonStyles)`
   }
 `
 
+export const ButtonSecondaryNakedStyle = styled(SharedButtonStyles)`
+  color: ${BLACK};
+  fill: ${BLACK} !important;
+  border: none;
+  background-color: rgba(0,0,0,0);
+
+  &:hover {
+    background-color: ${BACKGROUND_LIGHT}
+  }
+`
+
 export const ButtonDisabledStyle = styled(SharedButtonStyles)`
   user-select: none;
   cursor: default;
@@ -142,6 +160,7 @@ interface Button extends DisabledButton {}
 
 export const ButtonPrimary = (props: Button) => {
   return <ButtonPrimaryStyle
+    label={props.label}
     small={props.small}
     inline={props.inline}
     as={props.as}
@@ -154,6 +173,7 @@ export const ButtonPrimary = (props: Button) => {
 
 export const ButtonPrimaryOutline = (props: Button) => {
   return <ButtonPrimaryOutlineStyle
+    label={props.label}
     small={props.small}
     inline={props.inline}
     as={props.as}
@@ -166,6 +186,7 @@ export const ButtonPrimaryOutline = (props: Button) => {
 
 export const ButtonPrimaryNaked = (props: Button) => {
   return <ButtonPrimaryNakedStyle
+    label={props.label}
     small={props.small}
     inline={props.inline}
     as={props.as}
@@ -178,6 +199,7 @@ export const ButtonPrimaryNaked = (props: Button) => {
 
 export const ButtonSecondary = (props: Button) => {
   return <ButtonSecondaryStyle
+    label={props.label}
     small={props.small}
     inline={props.inline}
     as={props.as}
@@ -188,8 +210,22 @@ export const ButtonSecondary = (props: Button) => {
   </ButtonSecondaryStyle>
 }
 
+export const ButtonSecondaryNaked = (props: Button) => {
+  return <ButtonSecondaryNakedStyle
+    label={props.label}
+    small={props.small}
+    inline={props.inline}
+    as={props.as}
+    icon={props.icon ? true : false}
+    onClick={props.onClick ? props.onClick : null}
+    style={props.style}>
+    {props.label} {props.icon}
+  </ButtonSecondaryNakedStyle>
+}
+
 export const ButtonDisabled = (props: DisabledButton) => {
   return <ButtonDisabledStyle
+    label={props.label}
     small={props.small}
     inline={props.inline}
     as={props.as}

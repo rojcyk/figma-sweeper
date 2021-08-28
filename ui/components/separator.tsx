@@ -26,9 +26,12 @@ import {
 } from '@ui'
 
 
-export const Separator = styled.hr`
+export const Separator = styled.hr<{ margin?: number }>`
   height: 1px;
   background-color: ${SEPARATOR};
   border: none;
-  margin-top: 6px;
+  margin:0;
+  padding:0;
+  margin-top: ${(padding) => padding ? padding + 'px' : '0'};
+  margin-bottom: ${(padding) => padding ? padding + 'px' : '0'};
 `

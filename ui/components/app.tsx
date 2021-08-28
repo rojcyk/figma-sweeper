@@ -7,17 +7,19 @@ import io from "figmaio/ui"
 // LOCAL INCLUDES
 // ******************** //
 
-import { SETTINGS_UPDATE, ERRORS_UPDATE, APP_LINT } from "@events"
+import { SETTINGS_UPDATE, ERRORS_UPDATE, COLORS_UPDATE, TEXTS_UPDATE } from "@events"
 import LinterContext from "./linterContext"
 import { SettingsView } from "@views/settingsView"
 import { LintView } from "@views/lintView"
+import { TextsView } from "@views/textsView"
 import { ColorsView } from "@views/colorsView"
 import { GlobalStyles } from "./globalStyles"
 
 import {
   MAIN_ROUTE,
   SETTINGS_ROUTE,
-  COLORS_ROUTE
+  COLORS_ROUTE,
+  TEXTS_ROUTE
 } from "@routes"
 
 // ******************** //
@@ -41,6 +43,8 @@ export const App = (props: Plugin.LaunchProps) => {
   const [errors, setErrors] = useState(props.errors)
   const [settings, setSettings] = useState(props.settings)
   const [openState, setOpenState] = useState(props.openState)
+  const [paintStyles, setPaintStyles] = useState(props.paintStyles)
+  const [textStyles, setTextStyles] = useState(props.textStyles)
 
   function toggleSettings (settingProp: Plugin.SettingsBooleanProp) {
     const newSettings: Plugin.Settings  = { ...settings }
@@ -55,20 +59,24 @@ export const App = (props: Plugin.LaunchProps) => {
   }
 
   useEffect(() => {
-    io.on(ERRORS_UPDATE, (data) => {
-      setErrors(data)
-    })
+    io.on(ERRORS_UPDATE, (data) => setErrors(data))
+    io.on(COLORS_UPDATE, (colors) => setPaintStyles(colors))
+    io.on(TEXTS_UPDATE, (texts) => setTextStyles(texts))
   }, [])
 
-
   return (
-    <LinterContext.Provider value={settings}>
+    <LinterContext.Provider value={{
+      settings,
+      paintStyles,
+      textStyles
+       }}>
       <GlobalStyles />
       <Main>
         <Switch>
           <Route exact path={MAIN_ROUTE}><LintView setErrors={setErrors} errors={errors} /></Route>
           <Route exact path={SETTINGS_ROUTE}><SettingsView openState={openState} setOpenState={setOpenState} toggle={toggleSettings.bind(this)} change={changeSettings.bind(this)} /></Route>
-          <Route exact path={COLORS_ROUTE}><ColorsView /></Route>
+          <Route exact path={COLORS_ROUTE}><ColorsView paintStyles={paintStyles}/></Route>
+          <Route exact path={TEXTS_ROUTE}><TextsView textStyles={textStyles}/></Route>
         </Switch>
       </Main>
     </LinterContext.Provider>

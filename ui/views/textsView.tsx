@@ -11,7 +11,7 @@ import { ButtonPrimary, ButtonSecondaryNaked, ButtonPrimaryNaked } from "@compon
 import { LinterContext } from "../components/linterContext"
 import { SETTINGS_ROUTE } from '@routes'
 import { SEPARATOR, WHITE, FS_SMALL, FS_TINY, GRAY } from '@ui'
-import { COLORS_IMPORT, COLORS_DELETE, COLORS_UPDATE } from '@events'
+import { TEXTS_IMPORT, TEXTS_DELETE, TEXTS_UPDATE } from '@events'
 import { P } from '@components/typography'
 import { Separator } from '@components/separator'
 import { Trash } from '@icons/trash'
@@ -31,7 +31,7 @@ const Main = styled.div`
   min-height: 100%;
 `
 
-const ColorsList = styled.ul`
+const TextsList = styled.ul`
   margin: 0;
   padding: 0;
   list-style-type: none;
@@ -40,102 +40,84 @@ const ColorsList = styled.ul`
   padding-bottom: 12px;
 `
 
-const ColorContentWrapper = styled.div`
+const TextContentWrapper = styled.div`
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: space-between;
 `
 
-const ColorItemWrapper = styled.li`
+const TextItemWrapper = styled.li`
   padding: 4px 12px 4px 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 `
 
-const ColorExample = styled.div<{ color: string }>`
-  width: 28px;
-  height: 28px;
-  border-radius: 4px;
-  background-color: ${({color}) => color};
-  margin-right: 12px;
-  border: 1px solid rgba(0,0,0,0.1);
-`
-
-const ColorInfo = styled.div`
-  display: flex;
-  /* align-items: center; */
-  flex-direction: column;
-`
-
-const ColorTitle = styled.span`
+const TextTitle = styled.span`
   display: block;
   font-size: ${FS_SMALL};
   margin-right: 4px;
+  letter-spacing: 0.5%;
 `
 
-const ColorStatus = styled.span`
+const TextStatus = styled.span`
   font-size: ${FS_TINY};
   color: ${GRAY};
   margin: 0;
   padding: 0;
-  text-transform: uppercase;
 `
 
-const ColorItem = ({ color }: { color: Plugin.ImportedColor }) => {
+const TextItem = ({ text }: { text: Plugin.ImportedText }) => {
   return (
-    <ColorItemWrapper>
-      <ColorContentWrapper>
-        <ColorExample color={color.hex} />
-
-        <ColorInfo>
-          <ColorTitle>{color.name}</ColorTitle>
-          <ColorStatus>{color.hex}</ColorStatus>
-        </ColorInfo>
-      </ColorContentWrapper>
+    <TextItemWrapper>
+      <TextContentWrapper>
+        <TextTitle>{text.name}</TextTitle>
+        <TextStatus>{text.fontName.family} • {text.fontName.style} • {text.fontSize}</TextStatus>
+      </TextContentWrapper>
 
       <ButtonSecondaryNaked
         inline={true}
         label={''}
         icon={<Trash />}
         onClick={() => {
-          console.log(`[Plugin] Deleting color ${color.name}`)
-          io.send(COLORS_DELETE, color)
+          console.log(`[Plugin] Deleting text ${text.name}`)
+          io.send(TEXTS_DELETE, text)
         }}/>
-    </ColorItemWrapper>
+    </TextItemWrapper>
   )
 }
 
-const generateColors = (colors: Plugin.ImportedColor[]) => {
-  const colorList: React.ReactNode[] = []
+const generateTypography = (texts: Plugin.ImportedText[]) => {
+  const textList: React.ReactNode[] = []
 
-  colors.forEach((color, i) => {
-    colorList.push(
-      <ColorItem color={color} key={i} />
+  texts.forEach((text, i) => {
+    textList.push(
+      <TextItem key={i} text={text} />
     )
   })
 
-  return colorList
+  return textList
 }
 
 
 
-export const ColorsView = ({ paintStyles }: { paintStyles: Plugin.ImportedColor[] }) => {
-  const colorList = generateColors(paintStyles)
+export const TextsView = ({ textStyles }: { textStyles: Plugin.ImportedText[] }) => {
+  // const colorList = generateColors(paintStyles)
+  const textList = generateTypography(textStyles)
 
   return (
     <Main>
-      <NavigationBar back={true} title={'Colors'} action={
+      <NavigationBar back={true} title={'Typography'} action={
         <ButtonPrimaryNaked inline={true} label={'Import'} onClick={() => {
-          io.send(COLORS_IMPORT)
+          io.send(TEXTS_IMPORT)
         }} />
       } />
 
       <Separator />
 
-      {paintStyles.length > 0 &&
+      {textStyles.length > 0 &&
         <>
-          <ColorsList>{colorList}</ColorsList>
+          <TextsList>{textList}</TextsList>
           <Separator />
         </>
       }

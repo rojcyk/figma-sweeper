@@ -5,6 +5,12 @@ export const SETTINGS_UPDATE = 'settingsUpdate'
 export const OPEN_STATE_UPDATE = 'openStateUpdate'
 export const SELECTION_UPDATE = 'selectionUpdate'
 export const COLORS_IMPORT = 'colorsUpdate'
+export const COLORS_DELETE = 'colorsDelete'
+export const COLORS_UPDATE = 'colorsUpdate'
+
+export const TEXTS_IMPORT = 'textsUpdate'
+export const TEXTS_DELETE = 'textsDelete'
+export const TEXTS_UPDATE = 'textsUpdate'
 
 export const STYLES_EXPORT = "stylesExport"
 export const STYLES_DELETE = "stylesDelete"

@@ -20,8 +20,9 @@ import { Text } from "@icons/text"
 import { Style } from "@icons/style"
 import { MAIN_ROUTE, COLORS_ROUTE, TEXTS_ROUTE } from '@routes'
 import { TokenSection } from '@components/tokenSection'
-import { Separator } from '@components/separator'
 import { Input } from '@components/input'
+import { Separator } from '@components/separator'
+import { NavigationBar } from '@components/navigationBar'
 
 const LintWrapper = styled.div`
   position: fixed;
@@ -40,7 +41,7 @@ const Spacer = styled.div`
 
 
 export const SettingsView = (props: { toggle: Function, change: Function, openState: Plugin.OpenState, setOpenState: Function }) => {
-  const settings = useContext(LinterContext)
+  const { settings, paintStyles, textStyles } = useContext(LinterContext)
   // const { value:ignoreString, bind:ignoreStringBind } = useInput(settings.ignoreLayersWith)
 
   const [ignoreString, setIgnoreString] = useState(settings.ignoreLayersWith)
@@ -55,14 +56,29 @@ export const SettingsView = (props: { toggle: Function, change: Function, openSt
   return (
     <div style={{ paddingBottom: '64px' }}>
 
+      <NavigationBar back={true} title={'Settings'} />
+
+      <Separator />
+
       <SectionWrapper expanded={props.openState.tokens}>
         <SectionHeader expanded={props.openState.tokens} onClick={() => toggleOpenState('tokens')}>Tokens</SectionHeader>
         <SectionContent expanded={props.openState.tokens}>
           <Content>
             {/* <P style={{ marginBottom: '12px' }}>You currently have 0 tokens uploaded.</P> */}
 
-            <TokenSection title={'Colors'} subtitle={'4 tokens synced'} icon={<Style />} href={COLORS_ROUTE} />
-            <TokenSection title={'Typography'} subtitle={'No tokens synced'} icon={<Text />} href={TEXTS_ROUTE} />
+            <TokenSection
+              title={'Colors'}
+              subtitle={`${paintStyles.length > 0 ? paintStyles.length : 'No' } styles synced`}
+              icon={<Style />}
+              href={COLORS_ROUTE}
+            />
+
+            <TokenSection
+              title={'Typography'}
+              subtitle={`${textStyles.length > 0 ? textStyles.length : 'No' } styles synced`}
+              icon={<Text />}
+              href={TEXTS_ROUTE}
+            />
 
           </Content>
         </SectionContent>
@@ -192,11 +208,11 @@ export const SettingsView = (props: { toggle: Function, change: Function, openSt
         </SectionContent>
       </SectionWrapper>
 
-      <LintWrapper style={{ zIndex: 100 }}>
+      {/* <LintWrapper style={{ zIndex: 100 }}>
         <NavLink to={MAIN_ROUTE} style={{ textDecoration: 'none' }}>
           <ButtonPrimary label={'Save'} />
         </NavLink>
-      </LintWrapper>
+      </LintWrapper> */}
     </div>
   )
 }
