@@ -11,7 +11,7 @@ import { SectionWrapper, SectionHeader, SectionContent } from '@components/secti
 import { Checkbox } from "@components/checkbox"
 import { Content } from "@components/content"
 import { P, H3 } from "@components/typography"
-import { ButtonPrimary, ButtonPrimaryOutline } from "@components/button"
+import { Button } from "@components/button"
 import { Select } from "@components/select"
 import { LinterContext } from "../components/linterContext"
 import { OPEN_STATE_UPDATE } from "@events"

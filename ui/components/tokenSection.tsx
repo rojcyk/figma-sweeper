@@ -8,7 +8,6 @@ import { Route, NavLink, HashRouter } from "react-router-dom"
 // ******************** //
 
 import { P, H3 } from "@components/typography"
-import { ButtonPrimary, ButtonSecondaryStyle } from "@components/button"
 import { Arrow } from '@icons/arrow'
 
 import {

@@ -8,7 +8,6 @@ import io from "figmaio/ui"
 
 import { APP_LINT } from "@events"
 import LinterContext from "./linterContext"
-import { ButtonSecondaryStyle } from "@components/button"
 
 import {
   FS_SMALL,
@@ -30,4 +29,6 @@ export const Input = styled.input`
   padding: 7px 12px;
   outline: none;
   width: 100%;
+
+  
 `

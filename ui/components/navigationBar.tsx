@@ -6,7 +6,7 @@ import { Route, NavLink, HashRouter, useHistory } from "react-router-dom"
 // LOCAL INCLUDES
 // ******************** //
 
-import { ButtonPrimary, ButtonSecondary, ButtonPrimaryNaked, ButtonSecondaryNaked, ButtonDisabled } from "@components/button"
+import { Button } from "@components/button"
 import { H1, H2, H3, P } from "@components/typography"
 import { WHITE, SEPARATOR } from '@ui'
 
@@ -48,7 +48,9 @@ export const NavigationBar = (props: NavigationBarProps) => {
     <NavigationWrapper>
       {props.back &&
         <BackWrapper>
-          <ButtonSecondaryNaked
+          <Button
+            theme={'primary'}
+            presence={'naked'}
             inline={true}
             label={'‹ Back'}
             onClick={() => history.goBack()}

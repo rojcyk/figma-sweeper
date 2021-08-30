@@ -7,7 +7,7 @@ import { Route, NavLink, HashRouter } from "react-router-dom"
 // LOCAL INCLUDES
 // ******************** //
 
-import { ButtonPrimary, ButtonSecondary, ButtonPrimaryNaked } from "@components/button"
+import { Button } from "@components/button"
 import { LinterContext } from "../components/linterContext"
 import { SETTINGS_ROUTE } from '@routes'
 import { SEPARATOR } from '@ui'
@@ -131,7 +131,7 @@ export const LintView = ({ errors, setErrors }: { errors: Plugin.CanvasErrors, s
     <Main>
       <NavigationBar title={title} action={
         <NavLink to={SETTINGS_ROUTE} style={{ textDecoration: 'none' }}>
-          <ButtonPrimaryNaked inline={true} label={'Settings'} />
+          <Button presence={'naked'} inline={true} label={'Settings'} />
         </NavLink>
       } />
         {inProgress && errorCount !== 0 &&
@@ -185,13 +185,13 @@ export const LintView = ({ errors, setErrors }: { errors: Plugin.CanvasErrors, s
       <LintWrapper>
         {inProgress === false &&
           <>
-            <ButtonPrimary  onClick={() => {setInProgress(true)}} label={'Start linting ...'} />
+            <Button inline={false} onClick={() => {setInProgress(true)}} label={'Start linting ...'} />
           </>
         }
 
         {inProgress === true &&
           <>
-            <ButtonSecondary  onClick={() => {setInProgress(false)}} label={'Stop linting'} />
+            <Button inline={false} theme={'primary'}  onClick={() => {setInProgress(false)}} label={'Stop linting'} />
             {/* <ButtonPrimary inline={true} label={'Autofix'} /> */}
           </>
         }

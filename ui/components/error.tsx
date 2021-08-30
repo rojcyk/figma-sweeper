@@ -10,8 +10,7 @@ import { Route, NavLink, HashRouter } from "react-router-dom"
 // import { SectionWrapper, SectionHeader, SectionContent } from '@components/section'
 // import { Checkbox } from "@components/checkbox"
 // import { Content } from "@components/content"
-// import { P } from "@components/typography"
-import { ButtonPrimary, ButtonSecondary, ButtonPrimaryOutline } from "@components/button"
+import { Button } from "@components/button"
 import { LinterContext } from "./linterContext"
 import { MAIN_ROUTE } from '@routes'
 import { APP_LINT, SELECTION_UPDATE } from '@events'
@@ -92,8 +91,8 @@ export const LintError = ({
           }
 
           <ErrorActions>
-            {buttonLabel && <ButtonPrimaryOutline small={true} inline={true} label={buttonLabel} />}
-            <ButtonSecondary small={true} inline={true} label={'Select'} onClick={() => {
+            {buttonLabel && <Button presence='outline' size={'small'} inline={true} label={buttonLabel} />}
+            <Button theme='primary' size={'small'} inline={true} label={'Select'} onClick={() => {
               selectElements()
             }} />
           </ErrorActions>

@@ -7,7 +7,7 @@ import { Route, NavLink, HashRouter, useHistory } from "react-router-dom"
 // LOCAL INCLUDES
 // ******************** //
 
-import { ButtonPrimary, ButtonSecondaryNaked, ButtonPrimaryNaked } from "@components/button"
+import { Button } from "@components/button"
 import { LinterContext } from "../components/linterContext"
 import { SETTINGS_ROUTE } from '@routes'
 import { SEPARATOR, WHITE, FS_SMALL, FS_TINY, GRAY } from '@ui'
@@ -75,10 +75,12 @@ const TextItem = ({ text }: { text: Plugin.ImportedText }) => {
         <TextStatus>{text.fontName.family} • {text.fontName.style} • {text.fontSize}</TextStatus>
       </TextContentWrapper>
 
-      <ButtonSecondaryNaked
+      <Button
+        presence={'naked'}
+        theme={'primary'}
         inline={true}
         label={''}
-        icon={<Trash />}
+        iconRight={<Trash />}
         onClick={() => {
           console.log(`[Plugin] Deleting text ${text.name}`)
           io.send(TEXTS_DELETE, text)
@@ -102,13 +104,12 @@ const generateTypography = (texts: Plugin.ImportedText[]) => {
 
 
 export const TextsView = ({ textStyles }: { textStyles: Plugin.ImportedText[] }) => {
-  // const colorList = generateColors(paintStyles)
   const textList = generateTypography(textStyles)
 
   return (
     <Main>
       <NavigationBar back={true} title={'Typography'} action={
-        <ButtonPrimaryNaked inline={true} label={'Import'} onClick={() => {
+        <Button presence={'naked'} inline={true} label={'Import'} onClick={() => {
           io.send(TEXTS_IMPORT)
         }} />
       } />
