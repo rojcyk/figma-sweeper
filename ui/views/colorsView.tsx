@@ -83,14 +83,15 @@ const ColorStatus = styled.span`
 `
 
 const ColorItem = ({ color }: { color: Plugin.ImportedColor }) => {
+  console.log(color)
   return (
     <ColorItemWrapper>
       <ColorContentWrapper>
-        <ColorExample color={color.hex} />
+        {/* <ColorExample color={'#ffffff'} /> */}
 
         <ColorInfo>
           <ColorTitle>{color.name}</ColorTitle>
-          <ColorStatus>{color.hex}</ColorStatus>
+          {/* <ColorStatus>{color.hex}</ColorStatus> */}
         </ColorInfo>
       </ColorContentWrapper>
 

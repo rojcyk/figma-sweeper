@@ -1,36 +1,9 @@
+import settings from '@storage/settings'
 import { CanvasErrorManager } from '@utils/canvasErrorManager'
 
 // ************************* */
 /* Traverse
 // ************************* */
-
-export const traverse = (
-  arr: readonly SceneNode[],
-  callback: Function,
-  errorManager?: CanvasErrorManager,
-) => {
-  for (const item of arr) callback(item, errorManager)
-}
-
-const deleteHidden = (errorManager: CanvasErrorManager, node: SceneNode) => {
-  if (node.visible === false) {
-    errorManager.log('deleteHidden', node)
-  }
-}
-
-const ungroupSingleGroup = (errorManager: CanvasErrorManager, node: GroupNode) => {
-  if (node.children.length === 1) {
-    errorManager.log('ungroupSingleGroup', node)
-  }
-}
-
-const makePixelPerfect = (errorManager: CanvasErrorManager, node: SceneNode) => {
-  if (!Number.isInteger(node.x)) {
-    errorManager.log('pixelPerfect', node)
-  } else if (!Number.isInteger(node.y)) {
-    errorManager.log('pixelPerfect', node)
-  }
-}
 
 type RequiretyleNode =
   BooleanOperationNode |
@@ -49,12 +22,55 @@ type RequiretyleNode =
 type StrokeStyleNode = RequiretyleNode
 type EcceftStyleNode = RequiretyleNode
 
+export const traverse = (
+  arr: readonly SceneNode[],
+  callback: Function,
+  errorManager?: CanvasErrorManager,
+) => {
+  for (const item of arr) callback(item, errorManager)
+}
+
+const deleteHidden = (errorManager: CanvasErrorManager, node: SceneNode) => {
+  if (node.visible === false) {
+    errorManager.log('deleteHidden', node)
+  }
+}
+
+const ungroupSingleGroup = (errorManager: CanvasErrorManager, node: GroupNode) => {
+  if (errorManager.settings.noGroups) {
+    errorManager.log('noGroups', node)
+  } else if (errorManager.settings.ungroupSingleGroup) {
+    if (node.children.length === 1) {
+      errorManager.log('ungroupSingleGroup', node)
+    }
+  }
+}
+
+const makePixelPerfect = (errorManager: CanvasErrorManager, node: SceneNode) => {
+  if (!Number.isInteger(node.x)) {
+    errorManager.log('pixelPerfect', node)
+  } else if (!Number.isInteger(node.y)) {
+    errorManager.log('pixelPerfect', node)
+  } else if (!Number.isInteger(node.height)) {
+    errorManager.log('pixelPerfect', node)
+  } else if (!Number.isInteger(node.width)) {
+    errorManager.log('pixelPerfect', node)
+  }
+}
+
 const requireFillStyles = (errorManager: CanvasErrorManager, node: RequiretyleNode) => {
   if (node.fills !== figma.mixed) {
     if (node.fills.length === 0) return 
+    if (node.fills.length === 1 && node.fills[0].visible === false) return
 
     if (node.fillStyleId === "") {
       errorManager.log('requireFillStyles', node)
+    } else {
+      if (errorManager.settings.enforceUploadedStyles) {
+        if (errorManager.findInPaintStyles(node.fillStyleId as string) === undefined) {
+          errorManager.log('enforceUploadedStyles', node)
+        }
+      }
     }
   }
 }
@@ -62,6 +78,12 @@ const requireFillStyles = (errorManager: CanvasErrorManager, node: RequiretyleNo
 const requireTextStyles = (errorManager: CanvasErrorManager, node: TextNode) => {
   if (node.textStyleId === "") {
     errorManager.log('requireTextStyles', node)
+  } else {
+    if (errorManager.settings.enforceUploadedStyles) {
+      if (errorManager.findInTextStyles(node.textStyleId as string) === undefined) {
+        errorManager.log('enforceUploadedStyles', node)
+      }
+    }
   }
 }
 
@@ -70,6 +92,12 @@ const requireStrokeStyles = (errorManager: CanvasErrorManager, node: StrokeStyle
     if (node.strokeStyleId === "") {
       errorManager.log('requireStrokeStyles', node)
     }
+  } else {
+    // if (errorManager.settings.enforceUploadedStyles) {
+    //   if (!errorManager.findInPaintStyles(node.fillStyleId as string) === undefined) {
+    //     errorManager.log('enforceUploadedStyles', node)
+    //   }
+    // }
   }
 }
 
@@ -154,7 +182,7 @@ export const processNode = (node: SceneNode, errorManager: CanvasErrorManager) =
     case "GROUP":
       traverse(node.children, processNode, errorManager)
 
-      if (settings.ungroupSingleGroup) ungroupSingleGroup(errorManager, node)
+      ungroupSingleGroup(errorManager, node)
       if (settings.layerNameLinting) noDefaultNames(errorManager, node, /^Group\s[0-9]+$/)
       
       // if (overwriteFills) checkFills(node, settings)
@@ -186,7 +214,7 @@ export const processNode = (node: SceneNode, errorManager: CanvasErrorManager) =
       break
 
     case "INSTANCE":
-      traverse(node.children, processNode, errorManager)
+      // traverse(node.children, processNode, errorManager)
 
       if (settings.requireFillStyles) requireFillStyles(errorManager, node)
       if (settings.requireStrokeStyles) requireStrokeStyles(errorManager, node)

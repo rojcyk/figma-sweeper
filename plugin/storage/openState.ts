@@ -7,7 +7,8 @@ export const get_open_state = async (): Promise<Plugin.OpenState> => {
     const default_state: Plugin.OpenState = {
       general: false,
       styles: false,
-      tokens: false
+      tokens: false,
+      layerList: false
     }
 
     await figma.clientStorage.setAsync(OPEN_STATE, default_state)

@@ -40,7 +40,6 @@ const Main = styled.main`
 // ******************** //
 
 export const App = (props: Plugin.LaunchProps) => {
-  const [errors, setErrors] = useState(props.errors)
   const [settings, setSettings] = useState(props.settings)
   const [openState, setOpenState] = useState(props.openState)
   const [paintStyles, setPaintStyles] = useState(props.paintStyles)
@@ -59,7 +58,6 @@ export const App = (props: Plugin.LaunchProps) => {
   }
 
   useEffect(() => {
-    io.on(ERRORS_UPDATE, (data) => setErrors(data))
     io.on(COLORS_UPDATE, (colors) => setPaintStyles(colors))
     io.on(TEXTS_UPDATE, (texts) => setTextStyles(texts))
   }, [])
@@ -73,7 +71,7 @@ export const App = (props: Plugin.LaunchProps) => {
       <GlobalStyles />
       <Main>
         <Switch>
-          <Route exact path={MAIN_ROUTE}><LintView setErrors={setErrors} errors={errors} /></Route>
+          <Route exact path={MAIN_ROUTE}><LintView initErrors={props.errors}/></Route>
           <Route exact path={SETTINGS_ROUTE}><SettingsView openState={openState} setOpenState={setOpenState} toggle={toggleSettings.bind(this)} change={changeSettings.bind(this)} /></Route>
           <Route exact path={COLORS_ROUTE}><ColorsView paintStyles={paintStyles}/></Route>
           <Route exact path={TEXTS_ROUTE}><TextsView textStyles={textStyles}/></Route>

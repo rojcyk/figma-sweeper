@@ -14,6 +14,7 @@ import { P, H3 } from "@components/typography"
 import { Button } from "@components/button"
 import { Select } from "@components/select"
 import { LinterContext } from "../components/linterContext"
+import { SEPARATOR } from '@ui'
 import { OPEN_STATE_UPDATE } from "@events"
 import { Arrow } from "@icons/arrow"
 import { Text } from "@icons/text"
@@ -117,23 +118,49 @@ export const SettingsView = (props: { toggle: Function, change: Function, openSt
             }
 
             <Checkbox
+              label={'Make pixel-perfect'}
+              description={'Reposition and resize elements to whole numbers. Ignores vectors like boolean operations, polygons, stars etc.'}
+              checked={settings.pixelPerfect}
+              onCheckboxChange={() => props.toggle('pixelPerfect')}
+            />
+
+            
+          </Content>
+        </SectionContent>
+      </SectionWrapper>
+
+      <SectionWrapper expanded={props.openState.layerList}>
+        <SectionHeader expanded={props.openState.layerList} onClick={() => toggleOpenState('layerList')}>Layer list</SectionHeader>
+        <SectionContent expanded={props.openState.layerList}>
+          <Content>
+            {/* <P style={{ marginBottom: '12px' }}>If you use text, fill, stroke, or effect styles it is required a style to be set.</P> */}
+
+            <Checkbox
               label={'Delete hidden layers'}
               checked={settings.deleteHidden}
               onCheckboxChange={() => props.toggle('deleteHidden')}
             />
 
             <Checkbox
-              label={'Ungroup single-layer groups'}
-              checked={settings.ungroupSingleGroup}
-              onCheckboxChange={() => props.toggle('ungroupSingleGroup')}
+              label={'No groups'}
+              description={'Like, at all. Why would you want to use groups anyways?'}
+              checked={settings.noGroups}
+              onCheckboxChange={() => props.toggle('noGroups')}
             />
 
-            <Checkbox
-              label={'Make pixel-perfect'}
-              description={'Reposition and resize elements to whole numbers. Ignores vectors like boolean operations, polygons, stars etc.'}
-              checked={settings.pixelPerfect}
-              onCheckboxChange={() => props.toggle('pixelPerfect')}
-            />
+            {settings.noGroups === false && 
+              <div style={{
+                paddingLeft: '9px',
+                marginLeft: '17px',
+                borderLeft: `1px solid ${SEPARATOR}`
+              }}>
+              <Checkbox
+                label={'Ungroup single-layer groups'}
+                checked={settings.ungroupSingleGroup}
+                onCheckboxChange={() => props.toggle('ungroupSingleGroup')}
+              />
+              </div>
+            }
 
             <Checkbox
               label={'Layer name linting'}

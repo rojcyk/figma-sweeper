@@ -10,11 +10,12 @@ import { Route, NavLink, HashRouter } from "react-router-dom"
 import { Button } from "@components/button"
 import { LinterContext } from "../components/linterContext"
 import { SETTINGS_ROUTE } from '@routes'
-import { SEPARATOR } from '@ui'
-import { APP_LINT } from '@events'
+import { BACKGROUND, BACKGROUND_LIGHT, SEPARATOR, WHITE } from '@ui'
+import { APP_LINT, ERRORS_UPDATE, LINT_STOP, LINT_NO_GROUPS, LINT_DELETE_HIDDEN, LINT_UNGROUP_SINGLE_GROUPS, LINT_MAKE_PIXEL_PERFECT, LINT_MATCH_FILL_STYLES, LINT_MATCH_TEXT_STYLES } from '@events'
 import { P } from '@components/typography'
 import { Arrow } from '@icons/arrow'
 import { Eye } from '@icons/eye'
+import { NoFolder } from '@icons/noFolder'
 import { Folder } from '@icons/folder'
 import { Style } from '@icons/style'
 import { Text } from '@icons/text'
@@ -80,18 +81,24 @@ class LoopManager {
   inProgress: boolean
   counter: number
   settings: Plugin.Settings
+  newLint: boolean
 
   constructor (settings: Plugin.Settings) {
     this.inProgress = false
     this.counter = 0
     this.settings = settings
+    this.newLint = true
   }
 
   public loop (timeout: number = 700) {
     if (this.inProgress) {
-      console.log(`[Plugin] Pooling for changes ... ${this.counter}`)
-      io.send(APP_LINT, this.settings)
+      // console.log(`[Plugin] Pooling for changes ... ${this.counter}`)
+      io.send(APP_LINT, {
+        newLint: this.newLint,
+        settings: this.settings
+      })
       this.counter++
+      this.newLint = false
 
       setTimeout(() => {
         this.loop()
@@ -101,21 +108,34 @@ class LoopManager {
 
   public off () {
     this.inProgress = false
+    this.newLint = true
   }
 }
 
-export const LintView = ({ errors, setErrors }: { errors: Plugin.CanvasErrors, setErrors: Function }) => {
+export const LintView = ({ initErrors } : { initErrors: Plugin.CanvasErrors}) => {
   const { settings } = useContext(LinterContext)
+  const [inProgress, setInProgress] = useState(false)
+  const [layerName, setLayerName] = useState('')
+  const [errors, setErrors] = useState(initErrors)
+
+  const loopManager = new LoopManager(settings)
+  
   const errorCount = countErrors(errors)
+  const title = errorCount === 0 ? 'No errors' : `${errorCount} Errors`
   const nameCase = settings.layerNameCase === 'noCase' ? 'no-default-name' : settings.layerNameCase
 
-  const [inProgress, setInProgress] = useState(false)
-  
-  const title = errorCount === 0 ? 'No errors' : `${errorCount} Errors`
+  useEffect(() => {
+    io.on(LINT_STOP, () => {
+      setInProgress(false)
+      setLayerName('')
+    })
+    io.on(ERRORS_UPDATE, ({ errors, name }) => {
+      setErrors(errors)
+      setLayerName(name)
+    })
+  }, [])
 
   useEffect(() => {
-    const loopManager = new LoopManager(settings)
-
     if (inProgress) {
       loopManager.inProgress = true
       loopManager.loop()
@@ -129,35 +149,60 @@ export const LintView = ({ errors, setErrors }: { errors: Plugin.CanvasErrors, s
 
   return (
     <Main>
-      <NavigationBar title={title} action={
+      <NavigationBar title={title} pill={layerName} action={
         <NavLink to={SETTINGS_ROUTE} style={{ textDecoration: 'none' }}>
           <Button presence={'naked'} inline={true} label={'Settings'} />
         </NavLink>
       } />
+
         {inProgress && errorCount !== 0 &&
           <ErrorWrapper>
             {errors.deleteHidden.length > 0 &&
-              <LintError title={'Hidden layer'} buttonLabel='Delete' errors={errors.deleteHidden} icon={<Eye />}/>
+              <LintError title={'Hidden layer'} actionLabel='Delete' action={() => {
+                io.send(LINT_DELETE_HIDDEN, errors.deleteHidden)
+              }} errors={errors.deleteHidden} icon={<Eye />}/>
+            }
+
+            {errors.noGroups.length > 0 &&
+              <LintError title={'No groups'} actionLabel='Framify 🪄' action={() => {
+                io.send(LINT_NO_GROUPS, errors.noGroups)
+              }}
+              errors={errors.noGroups} icon={<NoFolder />} />
             }
 
             {errors.ungroupSingleGroup.length > 0 &&
-              <LintError title={'Ungroup single-layer groups'} buttonLabel='Ungroup' errors={errors.ungroupSingleGroup} icon={<Folder />} />
+              <LintError title={'Ungroup single-layer groups'} actionLabel='Ungroup' action={() => {
+                io.send(LINT_UNGROUP_SINGLE_GROUPS, errors.ungroupSingleGroup)
+              }}
+              errors={errors.ungroupSingleGroup} icon={<Folder />} />
             }
 
             {errors.pixelPerfect.length > 0 &&
-              <LintError title={'Make pixel perfect'} buttonLabel='Perfect' errors={errors.pixelPerfect} icon={<PixelPerfect />} />
+              <LintError title={'Make pixel perfect'} actionLabel='Make ✨' action={() => {
+                io.send(LINT_MAKE_PIXEL_PERFECT, errors.pixelPerfect)
+              }}
+              errors={errors.pixelPerfect} icon={<PixelPerfect />} />
             }
 
             {errors.layerNameLinting.length > 0 &&
               <LintError title={'Name linting'} rule={nameCase} errors={errors.layerNameLinting} icon={<Text />} />
             }
 
+            {errors.enforceUploadedStyles.length > 0 &&
+              <LintError title={'Unsupported styles'} errors={errors.enforceUploadedStyles} icon={<Style />} />
+            }
+
             {errors.requireTextStyles.length > 0 &&
-              <LintError title={'Require text styles'} errors={errors.requireTextStyles} icon={<Style />} />
+              <LintError title={'Require text styles'} actionLabel='Match' action={() => {
+                io.send(LINT_MATCH_TEXT_STYLES, errors.requireTextStyles)
+              }}
+              errors={errors.requireTextStyles} icon={<Style />} />
             }
 
             {errors.requireFillStyles.length > 0 &&
-              <LintError title={'Require fill styles'} errors={errors.requireFillStyles} icon={<Style />} />
+              <LintError title={'Require fill styles'} actionLabel='Match' action={() => {
+                io.send(LINT_MATCH_FILL_STYLES, errors.requireFillStyles)
+              }} errors={errors.requireFillStyles} icon={<Style />} />
             }
 
             {errors.requireStrokeStyles.length > 0 &&
@@ -191,7 +236,10 @@ export const LintView = ({ errors, setErrors }: { errors: Plugin.CanvasErrors, s
 
         {inProgress === true &&
           <>
-            <Button inline={false} theme={'primary'}  onClick={() => {setInProgress(false)}} label={'Stop linting'} />
+            <Button inline={false} theme={'primary'}  onClick={() => {
+              setInProgress(false)
+              setLayerName('')
+              }} label={'Stop linting'} />
             {/* <ButtonPrimary inline={true} label={'Autofix'} /> */}
           </>
         }

@@ -53,6 +53,7 @@ declare namespace Plugin {
     'requireFillStyles' |
     'requireStrokeStyles' |
     'requireEffectStyles' |
+    'enforceUploadedStyles' |
     'layerNameLinting'
   
   type CanvasErrors = {
@@ -61,7 +62,7 @@ declare namespace Plugin {
   
   type ChildrenNode = FrameNode | GroupNode | ComponentSetNode | ComponentNode | InstanceNode
 
-  type OpenSection = "general" | "styles" | "tokens"
+  type OpenSection = "general" | "styles" | "tokens" | "layerList"
 
   type OpenState = {
     [K in OpenSection]: boolean
@@ -81,9 +82,8 @@ declare namespace Plugin {
     name: string
     fullName: string
     fullPath: string[]
-    color: Color
-    hex: string
-    opacity: number
+    paints: Paint[]
+    type: StyleType
   }
 
   interface ImportedText {

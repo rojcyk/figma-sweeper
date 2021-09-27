@@ -9,15 +9,24 @@ export const defaultValues: Plugin.CanvasErrors = {
   requireEffectStyles: [],
   requireFillStyles: [],
   requireStrokeStyles: [],
-  layerNameLinting: []
+  layerNameLinting: [],
+  enforceUploadedStyles: []
 }
 
 export class CanvasErrorManager {
   settings: Plugin.Settings
   errors: Plugin.CanvasErrors
+  textStyles: Plugin.ImportedText[]
+  paintStyles: Plugin.ImportedColor[]
 
-  constructor(pluginSettings: Plugin.Settings) {
-    this.settings = pluginSettings
+  constructor({ settings, paintStyles, textStyles } : {
+    settings: Plugin.Settings,
+    textStyles: Plugin.ImportedText[]
+    paintStyles: Plugin.ImportedColor[]
+  }) {
+    this.textStyles = textStyles
+    this.paintStyles = paintStyles
+    this.settings = settings
     this.errors = {
       deleteHidden: [],
       pixelPerfect: [],
@@ -29,7 +38,8 @@ export class CanvasErrorManager {
       requireEffectStyles: [],
       requireFillStyles: [],
       requireStrokeStyles: [],
-      layerNameLinting: []
+      layerNameLinting: [],
+      enforceUploadedStyles: []
     }
   }
 
@@ -50,6 +60,14 @@ export class CanvasErrorManager {
       const node = figma.getNodeById(errorLog.nodeId)
       if (node) return node
     })
+  }
+
+  public findInTextStyles(styleId: string) {
+    return this.textStyles.find(el => el.id === styleId)
+  }
+
+  public findInPaintStyles(styleId: string) {
+    return this.paintStyles.find(el => el.id === styleId)
   }
 }
 

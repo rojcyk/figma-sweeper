@@ -10,6 +10,7 @@ import { Route, NavLink, HashRouter } from "react-router-dom"
 // import { SectionWrapper, SectionHeader, SectionContent } from '@components/section'
 // import { Checkbox } from "@components/checkbox"
 // import { Content } from "@components/content"
+import { Arrow } from "@icons/arrow"
 import { Button } from "@components/button"
 import { LinterContext } from "./linterContext"
 import { MAIN_ROUTE } from '@routes'
@@ -60,21 +61,44 @@ const ErrorActions = styled.div`
 export const LintError = ({
   icon,
   title,
-  buttonLabel,
+  actionLabel,
+  action,
   errors,
   rule
 }: {
   title: string,
   rule?: string,
   icon: React.ReactElement
-  buttonLabel?: string
+  actionLabel?: string,
+  action?: Function,
   errors: any[]
 }) => {
   const settings = useContext(LinterContext)
+  const [index, setIndex] = useState(-1)
 
-  const selectElements = () => {
-    io.send(SELECTION_UPDATE, errors)
-  }
+  const selectElements = (direction: 'next' | 'previous') => {
+    let newIndex = 0
+
+    switch (direction) {
+      case 'next':
+        if (index === -1 || index + 1 === errors.length) {
+          newIndex = 0
+        } else {
+          newIndex = index + 1
+        }
+        break
+      default:
+        if (index === -1 || index === 0) {
+          newIndex = errors.length - 1
+        } else {
+          newIndex = index - 1
+        }
+        break
+    }
+
+    setIndex(newIndex)
+    io.send(SELECTION_UPDATE, [errors[newIndex]])
+  } 
 
   return (
     <ErrorWrapper>
@@ -91,9 +115,18 @@ export const LintError = ({
           }
 
           <ErrorActions>
-            {buttonLabel && <Button presence='outline' size={'small'} inline={true} label={buttonLabel} />}
-            <Button theme='primary' size={'small'} inline={true} label={'Select'} onClick={() => {
-              selectElements()
+            {actionLabel && action && 
+              <Button theme='cta' presence='outline' size={'small'} inline={true} label={actionLabel} onClick={() => {
+                if (action) action()
+              }} />
+            }
+
+            <Button theme='primary' size={'small'} inline={true} iconLeft={<Arrow direction='left' />}  onClick={() => {
+              selectElements('previous')
+            }} />
+
+            <Button theme='primary' size={'small'} inline={true} iconLeft={<Arrow direction='right' />}  onClick={() => {
+              selectElements('next')
             }} />
           </ErrorActions>
         </ErrorContent>

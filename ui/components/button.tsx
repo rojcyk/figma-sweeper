@@ -67,7 +67,7 @@ const BasicButton = styled.button<ButtonStyle>`
     switch(size) {
       case 'small':
         return `
-          padding: 4px 10px;
+          padding: 2px 8px;
         `
       case 'medium':
         return `
