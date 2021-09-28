@@ -2,10 +2,7 @@ import io from "figmaio/code"
 
 import { TEXTS_IMPORT, TEXTS_UPDATE } from '@events'
 import { asyncForEach } from '@utils/asyncForEach'
-import { processNode } from '@utils/processNode'
-import { CanvasErrorManager } from '@utils/canvasErrorManager'
 import { get_text_styles, set_text_styles } from '@storage/textStyles'
-import { SYNCED_PAINT_STYLES } from "@constants/storage"
 import { isStyleImported } from '@utils/isStyleImported'
 import { getNameParts } from '@utils/processName'
 

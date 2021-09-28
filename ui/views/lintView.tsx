@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react"
 import styled from 'styled-components'
 import io from 'figmaio/ui'
-import { Route, NavLink, HashRouter } from "react-router-dom"
+import { NavLink } from "react-router-dom"
 
 // ******************** //
 // LOCAL INCLUDES
@@ -10,10 +10,8 @@ import { Route, NavLink, HashRouter } from "react-router-dom"
 import { Button } from "@components/button"
 import { LinterContext } from "../components/linterContext"
 import { SETTINGS_ROUTE } from '@routes'
-import { BACKGROUND, BACKGROUND_LIGHT, SEPARATOR, WHITE } from '@ui'
-import { APP_LINT, ERRORS_UPDATE, LINT_STOP, LINT_NO_GROUPS, LINT_DELETE_HIDDEN, LINT_UNGROUP_SINGLE_GROUPS, LINT_MAKE_PIXEL_PERFECT, LINT_MATCH_FILL_STYLES, LINT_MATCH_TEXT_STYLES } from '@events'
+import { SEPARATOR } from '@ui'
 import { P } from '@components/typography'
-import { Arrow } from '@icons/arrow'
 import { Eye } from '@icons/eye'
 import { NoFolder } from '@icons/noFolder'
 import { Folder } from '@icons/folder'
@@ -23,6 +21,18 @@ import { PixelPerfect } from '@icons/pixelPerfect'
 import { NavigationBar } from '@components/navigationBar'
 import LintError from '@components/error'
 import { defaultValues } from '@utils/canvasErrorManager'
+
+import {
+  APP_LINT,
+  ERRORS_UPDATE,
+  LINT_STOP,
+  LINT_NO_GROUPS,
+  LINT_DELETE_HIDDEN,
+  LINT_UNGROUP_SINGLE_GROUPS,
+  LINT_MAKE_PIXEL_PERFECT,
+  LINT_MATCH_FILL_STYLES,
+  LINT_MATCH_TEXT_STYLES
+} from '@events'
 
 const Main = styled.div`
   display: flex;
@@ -92,7 +102,6 @@ class LoopManager {
 
   public loop (timeout: number = 700) {
     if (this.inProgress) {
-      // console.log(`[Plugin] Pooling for changes ... ${this.counter}`)
       io.send(APP_LINT, {
         newLint: this.newLint,
         settings: this.settings
@@ -240,7 +249,6 @@ export const LintView = ({ initErrors } : { initErrors: Plugin.CanvasErrors}) =>
               setInProgress(false)
               setLayerName('')
               }} label={'Stop linting'} />
-            {/* <ButtonPrimary inline={true} label={'Autofix'} /> */}
           </>
         }
       </LintWrapper>

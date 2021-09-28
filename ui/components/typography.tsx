@@ -1,4 +1,3 @@
-import React from "react"
 import styled, { css } from "styled-components"
 
 // ******************** //
@@ -36,8 +35,6 @@ export const H3 = styled.h3`
   ${HeadlineStyle}
   font-size: ${FS_SMALL};
 `
-
-
 
 // ******************** //
 // Styles

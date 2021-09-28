@@ -1,19 +1,18 @@
-import React, { useState } from "react"
+import React from "react"
 import styled from "styled-components"
-import { Route, NavLink, HashRouter, useHistory } from "react-router-dom"
+import { useHistory } from "react-router-dom"
 
 // ******************** //
 // LOCAL INCLUDES
 // ******************** //
 
 import { Button } from "@components/button"
-import { H1, H2, H3, P } from "@components/typography"
-import { WHITE, SEPARATOR, BACKGROUND } from '@ui'
+import { H1 } from "@components/typography"
+import { WHITE, BACKGROUND } from '@ui'
 
 const NavigationWrapper = styled.div`
   position: relative;
   background-color: ${WHITE};
-  /* border-bottom: 1px solid ${SEPARATOR}; */
   height: 88px;
 `
 
@@ -81,7 +80,6 @@ export const NavigationBar = (props: NavigationBarProps) => {
       <Title>{props.title}</Title>
       <ButtonWrapper>
         {props.action}
-        {/* <ButtonPrimary label='test' /> */}
       </ButtonWrapper>
     </NavigationWrapper>
   )

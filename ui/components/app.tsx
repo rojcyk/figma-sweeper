@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react"
-import styled, { createGlobalStyle } from "styled-components"
-import { Route, Switch, useLocation } from "react-router-dom"
+import styled from "styled-components"
+import { Route, Switch } from "react-router-dom"
 import io from "figmaio/ui"
 
 // ******************** //
 // LOCAL INCLUDES
 // ******************** //
 
-import { SETTINGS_UPDATE, ERRORS_UPDATE, COLORS_UPDATE, TEXTS_UPDATE } from "@events"
+import { SETTINGS_UPDATE, COLORS_UPDATE, TEXTS_UPDATE } from "@events"
 import LinterContext from "./linterContext"
 import { SettingsView } from "@views/settingsView"
 import { LintView } from "@views/lintView"

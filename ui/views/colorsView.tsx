@@ -1,28 +1,17 @@
-import React, { useState, useContext, useEffect } from "react"
+import React from "react"
 import styled from 'styled-components'
 import io from 'figmaio/ui'
-import { Route, NavLink, HashRouter, useHistory } from "react-router-dom"
 
 // ******************** //
 // LOCAL INCLUDES
 // ******************** //
 
 import { Button } from "@components/button"
-import { LinterContext } from "../components/linterContext"
-import { SETTINGS_ROUTE } from '@routes'
-import { SEPARATOR, WHITE, FS_SMALL, FS_TINY, GRAY } from '@ui'
-import { COLORS_IMPORT, COLORS_DELETE, COLORS_UPDATE } from '@events'
-import { P } from '@components/typography'
+import { WHITE, FS_SMALL } from '@ui'
+import { COLORS_IMPORT, COLORS_DELETE } from '@events'
 import { Separator } from '@components/separator'
 import { Trash } from '@icons/trash'
-import { Eye } from '@icons/eye'
-import { Folder } from '@icons/folder'
-import { Style } from '@icons/style'
-import { Text } from '@icons/text'
-import { PixelPerfect } from '@icons/pixelPerfect'
 import { NavigationBar } from '@components/navigationBar'
-import LintError from '@components/error'
-import { defaultValues } from '@utils/canvasErrorManager'
 
 const Main = styled.div`
   display: flex;
@@ -53,18 +42,8 @@ const ColorItemWrapper = styled.li`
   justify-content: space-between;
 `
 
-const ColorExample = styled.div<{ color: string }>`
-  width: 28px;
-  height: 28px;
-  border-radius: 4px;
-  background-color: ${({color}) => color};
-  margin-right: 12px;
-  border: 1px solid rgba(0,0,0,0.1);
-`
-
 const ColorInfo = styled.div`
   display: flex;
-  /* align-items: center; */
   flex-direction: column;
 `
 
@@ -74,24 +53,14 @@ const ColorTitle = styled.span`
   margin-right: 4px;
 `
 
-const ColorStatus = styled.span`
-  font-size: ${FS_TINY};
-  color: ${GRAY};
-  margin: 0;
-  padding: 0;
-  text-transform: uppercase;
-`
-
 const ColorItem = ({ color }: { color: Plugin.ImportedColor }) => {
   console.log(color)
   return (
     <ColorItemWrapper>
       <ColorContentWrapper>
-        {/* <ColorExample color={'#ffffff'} /> */}
 
         <ColorInfo>
           <ColorTitle>{color.name}</ColorTitle>
-          {/* <ColorStatus>{color.hex}</ColorStatus> */}
         </ColorInfo>
       </ColorContentWrapper>
 

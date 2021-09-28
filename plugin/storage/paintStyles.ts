@@ -1,5 +1,4 @@
 import { SYNCED_PAINT_STYLES } from "@constants/storage"
-import { asyncForEach } from "@utils/asyncForEach"
 
 export const get_paint_styles = async (): Promise<Plugin.ImportedColor[]> => {
   const importedStyles = await figma.clientStorage.getAsync(SYNCED_PAINT_STYLES)

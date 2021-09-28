@@ -1,28 +1,27 @@
-import React, { useState, useContext, useEffect } from "react"
+import React from "react"
 import styled from 'styled-components'
 import io from 'figmaio/ui'
-import { Route, NavLink, HashRouter, useHistory } from "react-router-dom"
 
 // ******************** //
 // LOCAL INCLUDES
 // ******************** //
 
 import { Button } from "@components/button"
-import { LinterContext } from "../components/linterContext"
-import { SETTINGS_ROUTE } from '@routes'
-import { SEPARATOR, WHITE, FS_SMALL, FS_TINY, GRAY } from '@ui'
-import { TEXTS_IMPORT, TEXTS_DELETE, TEXTS_UPDATE } from '@events'
-import { P } from '@components/typography'
 import { Separator } from '@components/separator'
 import { Trash } from '@icons/trash'
-import { Eye } from '@icons/eye'
-import { Folder } from '@icons/folder'
-import { Style } from '@icons/style'
-import { Text } from '@icons/text'
-import { PixelPerfect } from '@icons/pixelPerfect'
 import { NavigationBar } from '@components/navigationBar'
-import LintError from '@components/error'
-import { defaultValues } from '@utils/canvasErrorManager'
+
+import {
+  WHITE,
+  FS_SMALL,
+  FS_TINY,
+  GRAY
+} from '@ui'
+
+import {
+  TEXTS_IMPORT,
+  TEXTS_DELETE
+ } from '@events'
 
 const Main = styled.div`
   display: flex;

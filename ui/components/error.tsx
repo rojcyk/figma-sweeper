@@ -1,33 +1,24 @@
 import React, { useState, useContext } from "react"
 import styled from 'styled-components'
 import io from 'figmaio/ui'
-import { Route, NavLink, HashRouter } from "react-router-dom"
 
 // ******************** //
 // LOCAL INCLUDES
 // ******************** //
 
-// import { SectionWrapper, SectionHeader, SectionContent } from '@components/section'
-// import { Checkbox } from "@components/checkbox"
-// import { Content } from "@components/content"
 import { Arrow } from "@icons/arrow"
 import { Button } from "@components/button"
 import { LinterContext } from "./linterContext"
-import { MAIN_ROUTE } from '@routes'
-import { APP_LINT, SELECTION_UPDATE } from '@events'
-import { NavigationBar } from '@components/navigationBar'
+import { SELECTION_UPDATE } from '@events'
 import { P } from '@components/typography'
-import { SEPARATOR, WHITE } from "@constants/ui"
+import { WHITE } from "@constants/ui"
 
 const ErrorIcon = styled.div`
   margin-right: 12px;
 `
-
-
 const ErrorWrapper = styled.div`
   display: flex;
   padding: 16px 16px 14px 16px;
-  /* border-bottom: 1px solid ${SEPARATOR}; */
   background-color: ${WHITE};
 `
 

@@ -8,8 +8,6 @@ import { get_paint_styles } from '@storage/paintStyles'
 import { get_text_styles } from '@storage/textStyles'
 
 io.on(APP_LINT, async ({ settings, newLint } : { settings: Plugin.Settings, newLint: boolean}) => {
-  // console.log('[Plugin] Initiating linting')
-
   const paintStyles = await get_paint_styles()
   const textStyles = await get_text_styles()
   const errorManager = new CanvasErrorManager({
@@ -36,9 +34,7 @@ io.on(APP_LINT, async ({ settings, newLint } : { settings: Plugin.Settings, newL
         name = selection.name
         
         await set_linted_node(selection.id)
-        // TODO: SHould make it async probably?
         processNode(selection, errorManager)
-        // await asyncForEach(selection, (node: SceneNode) => processNode(node, errorManager)) 
     }
   } else {
     const nodeId = await get_linted_node() || ''
@@ -49,16 +45,6 @@ io.on(APP_LINT, async ({ settings, newLint } : { settings: Plugin.Settings, newL
       processNode(node, errorManager)
     }
   }
-
-  // console.log('Delete hidden:', errorManager.select('deleteHidden'))
-  // console.log('Ungroup Single Group:', errorManager.select('ungroupSingleGroup'))
-  // console.log('Pixel Perfect:', errorManager.select('pixelPerfect'))
-  // console.log('Require fill style:', errorManager.select('requireFillStyles'))
-  // console.log('Require text style:', errorManager.select('requireTextStyles'))
-  // console.log('Require stroke style:', errorManager.select('requireStrokeStyles'))
-  // console.log('Require effect style:', errorManager.select('requireEffectStyles'))
-  
-  // console.log(errorManager.errors)
 
   io.send(ERRORS_UPDATE, {
     name: name ? name : '',

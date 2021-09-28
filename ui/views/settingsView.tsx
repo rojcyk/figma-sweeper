@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react"
 import styled from 'styled-components'
 import io from 'figmaio/ui'
-import { Route, NavLink, HashRouter } from "react-router-dom"
 
 // ******************** //
 // LOCAL INCLUDES
@@ -10,8 +9,6 @@ import { Route, NavLink, HashRouter } from "react-router-dom"
 import { SectionWrapper, SectionHeader, SectionContent } from '@components/section'
 import { Checkbox } from "@components/checkbox"
 import { Content } from "@components/content"
-import { P, H3 } from "@components/typography"
-import { Button } from "@components/button"
 import { Select } from "@components/select"
 import { LinterContext } from "../components/linterContext"
 import { SEPARATOR } from '@ui'
@@ -19,21 +16,11 @@ import { OPEN_STATE_UPDATE } from "@events"
 import { Arrow } from "@icons/arrow"
 import { Text } from "@icons/text"
 import { Style } from "@icons/style"
-import { MAIN_ROUTE, COLORS_ROUTE, TEXTS_ROUTE } from '@routes'
+import { COLORS_ROUTE, TEXTS_ROUTE } from '@routes'
 import { TokenSection } from '@components/tokenSection'
 import { Input } from '@components/input'
 import { Separator } from '@components/separator'
 import { NavigationBar } from '@components/navigationBar'
-
-const LintWrapper = styled.div`
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 16px;
-  background: rgb(255,255,255);
-  background: linear-gradient(0deg, rgba(255,255,255,1) 20%, rgba(255,255,255,0) 100%);
-`
 
 const Spacer = styled.div`
   padding-left: 3rem;
@@ -43,8 +30,6 @@ const Spacer = styled.div`
 
 export const SettingsView = (props: { toggle: Function, change: Function, openState: Plugin.OpenState, setOpenState: Function }) => {
   const { settings, paintStyles, textStyles } = useContext(LinterContext)
-  // const { value:ignoreString, bind:ignoreStringBind } = useInput(settings.ignoreLayersWith)
-
   const [ignoreString, setIgnoreString] = useState(settings.ignoreLayersWith)
 
   const toggleOpenState = (prop: Plugin.OpenSection) => {
@@ -56,17 +41,13 @@ export const SettingsView = (props: { toggle: Function, change: Function, openSt
 
   return (
     <div style={{ paddingBottom: '64px' }}>
-
       <NavigationBar back={true} title={'Settings'} />
-
       <Separator />
 
       <SectionWrapper expanded={props.openState.tokens}>
         <SectionHeader expanded={props.openState.tokens} onClick={() => toggleOpenState('tokens')}>Tokens</SectionHeader>
         <SectionContent expanded={props.openState.tokens}>
           <Content>
-            {/* <P style={{ marginBottom: '12px' }}>You currently have 0 tokens uploaded.</P> */}
-
             <TokenSection
               title={'Colors'}
               subtitle={`${paintStyles.length > 0 ? paintStyles.length : 'No' } styles synced`}
@@ -234,12 +215,6 @@ export const SettingsView = (props: { toggle: Function, change: Function, openSt
           </Content>
         </SectionContent>
       </SectionWrapper>
-
-      {/* <LintWrapper style={{ zIndex: 100 }}>
-        <NavLink to={MAIN_ROUTE} style={{ textDecoration: 'none' }}>
-          <ButtonPrimary label={'Save'} />
-        </NavLink>
-      </LintWrapper> */}
     </div>
   )
 }

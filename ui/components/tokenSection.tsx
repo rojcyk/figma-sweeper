@@ -1,13 +1,11 @@
-import React, { useState, useContext } from "react"
+import React from "react"
 import styled from 'styled-components'
-import io from 'figmaio/ui'
-import { Route, NavLink, HashRouter } from "react-router-dom"
+import { NavLink } from "react-router-dom"
 
 // ******************** //
 // LOCAL INCLUDES
 // ******************** //
 
-import { P, H3 } from "@components/typography"
 import { Arrow } from '@icons/arrow'
 
 import {
@@ -16,8 +14,6 @@ import {
   GRAY,
   BLACK,
   WHITE,
-  BLUE,
-  BACKGROUND,
   SEPARATOR,
   ANIMATION_SPEED_MS
 } from "@ui"
@@ -37,7 +33,6 @@ const TokenWrapper = styled.div`
   padding-left: 12px;
 
   background-color: ${WHITE};
-  /* border: 1px solid ${SEPARATOR}; */
   color: ${BLACK};
   fill: ${BLACK} !important;
   text-shadow: 0 1px 0 ${WHITE};
@@ -46,7 +41,6 @@ const TokenWrapper = styled.div`
   &:hover {
     background-color: #f7f8fa;
     box-shadow: inset 0 1px 0 rgba(255,255,255,0.5);
-    /* box-shadow: inset 0 1px 0 ${WHITE}, 0 2px 4px rgba(0, 0, 0, 0.04); */
   }
 `
 

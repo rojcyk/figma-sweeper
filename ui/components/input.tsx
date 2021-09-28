@@ -1,22 +1,10 @@
-import React from "react"
 import styled from "styled-components"
-import io from "figmaio/ui"
-
-// ******************** //
-// LOCAL INCLUDES
-// ******************** //
-
-import { APP_LINT } from "@events"
-import LinterContext from "./linterContext"
 
 import {
   FS_SMALL,
   BLACK,
   WHITE,
-  BLUE,
-  BACKGROUND,
-  SEPARATOR,
-  ANIMATION_SPEED_MS
+  SEPARATOR
 } from "@ui"
 
 export const Input = styled.input`
@@ -29,6 +17,4 @@ export const Input = styled.input`
   padding: 7px 12px;
   outline: none;
   width: 100%;
-
-  
 `

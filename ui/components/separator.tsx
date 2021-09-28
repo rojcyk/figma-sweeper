@@ -1,7 +1,4 @@
-import React, { useState, useContext } from "react"
 import styled from 'styled-components'
-import io from 'figmaio/ui'
-import { Route, NavLink, HashRouter } from "react-router-dom"
 
 // ******************** //
 // LOCAL INCLUDES

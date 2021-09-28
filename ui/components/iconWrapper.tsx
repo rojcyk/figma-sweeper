@@ -1,5 +1,4 @@
 import styled from "styled-components"
-import { SEPARATOR } from "@ui"
 
 export const IconWrapper = styled.div<{ size?: number }>`
   display: flex;

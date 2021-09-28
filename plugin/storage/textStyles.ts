@@ -1,5 +1,4 @@
 import { SYNCED_TEXT_STYLES } from "@constants/storage"
-import { asyncForEach } from "@utils/asyncForEach"
 
 export const get_text_styles = async (): Promise<Plugin.ImportedText[]> => {
   const importedStyles = await figma.clientStorage.getAsync(SYNCED_TEXT_STYLES)

@@ -1,4 +1,3 @@
-import settings from '@storage/settings'
 import { CanvasErrorManager } from '@utils/canvasErrorManager'
 
 // ************************* */

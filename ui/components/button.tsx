@@ -1,5 +1,5 @@
 import React from "react"
-import styled, { StyledComponent, css } from "styled-components"
+import styled from "styled-components"
 
 // ******************** //
 // LOCAL INCLUDES
