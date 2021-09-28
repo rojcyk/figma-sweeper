@@ -25,12 +25,24 @@ io.on(COLORS_IMPORT, async () => {
     const [imported, index] = isStyleImported(importedStyles, style.key)
     const nameParts = getNameParts(style.name)
 
+    let path = ''
+
+    if (nameParts.length > 1) {
+      nameParts.forEach((entity, i) => {
+        if (i === 0) path += entity
+        else if (i === nameParts.length - 1) return
+        else path += ` / ${entity}`
+      })
+    }
+  
+
     importedStyles.push({
       id: style.id,
       key: style.key,
       name: nameParts[nameParts.length - 1],
       fullName: style.name,
       fullPath: nameParts,
+      path: path,
       paints: style.paints as Paint[],
       type: style.type
     })    

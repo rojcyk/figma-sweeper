@@ -59,6 +59,13 @@ const TextTitle = styled.span`
   letter-spacing: 0.5%;
 `
 
+const TextPath = styled.span`
+  display: block;
+  color: ${GRAY};
+  font-size: ${FS_SMALL};
+  font-style: italic;
+`
+
 const TextStatus = styled.span`
   font-size: ${FS_TINY};
   color: ${GRAY};
@@ -70,6 +77,7 @@ const TextItem = ({ text }: { text: Plugin.ImportedText }) => {
   return (
     <TextItemWrapper>
       <TextContentWrapper>
+        <TextPath>{text.path}</TextPath>
         <TextTitle>{text.name}</TextTitle>
         <TextStatus>{text.fontName.family} • {text.fontName.style} • {text.fontSize}</TextStatus>
       </TextContentWrapper>

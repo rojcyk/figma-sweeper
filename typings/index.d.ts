@@ -84,6 +84,7 @@ declare namespace Plugin {
     fullPath: string[]
     paints: Paint[]
     type: StyleType
+    path: string
   }
 
   interface ImportedText {
@@ -92,6 +93,7 @@ declare namespace Plugin {
     name: string
     fullName: string
     fullPath: string[]
+    path: string
     fontSize: number
     fontName: FontName
     textCase: TextCase

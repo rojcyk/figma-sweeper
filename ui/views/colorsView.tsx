@@ -7,7 +7,7 @@ import io from 'figmaio/ui'
 // ******************** //
 
 import { Button } from "@components/button"
-import { WHITE, FS_SMALL } from '@ui'
+import { WHITE, FS_SMALL, GRAY } from '@ui'
 import { COLORS_IMPORT, COLORS_DELETE } from '@events'
 import { Separator } from '@components/separator'
 import { Trash } from '@icons/trash'
@@ -47,6 +47,13 @@ const ColorInfo = styled.div`
   flex-direction: column;
 `
 
+const ColorPath = styled.span`
+  display: block;
+  color: ${GRAY};
+  font-size: ${FS_SMALL};
+  font-style: italic;
+`
+
 const ColorTitle = styled.span`
   display: block;
   font-size: ${FS_SMALL};
@@ -54,12 +61,12 @@ const ColorTitle = styled.span`
 `
 
 const ColorItem = ({ color }: { color: Plugin.ImportedColor }) => {
-  console.log(color)
   return (
     <ColorItemWrapper>
       <ColorContentWrapper>
 
         <ColorInfo>
+          <ColorPath>{color.path}</ColorPath>
           <ColorTitle>{color.name}</ColorTitle>
         </ColorInfo>
       </ColorContentWrapper>

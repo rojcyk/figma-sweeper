@@ -17,12 +17,23 @@ io.on(TEXTS_IMPORT, async () => {
     const [imported, index] = isStyleImported(importedStyles, text.key)
     const nameParts = getNameParts(text.name)
 
+    let path = ''
+    
+    if (nameParts.length > 1) {
+      nameParts.forEach((entity, i) => {
+        if (i === 0) path += entity
+        else if (i === nameParts.length - 1) return
+        else path += ` / ${entity}`
+      })
+    }
+
     const newTypo: Plugin.ImportedText = {
+      id: text.id,
+      key: text.key,
       name: nameParts[nameParts.length - 1],
       fullName: text.name,
       fullPath: nameParts,
-      id: text.id,
-      key: text.key,
+      path: path,
       fontSize: text.fontSize,
       fontName: text.fontName,
       textCase: text.textCase
