@@ -10,7 +10,7 @@ import { NavLink } from "react-router-dom"
 import { Button } from "@components/button"
 import { LinterContext } from "../components/linterContext"
 import { SETTINGS_ROUTE } from '@routes'
-import { SEPARATOR } from '@ui'
+import { SEPARATOR, BORDER_RADIUS_S, BLACK, WHITE, FS_TINY } from '@ui'
 import { P } from '@components/typography'
 import { Eye } from '@icons/eye'
 import { NoFolder } from '@icons/noFolder'
@@ -66,6 +66,7 @@ const EmptyWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   max-height: 100%;
   flex-grow: 1;
   padding-left: 4.4rem;
@@ -74,6 +75,21 @@ const EmptyWrapper = styled.div`
   color: GRAY;
   font-size: FS_SMALL;
   border-top: 1px solid ${SEPARATOR};
+`
+
+const BetaBadge = styled.div`
+  font-weight: 800;
+  text-transform: uppercase;
+  display: inline-block;
+  padding: 4px 6px;
+  border-radius: ${BORDER_RADIUS_S}px;
+  letter-spacing: 1px;
+  font-size: ${FS_TINY};
+  color: #62738B;
+  background-color: #C4CFDE;
+  /* color: ${WHITE};
+  background-color: ${BLACK}; */
+  margin-bottom: 6px;
 `
 
 const countErrors = (errors: Plugin.CanvasErrors) => {
@@ -124,6 +140,7 @@ class LoopManager {
 export const LintView = ({ initErrors } : { initErrors: Plugin.CanvasErrors}) => {
   const { settings, paintStyles, textStyles } = useContext(LinterContext)
   const [inProgress, setInProgress] = useState(false)
+  const [errorsReceived, setErrorsReceived] = useState(false)
   const [layerName, setLayerName] = useState('')
   const [errors, setErrors] = useState(initErrors)
 
@@ -137,10 +154,12 @@ export const LintView = ({ initErrors } : { initErrors: Plugin.CanvasErrors}) =>
 
   useEffect(() => {
     io.on(LINT_STOP, () => {
+      setErrorsReceived(false)
       setInProgress(false)
       setLayerName('')
     })
     io.on(ERRORS_UPDATE, ({ errors, name }) => {
+      setErrorsReceived(true)
       setErrors(errors)
       setLayerName(name)
     })
@@ -166,7 +185,7 @@ export const LintView = ({ initErrors } : { initErrors: Plugin.CanvasErrors}) =>
         </NavLink>
       } />
 
-        {inProgress && errorCount !== 0 &&
+        {inProgress === true && errorsReceived === true && errorCount >= 0 &&
           <ErrorWrapper>
             {errors.deleteHidden.length > 0 &&
               <LintError title={'Hidden layer'} actionLabel='Delete' action={() => {
@@ -226,28 +245,35 @@ export const LintView = ({ initErrors } : { initErrors: Plugin.CanvasErrors}) =>
           </ErrorWrapper>
         }
 
-        {inProgress && errorCount === 0 &&
+        {inProgress === true && errorsReceived === true && errorCount === 0 && 
           <EmptyWrapper>
             <P>There are no errors for the selected component 💪</P>
           </EmptyWrapper>
         }
 
-        {inProgress === false &&
+        {errorsReceived === false &&
           <EmptyWrapper>
-            <P>Once you start linting you will see errors here</P>
+            <BetaBadge>OPEN BETA</BetaBadge>
+            <P>
+              Once you start linting you will see errors here. If you encounter an error or you have a feature requeset, please create an issue on <a href="https://github.com/rojcyk/figma-sweeper/issues"target="_blank">GitHub</a>.
+            </P>
           </EmptyWrapper>
         }
 
       <LintWrapper>
         {inProgress === false &&
           <>
-            <Button inline={false} onClick={() => {setInProgress(true)}} label={'Start linting ...'} />
+            <Button inline={false} onClick={() => {
+              setInProgress(true)
+              setErrorsReceived(false)
+            }} label={'Start linting ...'} />
           </>
         }
 
-        {inProgress === true &&
+        {inProgress === true && errorsReceived === true && 
           <>
             <Button inline={false} theme={'primary'}  onClick={() => {
+              setErrorsReceived(false)
               setInProgress(false)
               setLayerName('')
               }} label={'Stop linting'} />
