@@ -20,15 +20,16 @@ io.on(APP_LINT, async ({ settings, newLint } : { settings: Plugin.Settings, newL
   let name = undefined
 
   if (newLint) {
-    
     if (selection.length === 0) {
       await set_linted_node(undefined)
       io.send(LINT_STOP)
       figma.notify("You need to select something for the linter to work")
+      return
     } else if (selection.length > 1) {
       await set_linted_node(undefined)
       io.send(LINT_STOP)
       figma.notify("For best performance, select only one object to lint")
+      return
     } else {
         const selection = figma.currentPage.selection[0] as SceneNode
         name = selection.name
