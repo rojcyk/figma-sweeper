@@ -1,5 +1,5 @@
 export const SETTINGS_DEFAULT: Plugin.Settings = {
-  deleteHidden: false,
+  deleteHidden: true,
   pixelPerfect: true,
   skipLocked: true,
   noGroups: false,
