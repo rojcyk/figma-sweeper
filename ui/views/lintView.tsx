@@ -122,16 +122,18 @@ class LoopManager {
 }
 
 export const LintView = ({ initErrors } : { initErrors: Plugin.CanvasErrors}) => {
-  const { settings } = useContext(LinterContext)
+  const { settings, paintStyles, textStyles } = useContext(LinterContext)
   const [inProgress, setInProgress] = useState(false)
   const [layerName, setLayerName] = useState('')
   const [errors, setErrors] = useState(initErrors)
 
   const loopManager = new LoopManager(settings)
-  
   const errorCount = countErrors(errors)
   const title = errorCount === 0 ? 'No errors' : `${errorCount} Errors`
   const nameCase = settings.layerNameCase === 'noCase' ? 'no-default-name' : settings.layerNameCase
+
+  const matchFillStyleLabel = paintStyles.length > 0 ? 'Fill' : undefined
+  const matchTextStyleLabel = textStyles.length > 0 ? 'Match' : undefined
 
   useEffect(() => {
     io.on(LINT_STOP, () => {
@@ -202,14 +204,14 @@ export const LintView = ({ initErrors } : { initErrors: Plugin.CanvasErrors}) =>
             }
 
             {errors.requireTextStyles.length > 0 &&
-              <LintError title={'Require text styles'} actionLabel='Match' action={() => {
+              <LintError title={'Require text styles'} actionLabel={matchTextStyleLabel} action={() => {
                 io.send(LINT_MATCH_TEXT_STYLES, errors.requireTextStyles)
               }}
               errors={errors.requireTextStyles} icon={<Style />} />
             }
 
             {errors.requireFillStyles.length > 0 &&
-              <LintError title={'Require fill styles'} actionLabel='Match' action={() => {
+              <LintError title={'Require fill styles'} actionLabel={matchFillStyleLabel} action={() => {
                 io.send(LINT_MATCH_FILL_STYLES, errors.requireFillStyles)
               }} errors={errors.requireFillStyles} icon={<Style />} />
             }
