@@ -15,6 +15,6 @@ export const Separator = styled.hr<{ margin?: number }>`
   border: none;
   margin:0;
   padding:0;
-  margin-top: ${(padding) => padding ? padding + 'px' : '0'};
-  margin-bottom: ${(padding) => padding ? padding + 'px' : '0'};
+  margin-top: ${({ margin }) => margin ? `${margin}px` : '0'};
+  margin-bottom: ${({ margin }) => margin ? `${margin}px` : '0'};
 `
