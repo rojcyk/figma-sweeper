@@ -36,6 +36,7 @@ const deleteHidden = (errorManager: CanvasErrorManager, node: SceneNode) => {
 }
 
 const ungroupSingleGroup = (errorManager: CanvasErrorManager, node: GroupNode) => {
+  if (node.visible === false) return
   if (errorManager.settings.noGroups) {
     errorManager.log('noGroups', node)
   } else if (errorManager.settings.ungroupSingleGroup) {
@@ -46,6 +47,7 @@ const ungroupSingleGroup = (errorManager: CanvasErrorManager, node: GroupNode) =
 }
 
 const makePixelPerfect = (errorManager: CanvasErrorManager, node: SceneNode) => {
+  if (node.visible === false) return
   if (!Number.isInteger(node.x)) {
     errorManager.log('pixelPerfect', node)
   } else if (!Number.isInteger(node.y)) {
@@ -213,15 +215,13 @@ export const processNode = (node: SceneNode, errorManager: CanvasErrorManager) =
       break
 
     case "INSTANCE":
-      // traverse(node.children, processNode, errorManager)
+      if (settings.ignoreComponentInstances === false) {
+        if (settings.requireFillStyles) requireFillStyles(errorManager, node)
+        if (settings.requireStrokeStyles) requireStrokeStyles(errorManager, node)
+        if (settings.requireEffectStyles) requireEffectStyles(errorManager, node)
+      }
 
-      if (settings.requireFillStyles) requireFillStyles(errorManager, node)
-      if (settings.requireStrokeStyles) requireStrokeStyles(errorManager, node)
-      if (settings.requireEffectStyles) requireEffectStyles(errorManager, node)
       if (settings.pixelPerfect) makePixelPerfect(errorManager, node)
-
-      // if (overwriteFills) checkFills(node settings)
-      // if (overwriteStrokes) checkStrokes(node, settings)
       break
 
     case "BOOLEAN_OPERATION":
@@ -239,6 +239,7 @@ export const processNode = (node: SceneNode, errorManager: CanvasErrorManager) =
     //* *************************/
 
     case "VECTOR":
+
       if (settings.requireFillStyles) requireFillStyles(errorManager, node)
       if (settings.requireStrokeStyles) requireStrokeStyles(errorManager, node)
       if (settings.requireEffectStyles) requireEffectStyles(errorManager, node)
