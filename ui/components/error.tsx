@@ -112,13 +112,28 @@ export const LintError = ({
               }} />
             }
 
-            <Button theme='primary' size={'small'} inline={true} iconLeft={<Arrow direction='left' />}  onClick={() => {
-              selectElements('previous')
-            }} />
 
-            <Button theme='primary' size={'small'} inline={true} iconLeft={<Arrow direction='right' />}  onClick={() => {
-              selectElements('next')
-            }} />
+          {errors.length === 1 &&
+            <>
+              <Button theme='primary' presence='disabled' size={'small'} inline={true} iconLeft={<Arrow direction='left' />} />
+
+              <Button theme='primary' size={'small'} inline={true} iconLeft={<Arrow direction='right' />}  onClick={() => {
+                selectElements('next')
+              }} />
+            </>
+          }
+
+          {errors.length >= 2 &&
+            <>
+              <Button theme='primary' size={'small'} inline={true} iconLeft={<Arrow direction='left' />}  onClick={() => {
+                selectElements('previous')
+              }} />
+
+              <Button theme='primary' size={'small'} inline={true} iconLeft={<Arrow direction='right' />}  onClick={() => {
+                selectElements('next')
+              }} />
+            </>
+          }
           </ErrorActions>
         </ErrorContent>
     </ErrorWrapper>

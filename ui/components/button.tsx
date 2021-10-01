@@ -180,8 +180,9 @@ const BasicButton = styled.button<ButtonStyle>`
             return `  
               user-select: none;
               cursor: default;
-              background-color: ${BACKGROUND};
-              border: 1px solid #dbe2ec;
+              background-color: ${WHITE};
+
+              border: 1px solid ${BACKGROUND};
               color: #8593a3;
               fill: #8593a3 !important;
               text-shadow: 0 1px 0 ${WHITE};
