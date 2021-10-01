@@ -85,8 +85,8 @@ const BetaBadge = styled.div`
   border-radius: ${BORDER_RADIUS_S}px;
   letter-spacing: 1px;
   font-size: ${FS_TINY};
-  color: #62738B;
-  background-color: #C4CFDE;
+  color: #AA5609;
+  background-color: #FFCC69;
   /* color: ${WHITE};
   background-color: ${BLACK}; */
   margin-bottom: 6px;
@@ -146,7 +146,7 @@ export const LintView = ({ initErrors } : { initErrors: Plugin.CanvasErrors}) =>
 
   const loopManager = new LoopManager(settings)
   const errorCount = countErrors(errors)
-  const title = errorCount === 0 ? 'No errors' : `${errorCount} Errors`
+  const title = errorCount === 0 ? 'Sweeper' : `${errorCount} Errors`
   const nameCase = settings.layerNameCase === 'noCase' ? 'no-default-name' : settings.layerNameCase
 
   const matchFillStyleLabel = paintStyles.length > 0 ? 'Fill' : undefined
