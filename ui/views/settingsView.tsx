@@ -44,7 +44,7 @@ export const SettingsView = (props: { toggle: Function, change: Function, openSt
       <NavigationBar back={true} title={'Settings'} />
       <Separator />
 
-      <SectionWrapper expanded={props.openState.tokens}>
+      {/* <SectionWrapper expanded={props.openState.tokens}>
         <SectionHeader expanded={props.openState.tokens} onClick={() => toggleOpenState('tokens')}>Tokens</SectionHeader>
         <SectionContent expanded={props.openState.tokens}>
           <Content>
@@ -64,7 +64,7 @@ export const SettingsView = (props: { toggle: Function, change: Function, openSt
 
           </Content>
         </SectionContent>
-      </SectionWrapper>
+      </SectionWrapper> */}
 
       <SectionWrapper expanded={props.openState.general}>
         <SectionHeader expanded={props.openState.general} onClick={() => toggleOpenState('general')}>General</SectionHeader>
@@ -100,7 +100,7 @@ export const SettingsView = (props: { toggle: Function, change: Function, openSt
 
             <Checkbox
               label={'Make pixel-perfect'}
-              description={'Reposition and resize elements to whole numbers. Ignores vectors like boolean operations, polygons, stars etc.'}
+              description={'Reposition and resize elements to whole numbers. Ignores vectors like boolean operations, polygons, stars etc. Ignores hidden layers.'}
               checked={settings.pixelPerfect}
               onCheckboxChange={() => props.toggle('pixelPerfect')}
             />
@@ -145,7 +145,7 @@ export const SettingsView = (props: { toggle: Function, change: Function, openSt
 
             <Checkbox
               label={'Layer name linting'}
-              description={'Names like Frame 1, Group 2, Rectangle 3 are a no-go. You can also enforce casing:'}
+              description={'Names like Frame 1, Group 2, Rectangle 3 are a no-go.'}
               checked={settings.layerNameLinting}
               onCheckboxChange={() => props.toggle('layerNameLinting')}
             />
@@ -180,13 +180,35 @@ export const SettingsView = (props: { toggle: Function, change: Function, openSt
         <SectionHeader expanded={props.openState.styles} onClick={() => toggleOpenState('styles')}>Styles</SectionHeader>
         <SectionContent expanded={props.openState.styles}>
           <Content>
-            {/* <P style={{ marginBottom: '12px' }}>If you use text, fill, stroke, or effect styles it is required a style to be set.</P> */}
+
+            <TokenSection
+              title={'Colors'}
+              subtitle={`${paintStyles.length > 0 ? paintStyles.length : 'No' } styles synced`}
+              icon={<Style />}
+              href={COLORS_ROUTE}
+            />
+
+            <TokenSection
+              title={'Typography'}
+              subtitle={`${textStyles.length > 0 ? textStyles.length : 'No' } styles synced`}
+              icon={<Text />}
+              href={TEXTS_ROUTE}
+            />
+
+            <Separator margin={12} />
 
             <Checkbox
               label={'Only uploaded styles are valid'}
               description={'Only styles that are uploaded to the plugin will be considered valid during linting.'}
               checked={settings.enforceUploadedStyles}
               onCheckboxChange={() => props.toggle('enforceUploadedStyles')}
+            />
+
+            <Checkbox
+              label={'Ignore component instances'}
+              description={'When turned on, the plugin will skip styles linting for component instances.'}
+              checked={settings.ignoreComponentInstances}
+              onCheckboxChange={() => props.toggle('ignoreComponentInstances')}
             />
 
             <Checkbox

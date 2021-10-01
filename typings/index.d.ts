@@ -23,7 +23,8 @@ declare namespace Plugin {
     'requireEffectStyles' |
     'layerNameLinting' |
     'enforceUploadedStyles' |
-    'ignoreLayers'
+    'ignoreLayers' | 
+    'ignoreComponentInstances'
 
   type SettingsBoolean = {
     [K in SettingsBooleanProp]: boolean;

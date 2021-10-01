@@ -13,5 +13,6 @@ export const SETTINGS_DEFAULT: Plugin.Settings = {
   layerNameCase: 'noCase',
   enforceUploadedStyles: false,
   ignoreLayers: false,
-  ignoreLayersWith: '_'
+  ignoreLayersWith: '_',
+  ignoreComponentInstances: false
 }
