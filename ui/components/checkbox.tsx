@@ -71,7 +71,7 @@ const CheckboxWrapper = styled.div`
 
   &:hover {
     transition: all 160ms ease-out;
-    background-color: ${BACKGROUND};
+    background-color: ${BACKGROUND_LIGHT};
   }
 `
 
@@ -79,7 +79,7 @@ const Label = styled.span<{ checked: boolean }>`
   display: inline-block;
   font-size: ${FS_SMALL};
   line-height: 130%;
-  color: ${({ checked }) => (checked ? BLACK : GRAY )};
+  color: ${BLACK};
   font-weight: 500;
   padding-top: 1px;
   user-select: none;
