@@ -36,7 +36,6 @@ const deleteHidden = (errorManager: CanvasErrorManager, node: SceneNode) => {
 }
 
 const ungroupSingleGroup = (errorManager: CanvasErrorManager, node: GroupNode) => {
-  if (node.visible === false) return
   if (errorManager.settings.noGroups) {
     errorManager.log('noGroups', node)
   } else if (errorManager.settings.ungroupSingleGroup) {
