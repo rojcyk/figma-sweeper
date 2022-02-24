@@ -16,8 +16,8 @@ const isValidText = (node: any, importedStyle:  Plugin.ImportedText) => {
 io.on(LINT_MATCH_TEXT_STYLES, async (errors: Plugin.CanvasErrors[]) => {
   console.log('[Plugin] Match text styles')
   const importedStyles = await get_text_styles()
+
   console.log(importedStyles)
-  console.log(errors)
 
   let counter = 0
   let importError = false
@@ -26,20 +26,31 @@ io.on(LINT_MATCH_TEXT_STYLES, async (errors: Plugin.CanvasErrors[]) => {
     const node = figma.getNodeById(errorNode.nodeId) as any
 
     let isImportedStyle = false
-    let importedStyleId = null
+    let importedStyleId: null | string = null
+    let importedStyleKey = null
 
     for (let i = 0; i < importedStyles.length; i++) {
       if (isValidText(node, importedStyles[i])) {
         isImportedStyle = true
         importedStyleId = importedStyles[i].id
+        importedStyleKey = importedStyles[i].key
         counter++
         break
       }
     }
 
     try {
-      if (isImportedStyle) node.textStyleId = importedStyleId
+      if (isImportedStyle && importedStyleKey) {
+        const style = await figma.importStyleByKeyAsync(importedStyleKey)
+          .then(value => {
+            node.textStyleId = value.id
+          })
+          .catch(e => {
+            node.textStyleId = importedStyleId
+          })
+      } 
     } catch (e) {
+      console.log(e)
       counter--
       importError = true
     }

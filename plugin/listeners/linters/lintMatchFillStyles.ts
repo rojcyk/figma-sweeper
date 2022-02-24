@@ -13,24 +13,37 @@ io.on(LINT_MATCH_FILL_STYLES, async (errors: Plugin.CanvasErrors[]) => {
   let importError = false
 
   const importedStyles = await get_paint_styles()
+  console.log(importedStyles)
+
   await asyncForEach(errors, async (errorNode: Plugin.CanvasError ) => {
     const node = figma.getNodeById(errorNode.nodeId) as any
 
     let isImportedStyle = false
-    let importedStyleId = null
+    let importedStyleId: null | string = null
+    let importedStyleKey = null
 
     for (let i = 0; i < importedStyles.length; i++) {
       if (isEqual(node.fills, importedStyles[i].paints)) {
         isImportedStyle = true
         importedStyleId = importedStyles[i].id
+        importedStyleKey = importedStyles[i].key
         counter++
         break
       }
     }
 
     try {
-      if (isImportedStyle) node.fillStyleId = importedStyleId
+      if (isImportedStyle && importedStyleId && importedStyleKey){
+        const style = await figma.importStyleByKeyAsync(importedStyleKey)
+          .then(value => {
+            node.fillStyleId = value.id
+          })
+          .catch(e => {
+            node.fillStyleId = importedStyleId
+          })
+      }
     } catch (e) {
+      console.log(e)
       counter--
       importError = true
     }
