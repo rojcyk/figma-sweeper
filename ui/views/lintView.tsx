@@ -194,21 +194,25 @@ export const LintView = ({ initErrors } : { initErrors: Plugin.CanvasErrors}) =>
             }
 
             {errors.noGroups.length > 0 &&
-              <LintError title={'No groups'} actionLabel='Framify 🪄' action={() => {
-                io.send(LINT_NO_GROUPS, errors.noGroups)
-              }}
+              <LintError title={'No groups'}
+                // actionLabel='Framify 🪄'
+                // action={() => {
+                //   io.send(LINT_NO_GROUPS, errors.noGroups)
+                // }}
               errors={errors.noGroups} icon={<NoFolder />} />
             }
 
             {errors.ungroupSingleGroup.length > 0 &&
-              <LintError title={'Ungroup single-layer groups'} actionLabel='Ungroup' action={() => {
-                io.send(LINT_UNGROUP_SINGLE_GROUPS, errors.ungroupSingleGroup)
-              }}
+              <LintError title={'Ungroup single-layer groups'} 
+                // actionLabel='Ungroup'
+                // action={() => {
+                //   io.send(LINT_UNGROUP_SINGLE_GROUPS, errors.ungroupSingleGroup)
+                // }}
               errors={errors.ungroupSingleGroup} icon={<Folder />} />
             }
 
             {errors.pixelPerfect.length > 0 &&
-              <LintError title={'Make pixel perfect'} actionLabel='Make ✨' action={() => {
+              <LintError title={'Make pixel perfect'} actionLabel='🪄' action={() => {
                 io.send(LINT_MAKE_PIXEL_PERFECT, errors.pixelPerfect)
               }}
               errors={errors.pixelPerfect} icon={<PixelPerfect />} />
