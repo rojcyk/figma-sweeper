@@ -52,6 +52,9 @@ const LintedPill = styled.div`
   padding: 4px 8px;
   border-radius: 4px;
   display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `
 
 export const NavigationBar = (props: NavigationBarProps) => {
@@ -73,7 +76,7 @@ export const NavigationBar = (props: NavigationBarProps) => {
 
       {props.pill !== '' && props.back === undefined && 
         <LintedWrapper>
-          <LintedPill>{props.pill}</LintedPill>
+          <LintedPill>{props.pill ? `${props.pill.substring(0,45)}...` : ''}</LintedPill>
         </LintedWrapper>
       }
 
